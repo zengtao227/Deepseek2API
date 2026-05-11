@@ -1,0 +1,93 @@
+*.bak
+
+# ============================================================
+# Sensitive Data Protection (DO NOT COMMIT)
+# ============================================================
+
+# Configuration files with credentials
+config.json
+.env
+.env.local
+
+# Environment variable variants
+*.env
+.env.*
+.env.*.local
+
+# Token capture results
+token-capture-results.json
+**/token-*.json
+
+# Credential storage patterns
+credentials.json
+secrets.json
+*.key
+*.pem
+
+# ============================================================
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+opencode.json
+
+# Logs
+*.log
+logs/
+artifacts/
+
+# Vercel
+.vercel
+
+# Node.js / Frontend
+node_modules/
+webui/node_modules/
+webui/dist/
+.npm
+.pnpm-store/
+yarn.lock
+pnpm-lock.yaml
+
+# Build artifacts
+dist/
+*.tsbuildinfo
+.cache/
+.parcel-cache/
+static/admin/
+internal/webui/assets/admin/
+
+# Go compiled binaries
+ds2api
+ds2api-tests
+
+# Environment
+.env.local
+.env.*.local
+
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/
+.tox/
+*.coverprofile
+coverage*.out
+cover/
+
+# Misc
+.git/
+Thumbs.db
+
+# Claude Code
+.claude/
+CLAUDE.local.md
+
+# Local tool bootstrap cache
+.tmp/
+
+# Chat history
+data/
+.codex
+.roomodes

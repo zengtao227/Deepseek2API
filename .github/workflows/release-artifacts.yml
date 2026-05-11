@@ -1,0 +1,180 @@
+name: Release Artifacts
+
+on:
+  release:
+    types:
+      - published
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: "Release tag to build/publish (e.g. v2.1.6)"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  packages: write
+
+concurrency:
+  group: release-artifacts-${{ github.event.release.tag_name || github.event.inputs.release_tag }}
+  cancel-in-progress: false
+
+env:
+  GO_VERSION: "1.26.x"
+  NODE_VERSION: "24"
+
+jobs:
+  build-and-upload:
+    runs-on: ubuntu-latest
+    env:
+      RELEASE_TAG: ${{ github.event.release.tag_name || github.event.inputs.release_tag }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ env.GO_VERSION }}
+          cache-dependency-path: go.sum
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+          cache-dependency-path: webui/package-lock.json
+
+      - name: Release Blocking Gates
+        run: |
+          ./tests/scripts/check-refactor-line-gate.sh
+          ./tests/scripts/run-unit-all.sh
+
+      - name: Build WebUI
+        run: |
+          npm ci --prefix webui --prefer-offline --no-audit
+          npm run build --prefix webui
+
+      - name: Build Multi-Platform Archives
+        env:
+          RELEASE_BUILD_JOBS: "3"
+        run: ./scripts/build-release-archives.sh
+
+      - name: Prepare Docker release inputs
+        run: |
+          set -euo pipefail
+          TAG="${RELEASE_TAG}"
+          mkdir -p dist/docker-input
+          cp "dist/ds2api_${TAG}_linux_amd64.tar.gz" "dist/docker-input/linux_amd64.tar.gz"
+          cp "dist/ds2api_${TAG}_linux_arm64.tar.gz" "dist/docker-input/linux_arm64.tar.gz"
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Wait for GHCR endpoint
+        run: |
+          set -euo pipefail
+          for i in {1..6}; do
+            code="$(curl -sS -o /dev/null -w '%{http_code}' --max-time 15 https://ghcr.io/v2/ || true)"
+            if [ "${code}" = "200" ] || [ "${code}" = "401" ] || [ "${code}" = "405" ]; then
+              exit 0
+            fi
+            sleep "$((i * 10))"
+          done
+          echo "GHCR endpoint is unreachable after multiple retries (last status: ${code:-unknown})." >&2
+          exit 1
+
+      - name: Log in to GHCR (with retry)
+        run: |
+          set -euo pipefail
+          for i in {1..6}; do
+            if echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin; then
+              exit 0
+            fi
+            sleep "$((i * 10))"
+          done
+          echo "Failed to login to GHCR after multiple retries." >&2
+          exit 1
+
+      - name: Extract Docker metadata
+        id: meta_release
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            ghcr.io/${{ github.repository }}
+          tags: |
+            type=raw,value=${{ env.RELEASE_TAG }}
+            type=raw,value=latest
+
+      - name: Build and Push Docker Image
+        uses: docker/build-push-action@v6
+        env:
+          DOCKER_BUILD_RECORD_UPLOAD: "false"
+          DOCKER_BUILD_SUMMARY: "false"
+        with:
+          context: .
+          file: ./Dockerfile
+          target: runtime-from-dist
+          push: true
+          platforms: linux/amd64,linux/arm64
+          tags: ${{ steps.meta_release.outputs.tags }}
+          labels: ${{ steps.meta_release.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Export Docker image archives for release assets
+        run: |
+          set -euo pipefail
+          TAG="${RELEASE_TAG}"
+
+          docker buildx build \
+            --platform linux/amd64 \
+            --target runtime-from-dist \
+            --cache-from type=gha \
+            --output type=docker,dest="dist/ds2api_${TAG}_docker_linux_amd64.tar" \
+            .
+
+          docker buildx build \
+            --platform linux/arm64 \
+            --target runtime-from-dist \
+            --cache-from type=gha \
+            --output type=docker,dest="dist/ds2api_${TAG}_docker_linux_arm64.tar" \
+            .
+
+          gzip -f "dist/ds2api_${TAG}_docker_linux_amd64.tar"
+          gzip -f "dist/ds2api_${TAG}_docker_linux_arm64.tar"
+
+      - name: Generate checksums
+        run: |
+          set -euo pipefail
+          (cd dist && sha256sum *.tar.gz *.zip > sha256sums.txt)
+
+      - name: Validate release tag
+        run: |
+          set -euo pipefail
+          TAG="${RELEASE_TAG}"
+          if [ -z "${TAG}" ]; then
+            echo "release tag is empty; set release_tag when using workflow_dispatch." >&2
+            exit 1
+          fi
+
+      - name: Upload Release Assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          TAG="${RELEASE_TAG}"
+          FILES=(
+            dist/*.tar.gz
+            dist/*.zip
+            dist/sha256sums.txt
+          )
+
+          if gh release view "${TAG}" >/dev/null 2>&1; then
+            gh release upload "${TAG}" "${FILES[@]}" --clobber
+          else
+            gh release create "${TAG}" "${FILES[@]}" --title "${TAG}" --notes ""
+          fi

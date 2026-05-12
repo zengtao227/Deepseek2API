@@ -1,11 +1,9 @@
 {
   "type": "module",
   "scripts": {
-    "capture-tokens": "node scripts/smart-token-capture.mjs",
-    "start-capture": "bash scripts/start-capture.sh"
+    "capture-tokens": "node scripts/token-capture-server.mjs"
   },
   "dependencies": {
-    "playwright": "^1.59.1",
     "ws": "^8.20.0"
   }
 }

@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"ds2api/internal/config"
+	"Deepseek2API/internal/config"
 )
 
 func TestParseVercelSyncOptionsFallsBackToSavedConfig(t *testing.T) {
@@ -32,7 +32,7 @@ func TestParseVercelSyncOptionsFallsBackToSavedConfig(t *testing.T) {
 }
 
 func TestSaveLocalVercelCredentialsStoresExplicitInput(t *testing.T) {
-	t.Setenv("DS2API_CONFIG_JSON", `{"keys":["k1"]}`)
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{"keys":["k1"]}`)
 	store := config.LoadStore()
 	h := &Handler{Store: store}
 
@@ -55,7 +55,7 @@ func TestSaveLocalVercelCredentialsStoresExplicitInput(t *testing.T) {
 }
 
 func TestSaveLocalVercelCredentialsPreservesPreconfiguredTokenAndUpdatesProject(t *testing.T) {
-	t.Setenv("DS2API_CONFIG_JSON", `{"keys":["k1"],"vercel":{"token":"saved-token","project_id":"old-project","team_id":"old-team"}}`)
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{"keys":["k1"],"vercel":{"token":"saved-token","project_id":"old-project","team_id":"old-team"}}`)
 	store := config.LoadStore()
 	h := &Handler{Store: store}
 
@@ -79,7 +79,7 @@ func TestSaveLocalVercelCredentialsPreservesPreconfiguredTokenAndUpdatesProject(
 }
 
 func TestExportSyncConfigStripsSavedVercelCredentials(t *testing.T) {
-	t.Setenv("DS2API_CONFIG_JSON", `{"keys":["k1"],"vercel":{"token":"secret-token","project_id":"project","team_id":"team"}}`)
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{"keys":["k1"],"vercel":{"token":"secret-token","project_id":"project","team_id":"team"}}`)
 	store := config.LoadStore()
 	h := &Handler{Store: store}
 

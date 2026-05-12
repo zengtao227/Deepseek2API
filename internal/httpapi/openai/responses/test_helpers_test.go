@@ -6,7 +6,7 @@ import (
 
 	"github.com/go-chi/chi/v5"
 
-	"ds2api/internal/httpapi/openai/shared"
+	"Deepseek2API/internal/httpapi/openai/shared"
 )
 
 func asString(v any) string {

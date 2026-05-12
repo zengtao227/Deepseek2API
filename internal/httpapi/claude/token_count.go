@@ -3,8 +3,8 @@ package claude
 import (
 	"strings"
 
-	"ds2api/internal/promptcompat"
-	"ds2api/internal/util"
+	"Deepseek2API/internal/promptcompat"
+	"Deepseek2API/internal/util"
 )
 
 func countClaudeInputTokens(stdReq promptcompat.StandardRequest) int {

@@ -6,15 +6,15 @@ import (
 	"testing"
 	"time"
 
-	"ds2api/internal/config"
+	"Deepseek2API/internal/config"
 )
 
 // ─── Pool edge cases ─────────────────────────────────────────────────
 
 func TestPoolEmptyNoAccounts(t *testing.T) {
-	t.Setenv("DS2API_ACCOUNT_MAX_INFLIGHT", "2")
-	t.Setenv("DS2API_ACCOUNT_MAX_QUEUE", "")
-	t.Setenv("DS2API_CONFIG_JSON", `{"keys":["k1"],"accounts":[]}`)
+	t.Setenv("Deepseek2API_ACCOUNT_MAX_INFLIGHT", "2")
+	t.Setenv("Deepseek2API_ACCOUNT_MAX_QUEUE", "")
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{"keys":["k1"],"accounts":[]}`)
 	pool := NewPool(config.LoadStore())
 	if _, ok := pool.Acquire("", nil); ok {
 		t.Fatal("expected acquire to fail with no accounts")
@@ -162,9 +162,9 @@ func TestPoolAcquireWaitTargetAccount(t *testing.T) {
 }
 
 func TestPoolMaxQueueSizeOverride(t *testing.T) {
-	t.Setenv("DS2API_ACCOUNT_MAX_INFLIGHT", "1")
-	t.Setenv("DS2API_ACCOUNT_MAX_QUEUE", "5")
-	t.Setenv("DS2API_CONFIG_JSON", `{"keys":["k1"],"accounts":[{"email":"acc1@example.com","token":"t1"}]}`)
+	t.Setenv("Deepseek2API_ACCOUNT_MAX_INFLIGHT", "1")
+	t.Setenv("Deepseek2API_ACCOUNT_MAX_QUEUE", "5")
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{"keys":["k1"],"accounts":[{"email":"acc1@example.com","token":"t1"}]}`)
 	pool := NewPool(config.LoadStore())
 	status := pool.Status()
 	if got, ok := status["max_queue_size"].(int); !ok || got != 5 {

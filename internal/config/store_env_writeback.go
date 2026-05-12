@@ -9,7 +9,7 @@ import (
 )
 
 func envWritebackEnabled() bool {
-	v := strings.ToLower(strings.TrimSpace(os.Getenv("DS2API_ENV_WRITEBACK")))
+	v := strings.ToLower(strings.TrimSpace(os.Getenv("Deepseek2API_ENV_WRITEBACK")))
 	return v == "1" || v == "true" || v == "yes" || v == "on"
 }
 
@@ -18,7 +18,7 @@ func (s *Store) IsEnvWritebackEnabled() bool {
 }
 
 func (s *Store) HasEnvConfigSource() bool {
-	rawCfg := strings.TrimSpace(os.Getenv("DS2API_CONFIG_JSON"))
+	rawCfg := strings.TrimSpace(os.Getenv("Deepseek2API_CONFIG_JSON"))
 	return rawCfg != ""
 }
 

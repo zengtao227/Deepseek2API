@@ -6,14 +6,14 @@ import (
 	"testing"
 	"time"
 
-	"ds2api/internal/config"
+	"Deepseek2API/internal/config"
 )
 
 func newPoolForTest(t *testing.T, maxInflight string) *Pool {
 	t.Helper()
-	t.Setenv("DS2API_ACCOUNT_MAX_INFLIGHT", maxInflight)
-	t.Setenv("DS2API_ACCOUNT_MAX_QUEUE", "")
-	t.Setenv("DS2API_CONFIG_JSON", `{
+	t.Setenv("Deepseek2API_ACCOUNT_MAX_INFLIGHT", maxInflight)
+	t.Setenv("Deepseek2API_ACCOUNT_MAX_QUEUE", "")
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{
 		"keys":["k1"],
 		"accounts":[
 			{"email":"acc1@example.com","token":"token1"},
@@ -26,9 +26,9 @@ func newPoolForTest(t *testing.T, maxInflight string) *Pool {
 
 func newSingleAccountPoolForTest(t *testing.T, maxInflight string) *Pool {
 	t.Helper()
-	t.Setenv("DS2API_ACCOUNT_MAX_INFLIGHT", maxInflight)
-	t.Setenv("DS2API_ACCOUNT_MAX_QUEUE", "")
-	t.Setenv("DS2API_CONFIG_JSON", `{
+	t.Setenv("Deepseek2API_ACCOUNT_MAX_INFLIGHT", maxInflight)
+	t.Setenv("Deepseek2API_ACCOUNT_MAX_QUEUE", "")
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{
 		"keys":["k1"],
 		"accounts":[{"email":"acc1@example.com","token":"token1"}]
 	}`)
@@ -167,9 +167,9 @@ func TestPoolStatusRecommendedConcurrencyRespectsOverride(t *testing.T) {
 }
 
 func TestPoolGlobalMaxInflightEnv(t *testing.T) {
-	t.Setenv("DS2API_ACCOUNT_MAX_INFLIGHT", "1")
-	t.Setenv("DS2API_GLOBAL_MAX_INFLIGHT", "4")
-	t.Setenv("DS2API_CONFIG_JSON", `{
+	t.Setenv("Deepseek2API_ACCOUNT_MAX_INFLIGHT", "1")
+	t.Setenv("Deepseek2API_GLOBAL_MAX_INFLIGHT", "4")
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{
 		"keys":["k1"],
 		"accounts":[
 			{"email":"acc1@example.com","token":"token1"},
@@ -191,8 +191,8 @@ func TestPoolGlobalMaxInflightEnv(t *testing.T) {
 }
 
 func TestPoolDropsLegacyTokenOnlyAccountOnLoad(t *testing.T) {
-	t.Setenv("DS2API_ACCOUNT_MAX_INFLIGHT", "1")
-	t.Setenv("DS2API_CONFIG_JSON", `{
+	t.Setenv("Deepseek2API_ACCOUNT_MAX_INFLIGHT", "1")
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{
 		"keys":["k1"],
 		"accounts":[{"token":"token-only-account"}]
 	}`)
@@ -212,9 +212,9 @@ func TestPoolDropsLegacyTokenOnlyAccountOnLoad(t *testing.T) {
 }
 
 func TestPoolAcquireRotatesIntoTokenlessAccounts(t *testing.T) {
-	t.Setenv("DS2API_ACCOUNT_MAX_INFLIGHT", "1")
-	t.Setenv("DS2API_ACCOUNT_MAX_QUEUE", "")
-	t.Setenv("DS2API_CONFIG_JSON", `{
+	t.Setenv("Deepseek2API_ACCOUNT_MAX_INFLIGHT", "1")
+	t.Setenv("Deepseek2API_ACCOUNT_MAX_QUEUE", "")
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{
 		"keys":["k1"],
 		"accounts":[
 			{"email":"acc1@example.com","token":"token1"},

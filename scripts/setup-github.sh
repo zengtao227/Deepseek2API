@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# DS2API GitHub 仓库设置脚本
+# Deepseek2API GitHub 仓库设置脚本
 #
 # 用法: ./scripts/setup-github.sh
 #
@@ -146,7 +146,7 @@ echo "📝 创建提交..."
 read -p "是否创建初始提交? (y/N): " -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-    git commit -m "Initial commit: DS2API with Comet Browser support
+    git commit -m "Initial commit: Deepseek2API with Comet Browser support
 
 - Migrate from Google Chrome to Comet Browser for token capture
 - Add comprehensive .gitignore for sensitive data protection

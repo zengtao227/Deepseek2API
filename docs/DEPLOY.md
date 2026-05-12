@@ -1,4 +1,4 @@
-# DS2API 部署指南
+# Deepseek2API 部署指南
 
 语言 / Language: [中文](DEPLOY.md) | [English](DEPLOY.en.md)
 
@@ -45,7 +45,7 @@
 配置来源（任选其一）：
 
 - **文件方式**：`config.json`（推荐本地/Docker 使用）
-- **环境变量方式**：`DS2API_CONFIG_JSON`（推荐 Vercel 使用，支持 JSON 字符串或 Base64 编码，也可以直接写原始 JSON）
+- **环境变量方式**：`Deepseek2API_CONFIG_JSON`（推荐 Vercel 使用，支持 JSON 字符串或 Base64 编码，也可以直接写原始 JSON）
 
 统一建议（最优实践）：
 
@@ -56,7 +56,7 @@ cp config.example.json config.json
 
 建议把 `config.json` 作为唯一配置源：
 - 本地运行：直接读 `config.json`
-- Docker / Vercel：从 `config.json` 生成 `DS2API_CONFIG_JSON`（Base64）注入环境变量
+- Docker / Vercel：从 `config.json` 生成 `Deepseek2API_CONFIG_JSON`（Base64）注入环境变量
 
 ---
 
@@ -66,7 +66,7 @@ cp config.example.json config.json
 
 - **触发条件**：默认仅在 Release `published` 时自动触发；也支持在 Actions 页面手动 `workflow_dispatch`，并填写 `release_tag` 复跑/补发
 - **构建产物**：多平台二进制压缩包、Linux Docker 镜像导出包 + `sha256sums.txt`
-- **容器镜像发布**：仅发布到 GHCR（`ghcr.io/cjackhwang/ds2api`）
+- **容器镜像发布**：仅发布到 GHCR（`ghcr.io/cjackhwang/Deepseek2API`）
 
 | 平台 | 架构 | 文件格式 |
 | --- | --- | --- |
@@ -76,7 +76,7 @@ cp config.example.json config.json
 
 每个压缩包包含：
 
-- `ds2api` 可执行文件（Windows 为 `ds2api.exe`）
+- `Deepseek2API` 可执行文件（Windows 为 `Deepseek2API.exe`）
 - `static/admin/`（WebUI 构建产物）
 - `config.example.json`、`.env.example`
 - `README.MD`、`README.en.md`、`LICENSE`
@@ -86,15 +86,15 @@ cp config.example.json config.json
 ```bash
 # 1. 下载对应平台的压缩包
 # 2. 解压
-tar -xzf ds2api_<tag>_linux_amd64.tar.gz
-cd ds2api_<tag>_linux_amd64
+tar -xzf Deepseek2API_<tag>_linux_amd64.tar.gz
+cd Deepseek2API_<tag>_linux_amd64
 
 # 3. 配置
 cp config.example.json config.json
 # 编辑 config.json
 
 # 4. 启动
-./ds2api
+./Deepseek2API
 ```
 
 ### 维护者发布步骤
@@ -111,16 +111,16 @@ cp config.example.json config.json
 
 ```bash
 # 拉取预编译镜像
-docker pull ghcr.io/cjackhwang/ds2api:latest
+docker pull ghcr.io/cjackhwang/Deepseek2API:latest
 
 # 复制环境变量模板和配置文件
 cp .env.example .env
 cp config.example.json config.json
 
 # 编辑 .env（请改成你的强密码），至少设置：
-#   DS2API_ADMIN_KEY=your-admin-key
+#   Deepseek2API_ADMIN_KEY=your-admin-key
 # 如需修改宿主机端口，可额外设置：
-#   DS2API_HOST_PORT=6011
+#   Deepseek2API_HOST_PORT=6011
 
 # 启动
 docker-compose up -d
@@ -129,15 +129,15 @@ docker-compose up -d
 docker-compose logs -f
 ```
 
-默认 `docker-compose.yml` 直接使用 `ghcr.io/cjackhwang/ds2api:latest`，并把宿主机 `6011` 映射到容器内的 `5001`。如果你希望直接对外暴露 `5001`，请设置 `DS2API_HOST_PORT=5001`（或者手动调整 `ports` 配置）。
-Compose 模板还会默认设置 `DS2API_CONFIG_PATH=/data/config.json` 并挂载 `./config.json:/data/config.json`，优先避免 `/app` 只读带来的配置持久化问题。
-镜像内会预创建 `/data` 并授权给非 root 的 `ds2api` 用户；如果你使用 bind mount 单文件，请确保宿主机 `config.json` 至少可被容器用户读取/写入，例如 `chmod 644 config.json`，否则 Linux UID/GID 不一致时仍可能出现 `open /data/config.json: permission denied`。
-兼容说明：若未设置 `DS2API_CONFIG_PATH` 且运行目录是 `/app`，新版本会优先使用 `/data/config.json`；当该文件不存在但检测到历史 `/app/config.json` 时，会自动回退读取旧路径，避免升级后“配置丢失”。
+默认 `docker-compose.yml` 直接使用 `ghcr.io/cjackhwang/Deepseek2API:latest`，并把宿主机 `6011` 映射到容器内的 `5001`。如果你希望直接对外暴露 `5001`，请设置 `Deepseek2API_HOST_PORT=5001`（或者手动调整 `ports` 配置）。
+Compose 模板还会默认设置 `Deepseek2API_CONFIG_PATH=/data/config.json` 并挂载 `./config.json:/data/config.json`，优先避免 `/app` 只读带来的配置持久化问题。
+镜像内会预创建 `/data` 并授权给非 root 的 `Deepseek2API` 用户；如果你使用 bind mount 单文件，请确保宿主机 `config.json` 至少可被容器用户读取/写入，例如 `chmod 644 config.json`，否则 Linux UID/GID 不一致时仍可能出现 `open /data/config.json: permission denied`。
+兼容说明：若未设置 `Deepseek2API_CONFIG_PATH` 且运行目录是 `/app`，新版本会优先使用 `/data/config.json`；当该文件不存在但检测到历史 `/app/config.json` 时，会自动回退读取旧路径，避免升级后“配置丢失”。
 
 如需固定版本，也可以直接拉取指定 tag：
 
 ```bash
-docker pull ghcr.io/cjackhwang/ds2api:v3.0.0
+docker pull ghcr.io/cjackhwang/Deepseek2API:v3.0.0
 ```
 
 ### 2.2 更新
@@ -155,7 +155,7 @@ docker-compose up -d --build
 
 Release 路径可确保 Docker 镜像与 release 压缩包使用同一套产物，减少重复构建带来的差异。
 
-容器内启动命令：`/usr/local/bin/ds2api`，默认暴露端口 `5001`。
+容器内启动命令：`/usr/local/bin/Deepseek2API`，默认暴露端口 `5001`。
 
 ### 2.4 开发环境
 
@@ -197,14 +197,14 @@ healthcheck:
 部署要点：
 
 - **端口**：服务默认监听 `5001`，模板会固定设置 `PORT=5001`。
-- **配置持久化**：模板挂载卷 `/data`，并设置 `DS2API_CONFIG_PATH=/data/config.json`；首次空卷启动时会先使用空的文件模式配置，在管理台导入配置后，会写入并持久化到该路径。
+- **配置持久化**：模板挂载卷 `/data`，并设置 `Deepseek2API_CONFIG_PATH=/data/config.json`；首次空卷启动时会先使用空的文件模式配置，在管理台导入配置后，会写入并持久化到该路径。
 - **`open /app/config.json: permission denied`**：说明当前实例在尝试把运行时 token 持久化到只读路径（常见于镜像内 `/app`）。  
   处理建议：
-  1. 显式设置可写路径：`DS2API_CONFIG_PATH=/data/config.json`（并挂载持久卷到 `/data`）；  
-  2. 若你使用 `DS2API_CONFIG_JSON` 启动且不需要运行时落盘，可保持环境变量模式（`DS2API_ENV_WRITEBACK` 关闭）；  
+  1. 显式设置可写路径：`Deepseek2API_CONFIG_PATH=/data/config.json`（并挂载持久卷到 `/data`）；  
+  2. 若你使用 `Deepseek2API_CONFIG_JSON` 启动且不需要运行时落盘，可保持环境变量模式（`Deepseek2API_ENV_WRITEBACK` 关闭）；  
   3. 最新版本中，即使持久化失败，登录/会话测试仍会继续，仅提示“token 未持久化（重启后丢失）”。
 - **构建版本号**：Zeabur / 普通 `docker build` 默认不需要传 `BUILD_VERSION`；镜像会优先使用该构建参数，未提供时自动回退到仓库根目录的 `VERSION` 文件。
-- **首次登录**：部署完成后访问 `/admin`，使用 Zeabur 环境变量/模板指引中的 `DS2API_ADMIN_KEY` 登录（建议首次登录后自行更换为强密码）。
+- **首次登录**：部署完成后访问 `/admin`，使用 Zeabur 环境变量/模板指引中的 `Deepseek2API_ADMIN_KEY` 登录（建议首次登录后自行更换为强密码）。
 
 #### 不使用模板手动部署
 
@@ -220,20 +220,20 @@ healthcheck:
 | 变量 | 推荐值 | 说明 |
 | --- | --- | --- |
 | `PORT` | `5001` | 服务监听端口，需要和 Zeabur 暴露的 HTTP 端口一致。 |
-| `DS2API_ADMIN_KEY` | 强随机字符串 | 管理台登录密钥，必填。 |
-| `DS2API_CONFIG_PATH` | `/data/config.json` | 配置持久化路径，建议必填。 |
+| `Deepseek2API_ADMIN_KEY` | 强随机字符串 | 管理台登录密钥，必填。 |
+| `Deepseek2API_CONFIG_PATH` | `/data/config.json` | 配置持久化路径，建议必填。 |
 | `LOG_LEVEL` | `INFO` | 可选，日志级别。 |
-| `DS2API_CONFIG_JSON` | 原始 JSON 或 Base64 JSON | 可选，用于用环境变量初始化配置。 |
-| `DS2API_ENV_WRITEBACK` | `1` | 可选；当设置了 `DS2API_CONFIG_JSON` 且希望首次启动后写入 `/data/config.json` 时再启用。 |
+| `Deepseek2API_CONFIG_JSON` | 原始 JSON 或 Base64 JSON | 可选，用于用环境变量初始化配置。 |
+| `Deepseek2API_ENV_WRITEBACK` | `1` | 可选；当设置了 `Deepseek2API_CONFIG_JSON` 且希望首次启动后写入 `/data/config.json` 时再启用。 |
 
 7. 暴露 HTTP 端口 `5001`，健康检查路径可填 `/healthz`。
-8. 部署完成后访问 `/admin`，用 `DS2API_ADMIN_KEY` 登录，然后在管理台导入或编辑配置。首次空卷可以没有 `/data/config.json`，服务会先启动，第一次保存时自动创建该文件。
+8. 部署完成后访问 `/admin`，用 `Deepseek2API_ADMIN_KEY` 登录，然后在管理台导入或编辑配置。首次空卷可以没有 `/data/config.json`，服务会先启动，第一次保存时自动创建该文件。
 
 常见问题：
 
 - **启动日志出现 `open /data/config.json: no such file or directory`**：请确认已经部署包含“首次空卷启动”修复的版本，并重新部署最新代码。
-- **出现 `open /app/config.json: permission denied`**：说明配置路径仍指向镜像内只读目录；设置持久卷 `/data`，并确认 `DS2API_CONFIG_PATH=/data/config.json`。
-- **管理台保存后重启配置丢失**：检查 `/data` 持久卷是否已挂载到当前服务；如果使用了 `DS2API_CONFIG_JSON`，但想让管理台保存落盘，请启用 `DS2API_ENV_WRITEBACK=1`。
+- **出现 `open /app/config.json: permission denied`**：说明配置路径仍指向镜像内只读目录；设置持久卷 `/data`，并确认 `Deepseek2API_CONFIG_PATH=/data/config.json`。
+- **管理台保存后重启配置丢失**：检查 `/data` 持久卷是否已挂载到当前服务；如果使用了 `Deepseek2API_CONFIG_JSON`，但想让管理台保存落盘，请启用 `Deepseek2API_ENV_WRITEBACK=1`。
 
 参考：Zeabur 官方文档的 [GitHub/Git 集成](https://zeabur.com/docs/en-US/deploy/github)、[Dockerfile 部署](https://zeabur.com/docs/zh-CN/deploy/dockerfile) 与 [Volumes](https://zeabur.com/docs/data-management/volumes)。
 
@@ -249,14 +249,14 @@ healthcheck:
 
 | 变量 | 说明 |
 | --- | --- |
-| `DS2API_ADMIN_KEY` | 管理密钥（必填） |
-| `DS2API_CONFIG_JSON` | 配置内容，JSON 字符串或 Base64 编码（可选，建议） |
+| `Deepseek2API_ADMIN_KEY` | 管理密钥（必填） |
+| `Deepseek2API_CONFIG_JSON` | 配置内容，JSON 字符串或 Base64 编码（可选，建议） |
 
 4. **部署**
 
-### 3.1.1 推荐填写方式（避免 `DS2API_CONFIG_JSON` 填错）
+### 3.1.1 推荐填写方式（避免 `Deepseek2API_CONFIG_JSON` 填错）
 
-如果你想先完成一键部署，也可以先不填 `DS2API_CONFIG_JSON`，部署后进入 `/admin` 导入配置，再在「Vercel 同步」里写回环境变量。
+如果你想先完成一键部署，也可以先不填 `Deepseek2API_CONFIG_JSON`，部署后进入 `/admin` 导入配置，再在「Vercel 同步」里写回环境变量。
 
 建议先在仓库目录复制示例配置，再按实际账号填写：
 
@@ -269,15 +269,15 @@ cp config.example.json config.json
 
 ```bash
 # 在仓库根目录执行
-DS2API_CONFIG_JSON="$(base64 < config.json | tr -d '\n')"
-echo "$DS2API_CONFIG_JSON"
+Deepseek2API_CONFIG_JSON="$(base64 < config.json | tr -d '\n')"
+echo "$Deepseek2API_CONFIG_JSON"
 ```
 
 如果你选择在部署前就预置配置，请在 Vercel Project Settings -> Environment Variables 配置：
 
 ```text
-DS2API_ADMIN_KEY=请替换为强密码
-DS2API_CONFIG_JSON=上一步生成的一整行 Base64
+Deepseek2API_ADMIN_KEY=请替换为强密码
+Deepseek2API_CONFIG_JSON=上一步生成的一整行 Base64
 ```
 
 可选但推荐（用于 WebUI 一键同步 Vercel 配置）：
@@ -292,20 +292,20 @@ VERCEL_TEAM_ID=team_xxxxxxxxxxxx   # 个人账号可留空
 
 | 变量 | 说明 | 默认值 |
 | --- | --- | --- |
-| `DS2API_ACCOUNT_MAX_INFLIGHT` | 每账号并发上限 | `2` |
-| `DS2API_ACCOUNT_MAX_QUEUE` | 等待队列上限 | `recommended_concurrency` |
-| `DS2API_GLOBAL_MAX_INFLIGHT` | 全局并发上限 | `recommended_concurrency` |
-| `DS2API_ENV_WRITEBACK` | 检测到 `DS2API_CONFIG_JSON` 时自动写入 `DS2API_CONFIG_PATH`，并在成功后转为文件模式（`1/true/yes/on`） | 关闭 |
-| `DS2API_VERCEL_INTERNAL_SECRET` | 混合流式内部鉴权 | 回退用 `DS2API_ADMIN_KEY` |
-| `DS2API_VERCEL_STREAM_LEASE_TTL_SECONDS` | 流式 lease TTL | `900` |
-| `DS2API_RAW_STREAM_SAMPLE_ROOT` | raw stream 样本保存/读取根目录 | `tests/raw_stream_samples` |
-| `DS2API_STATIC_ADMIN_DIR` | WebUI 静态资源目录 | `static/admin` |
-| `DS2API_AUTO_BUILD_WEBUI` | 本地启动时是否自动构建缺失的 WebUI（`1/true/yes/on` 或 `0/false/no/off`） | 非 Vercel 默认开启 |
+| `Deepseek2API_ACCOUNT_MAX_INFLIGHT` | 每账号并发上限 | `2` |
+| `Deepseek2API_ACCOUNT_MAX_QUEUE` | 等待队列上限 | `recommended_concurrency` |
+| `Deepseek2API_GLOBAL_MAX_INFLIGHT` | 全局并发上限 | `recommended_concurrency` |
+| `Deepseek2API_ENV_WRITEBACK` | 检测到 `Deepseek2API_CONFIG_JSON` 时自动写入 `Deepseek2API_CONFIG_PATH`，并在成功后转为文件模式（`1/true/yes/on`） | 关闭 |
+| `Deepseek2API_VERCEL_INTERNAL_SECRET` | 混合流式内部鉴权 | 回退用 `Deepseek2API_ADMIN_KEY` |
+| `Deepseek2API_VERCEL_STREAM_LEASE_TTL_SECONDS` | 流式 lease TTL | `900` |
+| `Deepseek2API_RAW_STREAM_SAMPLE_ROOT` | raw stream 样本保存/读取根目录 | `tests/raw_stream_samples` |
+| `Deepseek2API_STATIC_ADMIN_DIR` | WebUI 静态资源目录 | `static/admin` |
+| `Deepseek2API_AUTO_BUILD_WEBUI` | 本地启动时是否自动构建缺失的 WebUI（`1/true/yes/on` 或 `0/false/no/off`） | 非 Vercel 默认开启 |
 | `VERCEL_TOKEN` | Vercel 同步 token | — |
 | `VERCEL_PROJECT_ID` | Vercel 项目 ID | — |
 | `VERCEL_TEAM_ID` | Vercel 团队 ID | — |
-| `DS2API_CHAT_HISTORY_PATH` | Chat history 存储路径（Vercel 上必须设为 `/tmp/chat_history.json`，否则因文件系统只读而不可用） | `data/chat_history.json` |
-| `DS2API_VERCEL_PROTECTION_BYPASS` | 部署保护绕过密钥（内部 Node→Go 调用） | — |
+| `Deepseek2API_CHAT_HISTORY_PATH` | Chat history 存储路径（Vercel 上必须设为 `/tmp/chat_history.json`，否则因文件系统只读而不可用） | `data/chat_history.json` |
+| `Deepseek2API_VERCEL_PROTECTION_BYPASS` | 部署保护绕过密钥（内部 Node→Go 调用） | — |
 
 ### 3.3 运行时行为配置（通过 Admin API 设置）
 
@@ -381,12 +381,12 @@ Error: Command failed: go build -ldflags -s -w -o .../bootstrap ...
 #### Internal 包导入错误
 
 ```text
-use of internal package ds2api/internal/server not allowed
+use of internal package Deepseek2API/internal/server not allowed
 ```
 
 **原因**：Vercel Go 入口文件直接 `import internal/...`。
 
-**解决**：当前仓库已通过公开桥接包 `app` 解决：`api/index.go` → `ds2api/app` → `internal/server`。
+**解决**：当前仓库已通过公开桥接包 `app` 解决：`api/index.go` → `Deepseek2API/app` → `internal/server`。
 
 #### 输出目录错误
 
@@ -402,7 +402,7 @@ No Output Directory named "public" found after the Build completed.
 
 - **方案 A**：关闭该部署/环境的 Deployment Protection（推荐用于公开 API）
 - **方案 B**：请求中添加 `x-vercel-protection-bypass` 头
-- **方案 C**：设置 `VERCEL_AUTOMATION_BYPASS_SECRET`（或 `DS2API_VERCEL_PROTECTION_BYPASS`），仅影响内部 Node→Go 调用
+- **方案 C**：设置 `VERCEL_AUTOMATION_BYPASS_SECRET`（或 `Deepseek2API_VERCEL_PROTECTION_BYPASS`），仅影响内部 Node→Go 调用
 
 #### Chat History 不可用（read-only file system）
 
@@ -415,7 +415,7 @@ create chat history dir: mkdir /var/task/data: read-only file system
 **解决**：在 Vercel Project Settings → Environment Variables 中添加：
 
 ```text
-DS2API_CHAT_HISTORY_PATH=/tmp/chat_history.json
+Deepseek2API_CHAT_HISTORY_PATH=/tmp/chat_history.json
 ```
 
 `/tmp` 是 Vercel Serverless 环境中唯一可写的目录。数据在函数冷启动之间不会持久化（ephemeral），但在单个实例生命周期内功能正常。
@@ -433,8 +433,8 @@ DS2API_CHAT_HISTORY_PATH=/tmp/chat_history.json
 
 ```bash
 # 克隆仓库
-git clone https://github.com/CJackHwang/ds2api.git
-cd ds2api
+git clone https://github.com/CJackHwang/Deepseek2API.git
+cd Deepseek2API
 
 # 复制并编辑配置
 cp config.example.json config.json
@@ -443,14 +443,14 @@ cp config.example.json config.json
 #   - accounts: DeepSeek 账号（email 或 mobile + password）
 
 # 启动服务
-go run ./cmd/ds2api
+go run ./cmd/Deepseek2API
 ```
 
 默认本地访问地址是 `http://127.0.0.1:5001`；服务实际绑定 `0.0.0.0:5001`，可通过 `PORT` 环境变量覆盖。
 
 ### 4.2 WebUI 构建
 
-本地首次启动时，若 WebUI 静态目录不存在，服务会自动尝试构建 WebUI（需要 Node.js/npm；缺依赖时会先执行 `npm ci --prefix webui`，再执行 `npm run build --prefix webui -- --outDir <静态目录> --emptyOutDir`）。默认静态目录为 `static/admin/`，可用 `DS2API_STATIC_ADMIN_DIR` 覆盖。
+本地首次启动时，若 WebUI 静态目录不存在，服务会自动尝试构建 WebUI（需要 Node.js/npm；缺依赖时会先执行 `npm ci --prefix webui`，再执行 `npm run build --prefix webui -- --outDir <静态目录> --emptyOutDir`）。默认静态目录为 `static/admin/`，可用 `Deepseek2API_STATIC_ADMIN_DIR` 覆盖。
 
 你也可以手动构建：
 
@@ -471,17 +471,17 @@ npm run build
 
 ```bash
 # 强制关闭自动构建
-DS2API_AUTO_BUILD_WEBUI=false go run ./cmd/ds2api
+Deepseek2API_AUTO_BUILD_WEBUI=false go run ./cmd/Deepseek2API
 
 # 强制开启自动构建
-DS2API_AUTO_BUILD_WEBUI=true go run ./cmd/ds2api
+Deepseek2API_AUTO_BUILD_WEBUI=true go run ./cmd/Deepseek2API
 ```
 
 ### 4.3 编译为二进制文件
 
 ```bash
-go build -o ds2api ./cmd/ds2api
-./ds2api
+go build -o Deepseek2API ./cmd/Deepseek2API
+./Deepseek2API
 ```
 
 ---
@@ -536,27 +536,27 @@ server {
 
 ```bash
 # 将编译好的二进制文件和相关文件复制到目标目录
-sudo mkdir -p /opt/ds2api
-sudo cp ds2api config.json /opt/ds2api/
-sudo cp -r static/admin /opt/ds2api/static/admin
+sudo mkdir -p /opt/Deepseek2API
+sudo cp Deepseek2API config.json /opt/Deepseek2API/
+sudo cp -r static/admin /opt/Deepseek2API/static/admin
 ```
 
 ### 6.2 创建 systemd 服务文件
 
 ```ini
-# /etc/systemd/system/ds2api.service
+# /etc/systemd/system/Deepseek2API.service
 
 [Unit]
-Description=DS2API (Go)
+Description=Deepseek2API (Go)
 After=network.target
 
 [Service]
 Type=simple
-WorkingDirectory=/opt/ds2api
+WorkingDirectory=/opt/Deepseek2API
 Environment=PORT=5001
-Environment=DS2API_CONFIG_PATH=/opt/ds2api/config.json
-Environment=DS2API_ADMIN_KEY=your-admin-key-here
-ExecStart=/opt/ds2api/ds2api
+Environment=Deepseek2API_CONFIG_PATH=/opt/Deepseek2API/config.json
+Environment=Deepseek2API_ADMIN_KEY=your-admin-key-here
+ExecStart=/opt/Deepseek2API/Deepseek2API
 Restart=always
 RestartSec=5
 
@@ -571,22 +571,22 @@ WantedBy=multi-user.target
 sudo systemctl daemon-reload
 
 # 设置开机自启
-sudo systemctl enable ds2api
+sudo systemctl enable Deepseek2API
 
 # 启动服务
-sudo systemctl start ds2api
+sudo systemctl start Deepseek2API
 
 # 查看状态
-sudo systemctl status ds2api
+sudo systemctl status Deepseek2API
 
 # 查看日志
-sudo journalctl -u ds2api -f
+sudo journalctl -u Deepseek2API -f
 
 # 重启服务
-sudo systemctl restart ds2api
+sudo systemctl restart Deepseek2API
 
 # 停止服务
-sudo systemctl stop ds2api
+sudo systemctl stop Deepseek2API
 ```
 
 ---
@@ -632,7 +632,7 @@ curl http://127.0.0.1:5001/v1/chat/completions \
 可自定义参数：
 
 ```bash
-go run ./cmd/ds2api-tests \
+go run ./cmd/Deepseek2API-tests \
   --config config.json \
   --admin-key admin \
   --out artifacts/testsuite \

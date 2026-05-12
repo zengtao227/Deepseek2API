@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"strings"
 
-	"ds2api/internal/config"
-	"ds2api/internal/prompt"
-	"ds2api/internal/promptcompat"
-	"ds2api/internal/util"
+	"Deepseek2API/internal/config"
+	"Deepseek2API/internal/prompt"
+	"Deepseek2API/internal/promptcompat"
+	"Deepseek2API/internal/util"
 )
 
 type claudeNormalizedRequest struct {

@@ -8,8 +8,8 @@
  * 用法: node scripts/capture-tokens-interactive.mjs
  *
  * 环境变量:
- *   DS2API_URL       - DS2API 地址（默认 http://localhost:5001）
- *   DS2API_ADMIN_KEY - Admin Key（默认从 ~/ds2api/.env 读取）
+ *   Deepseek2API_URL       - Deepseek2API 地址（默认 http://localhost:5001）
+ *   Deepseek2API_ADMIN_KEY - Admin Key（默认从 ~/Deepseek2API/.env 读取）
  *
  * 账户来源: 读取 ../accounts.json（不上传到 GitHub）
  */
@@ -26,13 +26,13 @@ const PROJECT_ROOT = path.resolve(__dirname, '..');
 // ============================================================
 // 配置
 // ============================================================
-const DS2API_URL   = process.env.DS2API_URL || 'http://localhost:5001';
-const ADMIN_KEY    = process.env.DS2API_ADMIN_KEY || (() => {
+const Deepseek2API_URL   = process.env.Deepseek2API_URL || 'http://localhost:5001';
+const ADMIN_KEY    = process.env.Deepseek2API_ADMIN_KEY || (() => {
   try {
-    const envPath = path.join(os.homedir(), 'ds2api', '.env');
+    const envPath = path.join(os.homedir(), 'Deepseek2API', '.env');
     if (fs.existsSync(envPath)) {
       const content = fs.readFileSync(envPath, 'utf-8');
-      const match = content.match(/DS2API_ADMIN_KEY=(.+)/);
+      const match = content.match(/Deepseek2API_ADMIN_KEY=(.+)/);
       if (match) return match[1].trim();
     }
   } catch {}
@@ -60,8 +60,8 @@ function loadAccounts() {
     return JSON.parse(fs.readFileSync(localPath, 'utf-8'));
   }
 
-  // 如果不存在，尝试读取 ~/ds2api/accounts.json
-  const homePath = path.join(os.homedir(), 'ds2api', 'accounts.json');
+  // 如果不存在，尝试读取 ~/Deepseek2API/accounts.json
+  const homePath = path.join(os.homedir(), 'Deepseek2API', 'accounts.json');
   if (fs.existsSync(homePath)) {
     return JSON.parse(fs.readFileSync(homePath, 'utf-8'));
   }
@@ -114,9 +114,9 @@ async function findToken(page) {
   });
 }
 
-/** 提交 token 到 DS2API */
+/** 提交 token 到 Deepseek2API */
 async function submitToken(email, token) {
-  const url = `${DS2API_URL}/admin/accounts/capture-token`;
+  const url = `${Deepseek2API_URL}/admin/accounts/capture-token`;
   const res = await fetch(url, {
     method: 'POST',
     headers: {
@@ -154,7 +154,7 @@ async function main() {
   console.log('╠══════════════════════════════════════════════════╣');
   console.log('║  你只需要做：在浏览器中点击「登录」            ║');
   console.log('║  密码由 Comet 自动填充                         ║');
-  console.log('║  Token 自动提取并保存到 DS2API                 ║');
+  console.log('║  Token 自动提取并保存到 Deepseek2API                 ║');
   console.log('╚══════════════════════════════════════════════════╝');
   console.log('');
 
@@ -172,13 +172,13 @@ async function main() {
   const userDataDir = useComet ? COMET_USER_DATA : CHROME_USER_DATA;
 
   const accounts = loadAccounts();
-  console.log(`  📡 DS2API   : ${DS2API_URL}`);
+  console.log(`  📡 Deepseek2API   : ${Deepseek2API_URL}`);
   console.log(`  🌐 浏览器   : ${browserName}`);
   console.log(`  📋 账户数   : ${accounts.length}`);
   console.log('');
 
   if (!ADMIN_KEY) {
-    console.error('❌ 未设置 ADMIN_KEY，请设置环境变量 DS2API_ADMIN_KEY');
+    console.error('❌ 未设置 ADMIN_KEY，请设置环境变量 Deepseek2API_ADMIN_KEY');
     process.exit(1);
   }
 

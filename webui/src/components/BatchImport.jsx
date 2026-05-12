@@ -126,7 +126,7 @@ export default function BatchImport({ onRefresh, onMessage, authFetch }) {
                         {copied ? t('batchImport.copied') : t('batchImport.copyBase64')}
                     </button>
                     <p className="text-[10px] text-muted-foreground mt-2 text-center">
-                        {t('batchImport.variableName')}: <code className="bg-background px-1 py-0.5 rounded border border-border">DS2API_CONFIG_JSON</code>
+                        {t('batchImport.variableName')}: <code className="bg-background px-1 py-0.5 rounded border border-border">Deepseek2API_CONFIG_JSON</code>
                     </p>
                 </div>
             </div>

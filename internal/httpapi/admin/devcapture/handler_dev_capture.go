@@ -3,7 +3,7 @@ package devcapture
 import (
 	"net/http"
 
-	"ds2api/internal/devcapture"
+	"Deepseek2API/internal/devcapture"
 )
 
 func (h *Handler) getDevCaptures(w http.ResponseWriter, _ *http.Request) {

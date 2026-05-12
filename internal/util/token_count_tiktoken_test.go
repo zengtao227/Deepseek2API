@@ -23,7 +23,7 @@ func TestTokenizerEncodingForCountCachesSupportedModel(t *testing.T) {
 }
 
 func TestTokenizerEncodingForCountCachesUnsupportedModel(t *testing.T) {
-	const model = "__ds2api_unsupported_tokenizer_model__"
+	const model = "__Deepseek2API_unsupported_tokenizer_model__"
 	encoding, release := tokenizerEncodingForCount(model)
 	release()
 	if encoding != nil {

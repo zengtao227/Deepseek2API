@@ -7,10 +7,10 @@ import (
 	"strings"
 	"testing"
 
-	"ds2api/internal/account"
-	"ds2api/internal/auth"
-	"ds2api/internal/config"
-	"ds2api/internal/httpapi/openai/shared"
+	"Deepseek2API/internal/account"
+	"Deepseek2API/internal/auth"
+	"Deepseek2API/internal/config"
+	"Deepseek2API/internal/httpapi/openai/shared"
 )
 
 func TestExecuteStreamWithRetryUsesSharedRetryPayloadAndUsagePrompt(t *testing.T) {
@@ -64,7 +64,7 @@ func TestExecuteStreamWithRetryUsesSharedRetryPayloadAndUsagePrompt(t *testing.T
 }
 
 func TestExecuteStreamWithRetrySwitchesManagedAccountBeforeFinal429(t *testing.T) {
-	t.Setenv("DS2API_CONFIG_JSON", `{
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{
 		"keys":["managed-key"],
 		"accounts":[
 			{"email":"acc1@test.com","password":"pwd"},

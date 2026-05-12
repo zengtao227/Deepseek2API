@@ -3,7 +3,7 @@ package client
 import (
 	"bytes"
 	"context"
-	dsprotocol "ds2api/internal/deepseek/protocol"
+	dsprotocol "Deepseek2API/internal/deepseek/protocol"
 	"errors"
 	"io"
 	"net/http"
@@ -11,7 +11,7 @@ import (
 	"sync/atomic"
 	"testing"
 
-	"ds2api/internal/auth"
+	"Deepseek2API/internal/auth"
 )
 
 type failingDoer struct {

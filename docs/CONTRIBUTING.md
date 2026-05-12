@@ -2,7 +2,7 @@
 
 语言 / Language: [中文](CONTRIBUTING.md) | [English](CONTRIBUTING.en.md)
 
-感谢你对 DS2API 的关注与贡献！
+感谢你对 Deepseek2API 的关注与贡献！
 
 ## 开发环境设置
 
@@ -16,15 +16,15 @@
 
 ```bash
 # 1. 克隆仓库
-git clone https://github.com/CJackHwang/ds2api.git
-cd ds2api
+git clone https://github.com/CJackHwang/Deepseek2API.git
+cd Deepseek2API
 
 # 2. 配置
 cp config.example.json config.json
 # 编辑 config.json，填入测试账号
 
 # 3. 启动后端
-go run ./cmd/ds2api
+go run ./cmd/Deepseek2API
 # 本地访问 http://127.0.0.1:5001
 # 实际绑定 0.0.0.0:5001，可通过局域网 IP 访问
 ```
@@ -108,7 +108,7 @@ npm run build --prefix webui
 
 ## 问题反馈
 
-请使用 [GitHub Issues](https://github.com/CJackHwang/ds2api/issues) 并附上：
+请使用 [GitHub Issues](https://github.com/CJackHwang/Deepseek2API/issues) 并附上：
 
 - 复现步骤
 - 相关日志输出

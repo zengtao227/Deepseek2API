@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useMemo, useState } from 'react'
 import en from './locales/en.json'
 import zh from './locales/zh.json'
 
-const STORAGE_KEY = 'ds2api_lang'
+const STORAGE_KEY = 'Deepseek2API_lang'
 const translations = { en, zh }
 
 const I18nContext = createContext({

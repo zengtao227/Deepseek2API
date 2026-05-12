@@ -1,6 +1,6 @@
 package toolstream
 
-import "ds2api/internal/toolcall"
+import "Deepseek2API/internal/toolcall"
 
 func ProcessChunk(state *State, chunk string, toolNames []string) []Event {
 	if state == nil {

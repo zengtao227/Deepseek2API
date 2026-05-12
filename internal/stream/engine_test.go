@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"ds2api/internal/sse"
+	"Deepseek2API/internal/sse"
 )
 
 func TestConsumeSSEPrefersContextCancellationOverReadyParsedLines(t *testing.T) {

@@ -1,7 +1,7 @@
 package claude
 
 import (
-	"ds2api/internal/toolcall"
+	"Deepseek2API/internal/toolcall"
 	"fmt"
 	"strings"
 )

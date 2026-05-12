@@ -9,8 +9,8 @@ import (
 
 	"github.com/go-chi/chi/v5"
 
-	"ds2api/internal/config"
-	dsclient "ds2api/internal/deepseek/client"
+	"Deepseek2API/internal/config"
+	dsclient "Deepseek2API/internal/deepseek/client"
 )
 
 var proxyConnectivityTester = func(ctx context.Context, proxy config.Proxy) map[string]any {

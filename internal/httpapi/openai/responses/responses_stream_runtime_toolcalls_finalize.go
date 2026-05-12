@@ -1,12 +1,12 @@
 package responses
 
 import (
-	"ds2api/internal/toolcall"
+	"Deepseek2API/internal/toolcall"
 	"encoding/json"
 	"sort"
 	"strings"
 
-	openaifmt "ds2api/internal/format/openai"
+	openaifmt "Deepseek2API/internal/format/openai"
 )
 
 func (s *responsesStreamRuntime) closeIncompleteFunctionItems() {

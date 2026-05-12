@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	authn "ds2api/internal/auth"
+	authn "Deepseek2API/internal/auth"
 )
 
 func (h *Handler) requireAdmin(next http.Handler) http.Handler {

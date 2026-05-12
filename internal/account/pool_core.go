@@ -4,7 +4,7 @@ import (
 	"sort"
 	"sync"
 
-	"ds2api/internal/config"
+	"Deepseek2API/internal/config"
 )
 
 type Pool struct {

@@ -1,6 +1,6 @@
 package promptcompat
 
-import "ds2api/internal/config"
+import "Deepseek2API/internal/config"
 
 type StandardRequest struct {
 	Surface                 string

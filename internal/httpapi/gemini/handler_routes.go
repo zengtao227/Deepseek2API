@@ -5,9 +5,9 @@ import (
 
 	"github.com/go-chi/chi/v5"
 
-	"ds2api/internal/chathistory"
-	"ds2api/internal/textclean"
-	"ds2api/internal/util"
+	"Deepseek2API/internal/chathistory"
+	"Deepseek2API/internal/textclean"
+	"Deepseek2API/internal/util"
 )
 
 var writeJSON = util.WriteJSON

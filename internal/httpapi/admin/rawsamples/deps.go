@@ -3,8 +3,8 @@ package rawsamples
 import (
 	"net/http"
 
-	"ds2api/internal/chathistory"
-	adminshared "ds2api/internal/httpapi/admin/shared"
+	"Deepseek2API/internal/chathistory"
+	adminshared "Deepseek2API/internal/httpapi/admin/shared"
 )
 
 type Handler struct {

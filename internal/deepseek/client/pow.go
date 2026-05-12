@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 	"errors"
 
-	"ds2api/pow"
+	"Deepseek2API/pow"
 )
 
 // ComputePow 使用纯 Go 实现求解 PoW challenge (DeepSeekHashV1)。

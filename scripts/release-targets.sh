@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # goos goarch goarm package-label
-DS2API_RELEASE_TARGETS=(
+Deepseek2API_RELEASE_TARGETS=(
   "linux amd64 - linux_amd64"
   "linux arm64 - linux_arm64"
   "linux arm 7 linux_armv7"

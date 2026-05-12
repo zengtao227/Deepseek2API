@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"testing"
 
-	"ds2api/internal/promptcompat"
-	"ds2api/internal/sse"
+	"Deepseek2API/internal/promptcompat"
+	"Deepseek2API/internal/sse"
 )
 
 func TestBuildTurnFromCollectedTextCitation(t *testing.T) {

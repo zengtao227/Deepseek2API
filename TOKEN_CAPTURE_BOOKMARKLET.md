@@ -22,7 +22,7 @@ open scripts/bookmarklet-token-capture.html
 3. URL填写以下代码（完整复制）：
 
 ```javascript
-javascript:(function(){const DS2API_URL='http://localhost:5001';const ADMIN_KEY='744160e5987847bacc0031b8b862420a0a3dd6e9e14a794a8f6891c9c65a2501';const ACCOUNTS=['zengtao227@gmail.com','zengtao227.de@gmail.com','zengtao227.us@gmail.com','zengtao227.sg@gmail.com','zengqhxf@gmail.com','liyue828@gmail.com','liyue828.de@gmail.com','mia.rhzeng@gmail.com','leo.rlzeng@gmail.com','9pgyxsfby5@privaterelay.appleid.com','yqrt7tjg85@privaterelay.appleid.com','xhg4h79pph@privaterelay.appleid.com','n6vst2bmsc@privaterelay.appleid.com'];function findToken(){const keys=['token','auth_token','accessToken','access_token','deepseek_token','ds_token','userToken'];for(const k of keys){const v=localStorage.getItem(k);if(v&&v.length>20){try{const parsed=JSON.parse(v);if(parsed.value&&parsed.value.length>20)return parsed.value}catch{}return v}}for(let i=0;i<localStorage.length;i++){const key=localStorage.key(i);if(key.toLowerCase().includes('token')){const val=localStorage.getItem(key);if(val&&val.length>20){try{const parsed=JSON.parse(val);if(parsed.value&&parsed.value.length>20)return parsed.value}catch{}return val}}}return null}const token=findToken();if(!token){alert('❌ 未找到token，请先登录DeepSeek');return}const preview=token.substring(0,6)+'****'+token.substring(token.length-2);const email=prompt('🔑 找到Token: '+preview+'\n\n请选择账户（输入序号）:\n\n'+ACCOUNTS.map((e,i)=>(i+1)+'. '+e).join('\n'));if(!email){return}let selectedEmail;const num=parseInt(email);if(num>=1&&num<=ACCOUNTS.length){selectedEmail=ACCOUNTS[num-1]}else{selectedEmail=email.trim()}if(!selectedEmail||!selectedEmail.includes('@')){alert('❌ 无效的账户');return}const btn=document.createElement('div');btn.style.cssText='position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:white;padding:30px;border-radius:10px;box-shadow:0 4px 20px rgba(0,0,0,0.3);z-index:999999;font-family:sans-serif;text-align:center';btn.innerHTML='<div style="font-size:18px;margin-bottom:15px">⏳ 正在提交token...</div><div style="color:#666">'+selectedEmail+'</div>';document.body.appendChild(btn);fetch(DS2API_URL+'/admin/accounts/capture-token',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+ADMIN_KEY},body:JSON.stringify({email:selectedEmail,token:token})}).then(r=>r.json()).then(data=>{btn.innerHTML='<div style="font-size:24px;margin-bottom:10px">✅</div><div style="font-size:18px;color:#28a745;margin-bottom:10px">Token保存成功！</div><div style="color:#666;font-size:14px">'+selectedEmail+'</div>';setTimeout(()=>document.body.removeChild(btn),3000)}).catch(err=>{btn.innerHTML='<div style="font-size:24px;margin-bottom:10px">❌</div><div style="font-size:18px;color:#dc3545;margin-bottom:10px">提交失败</div><div style="color:#666;font-size:14px">'+err.message+'</div>';setTimeout(()=>document.body.removeChild(btn),5000)})})();
+javascript:(function(){const Deepseek2API_URL='http://localhost:5001';const ADMIN_KEY='744160e5987847bacc0031b8b862420a0a3dd6e9e14a794a8f6891c9c65a2501';const ACCOUNTS=['zengtao227@gmail.com','zengtao227.de@gmail.com','zengtao227.us@gmail.com','zengtao227.sg@gmail.com','zengqhxf@gmail.com','liyue828@gmail.com','liyue828.de@gmail.com','mia.rhzeng@gmail.com','leo.rlzeng@gmail.com','9pgyxsfby5@privaterelay.appleid.com','yqrt7tjg85@privaterelay.appleid.com','xhg4h79pph@privaterelay.appleid.com','n6vst2bmsc@privaterelay.appleid.com'];function findToken(){const keys=['token','auth_token','accessToken','access_token','deepseek_token','ds_token','userToken'];for(const k of keys){const v=localStorage.getItem(k);if(v&&v.length>20){try{const parsed=JSON.parse(v);if(parsed.value&&parsed.value.length>20)return parsed.value}catch{}return v}}for(let i=0;i<localStorage.length;i++){const key=localStorage.key(i);if(key.toLowerCase().includes('token')){const val=localStorage.getItem(key);if(val&&val.length>20){try{const parsed=JSON.parse(val);if(parsed.value&&parsed.value.length>20)return parsed.value}catch{}return val}}}return null}const token=findToken();if(!token){alert('❌ 未找到token，请先登录DeepSeek');return}const preview=token.substring(0,6)+'****'+token.substring(token.length-2);const email=prompt('🔑 找到Token: '+preview+'\n\n请选择账户（输入序号）:\n\n'+ACCOUNTS.map((e,i)=>(i+1)+'. '+e).join('\n'));if(!email){return}let selectedEmail;const num=parseInt(email);if(num>=1&&num<=ACCOUNTS.length){selectedEmail=ACCOUNTS[num-1]}else{selectedEmail=email.trim()}if(!selectedEmail||!selectedEmail.includes('@')){alert('❌ 无效的账户');return}const btn=document.createElement('div');btn.style.cssText='position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:white;padding:30px;border-radius:10px;box-shadow:0 4px 20px rgba(0,0,0,0.3);z-index:999999;font-family:sans-serif;text-align:center';btn.innerHTML='<div style="font-size:18px;margin-bottom:15px">⏳ 正在提交token...</div><div style="color:#666">'+selectedEmail+'</div>';document.body.appendChild(btn);fetch(Deepseek2API_URL+'/admin/accounts/capture-token',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+ADMIN_KEY},body:JSON.stringify({email:selectedEmail,token:token})}).then(r=>r.json()).then(data=>{btn.innerHTML='<div style="font-size:24px;margin-bottom:10px">✅</div><div style="font-size:18px;color:#28a745;margin-bottom:10px">Token保存成功！</div><div style="color:#666;font-size:14px">'+selectedEmail+'</div>';setTimeout(()=>document.body.removeChild(btn),3000)}).catch(err=>{btn.innerHTML='<div style="font-size:24px;margin-bottom:10px">❌</div><div style="font-size:18px;color:#dc3545;margin-bottom:10px">提交失败</div><div style="color:#666;font-size:14px">'+err.message+'</div>';setTimeout(()=>document.body.removeChild(btn),5000)})})();
 ```
 
 ## 📝 使用步骤
@@ -68,7 +68,7 @@ javascript:(function(){const DS2API_URL='http://localhost:5001';const ADMIN_KEY=
 - ✅ 不需要运行任何脚本
 - ✅ 使用你现有的Comet浏览器
 - ✅ 密码始终保存在浏览器中，脚本看不到
-- ⚠️ 确保DS2API后端正在运行（`http://localhost:5001`）
+- ⚠️ 确保Deepseek2API后端正在运行（`http://localhost:5001`）
 - ⚠️ 书签只在 `chat.deepseek.com` 域名下工作
 
 ## 🔧 技术原理
@@ -78,7 +78,7 @@ javascript:(function(){const DS2API_URL='http://localhost:5001';const ADMIN_KEY=
 1. 从浏览器的 `localStorage` 中查找DeepSeek的token
 2. 显示token预览（前6位+****+后2位）
 3. 让用户选择这是哪个账户
-4. 调用DS2API的 `/admin/accounts/capture-token` 接口保存token
+4. 调用Deepseek2API的 `/admin/accounts/capture-token` 接口保存token
 5. 显示成功或失败的提示
 
 整个过程在浏览器中完成，安全可靠。
@@ -115,7 +115,7 @@ curl -s "http://localhost:5001/admin/accounts?page_size=20" \
 A: 请确保你已经登录DeepSeek，然后刷新页面重试。
 
 **Q: 提交失败？**
-A: 检查DS2API后端是否正在运行：`curl http://localhost:5001/admin/accounts`
+A: 检查Deepseek2API后端是否正在运行：`curl http://localhost:5001/admin/accounts`
 
 **Q: 如何更新已有账户的token？**
 A: 直接使用书签重新捕获即可，会自动覆盖旧token。

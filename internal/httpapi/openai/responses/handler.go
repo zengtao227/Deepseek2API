@@ -5,14 +5,14 @@ import (
 	"net/http"
 	"sync"
 
-	"ds2api/internal/auth"
-	"ds2api/internal/chathistory"
-	"ds2api/internal/httpapi/openai/files"
-	"ds2api/internal/httpapi/openai/history"
-	"ds2api/internal/httpapi/openai/shared"
-	"ds2api/internal/promptcompat"
-	"ds2api/internal/textclean"
-	"ds2api/internal/toolstream"
+	"Deepseek2API/internal/auth"
+	"Deepseek2API/internal/chathistory"
+	"Deepseek2API/internal/httpapi/openai/files"
+	"Deepseek2API/internal/httpapi/openai/history"
+	"Deepseek2API/internal/httpapi/openai/shared"
+	"Deepseek2API/internal/promptcompat"
+	"Deepseek2API/internal/textclean"
+	"Deepseek2API/internal/toolstream"
 )
 
 const openAIGeneralMaxSize = shared.GeneralMaxSize

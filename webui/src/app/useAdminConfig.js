@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 
-const ENV_DRAFT_KEY = 'ds2api_env_config_draft_v1'
+const ENV_DRAFT_KEY = 'Deepseek2API_env_config_draft_v1'
 
 export function useAdminConfig({ token, showMessage, t }) {
     const [config, setConfig] = useState({ keys: [], accounts: [] })

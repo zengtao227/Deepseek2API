@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"ds2api/internal/config"
+	"Deepseek2API/internal/config"
 )
 
 func boolFrom(v any) bool {

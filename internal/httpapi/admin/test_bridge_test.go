@@ -5,14 +5,14 @@ import (
 	"net/http"
 	"testing"
 
-	"ds2api/internal/account"
-	"ds2api/internal/auth"
-	"ds2api/internal/config"
-	dsclient "ds2api/internal/deepseek/client"
-	adminaccounts "ds2api/internal/httpapi/admin/accounts"
-	adminconfig "ds2api/internal/httpapi/admin/configmgmt"
-	adminsettings "ds2api/internal/httpapi/admin/settings"
-	adminshared "ds2api/internal/httpapi/admin/shared"
+	"Deepseek2API/internal/account"
+	"Deepseek2API/internal/auth"
+	"Deepseek2API/internal/config"
+	dsclient "Deepseek2API/internal/deepseek/client"
+	adminaccounts "Deepseek2API/internal/httpapi/admin/accounts"
+	adminconfig "Deepseek2API/internal/httpapi/admin/configmgmt"
+	adminsettings "Deepseek2API/internal/httpapi/admin/settings"
+	adminshared "Deepseek2API/internal/httpapi/admin/shared"
 )
 
 var intFrom = adminshared.IntFrom
@@ -26,7 +26,7 @@ func boolFrom(v any) bool                    { return adminsettings.BoolFrom(v) 
 
 func newAdminTestHandler(t *testing.T, raw string) *Handler {
 	t.Helper()
-	t.Setenv("DS2API_CONFIG_JSON", raw)
+	t.Setenv("Deepseek2API_CONFIG_JSON", raw)
 	store := config.LoadStore()
 	return &Handler{
 		Store: store,

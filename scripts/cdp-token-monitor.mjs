@@ -6,7 +6,7 @@
  * 原理：
  * - 连接到已运行的 Comet 浏览器（通过 Chrome DevTools Protocol）
  * - 监听 localStorage 变化
- * - 当检测到 token 时自动提取并提交到 DS2API
+ * - 当检测到 token 时自动提取并提交到 Deepseek2API
  * - 密码始终保存在浏览器中，脚本看不到
  *
  * 用法：
@@ -31,8 +31,8 @@ const projectRoot = path.join(__dirname, '..');
 // 配置
 const CDP_HOST = 'localhost';
 const CDP_PORT = 9222;
-const DS2API_URL = process.env.DS2API_URL || 'http://localhost:5001';
-const ADMIN_KEY = process.env.DS2API_ADMIN_KEY ||
+const Deepseek2API_URL = process.env.Deepseek2API_URL || 'http://localhost:5001';
+const ADMIN_KEY = process.env.Deepseek2API_ADMIN_KEY ||
   (await getAdminKeyFromEnv()) ||
   '744160e5987847bacc0031b8b862420a0a3dd6e9e14a794a8f6891c9c65a2501';
 
@@ -64,7 +64,7 @@ async function getAdminKeyFromEnv() {
   try {
     const envPath = path.join(projectRoot, '.env');
     const content = await fs.readFile(envPath, 'utf-8');
-    const match = content.match(/DS2API_ADMIN_KEY=(.+)/);
+    const match = content.match(/Deepseek2API_ADMIN_KEY=(.+)/);
     return match ? match[1].trim() : null;
   } catch {
     return null;
@@ -126,7 +126,7 @@ async function getCDPTargets() {
 
 async function submitToken(email, token) {
   try {
-    const response = await fetch(`${DS2API_URL}/admin/accounts/capture-token`, {
+    const response = await fetch(`${Deepseek2API_URL}/admin/accounts/capture-token`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -276,22 +276,22 @@ async function monitorAndExtract() {
     process.exit(1);
   }
 
-  // 验证 DS2API 连接
+  // 验证 Deepseek2API 连接
   try {
-    log('🔍', `连接到 DS2API (${DS2API_URL})...`);
-    const response = await fetch(`${DS2API_URL}/admin/accounts/capture-token`, {
+    log('🔍', `连接到 Deepseek2API (${Deepseek2API_URL})...`);
+    const response = await fetch(`${Deepseek2API_URL}/admin/accounts/capture-token`, {
       method: 'OPTIONS',
       headers: { 'Authorization': `Bearer ${ADMIN_KEY}` },
     }).catch(() => null);
 
     if (!response) {
-      throw new Error('No response from DS2API');
+      throw new Error('No response from Deepseek2API');
     }
 
-    log('✅', 'DS2API 已连接');
+    log('✅', 'Deepseek2API 已连接');
   } catch (error) {
-    log('❌', `无法连接到 DS2API: ${error.message}`);
-    log('💡', '请确保 DS2API 正在运行：cd /Users/zengtao/ds2api && ./ds2api');
+    log('❌', `无法连接到 Deepseek2API: ${error.message}`);
+    log('💡', '请确保 Deepseek2API 正在运行：cd /Users/zengtao/Deepseek2API && ./Deepseek2API');
     process.exit(1);
   }
 
@@ -405,7 +405,7 @@ async function monitorAndExtract() {
                   return;
                 }
 
-                // 提交 token 到 DS2API
+                // 提交 token 到 Deepseek2API
                 log('🚀', `正在提交 ${matchedEmail} 的 token...`);
                 try {
                   await submitToken(matchedEmail, token);

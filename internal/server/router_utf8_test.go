@@ -9,8 +9,8 @@ import (
 )
 
 func TestJSONRequestsRejectInvalidUTF8BeforeDecode(t *testing.T) {
-	t.Setenv("DS2API_CONFIG_JSON", `{"keys":["managed-key"],"accounts":[{"email":"u@example.com","password":"p"}]}`)
-	t.Setenv("DS2API_ENV_WRITEBACK", "0")
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{"keys":["managed-key"],"accounts":[{"email":"u@example.com","password":"p"}]}`)
+	t.Setenv("Deepseek2API_ENV_WRITEBACK", "0")
 
 	app, err := NewApp()
 	if err != nil {
@@ -36,8 +36,8 @@ func TestJSONRequestsRejectInvalidUTF8BeforeDecode(t *testing.T) {
 }
 
 func TestKnownJSONRequestsRejectInvalidUTF8WithoutJSONContentType(t *testing.T) {
-	t.Setenv("DS2API_CONFIG_JSON", `{"keys":["managed-key"],"accounts":[{"email":"u@example.com","password":"p"}]}`)
-	t.Setenv("DS2API_ENV_WRITEBACK", "0")
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{"keys":["managed-key"],"accounts":[{"email":"u@example.com","password":"p"}]}`)
+	t.Setenv("Deepseek2API_ENV_WRITEBACK", "0")
 
 	app, err := NewApp()
 	if err != nil {
@@ -63,8 +63,8 @@ func TestKnownJSONRequestsRejectInvalidUTF8WithoutJSONContentType(t *testing.T) 
 }
 
 func TestJSONRequestsRejectTrailingInvalidUTF8AfterCompleteJSON(t *testing.T) {
-	t.Setenv("DS2API_CONFIG_JSON", `{"keys":["managed-key"],"accounts":[{"email":"u@example.com","password":"p"}]}`)
-	t.Setenv("DS2API_ENV_WRITEBACK", "0")
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{"keys":["managed-key"],"accounts":[{"email":"u@example.com","password":"p"}]}`)
+	t.Setenv("Deepseek2API_ENV_WRITEBACK", "0")
 
 	app, err := NewApp()
 	if err != nil {

@@ -11,9 +11,9 @@ import (
 	"strings"
 	"testing"
 
-	"ds2api/internal/auth"
-	"ds2api/internal/config"
-	dsclient "ds2api/internal/deepseek/client"
+	"Deepseek2API/internal/auth"
+	"Deepseek2API/internal/config"
+	dsclient "Deepseek2API/internal/deepseek/client"
 )
 
 type testingDSMock struct {
@@ -63,7 +63,7 @@ func (m *testingDSMock) GetSessionCountForToken(_ context.Context, _ string) (*d
 }
 
 func TestTestAccount_BatchModeOnlyCreatesSession(t *testing.T) {
-	t.Setenv("DS2API_CONFIG_JSON", `{"accounts":[{"email":"batch@example.com","password":"pwd","token":""}]}`)
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{"accounts":[{"email":"batch@example.com","password":"pwd","token":""}]}`)
 	store := config.LoadStore()
 	ds := &testingDSMock{}
 	h := &Handler{Store: store, DS: ds}
@@ -101,7 +101,7 @@ func TestTestAccount_BatchModeOnlyCreatesSession(t *testing.T) {
 }
 
 func TestDeleteAllSessions_RetryWithReloginOnDeleteFailure(t *testing.T) {
-	t.Setenv("DS2API_CONFIG_JSON", `{"accounts":[{"email":"batch@example.com","password":"pwd","token":"expired-token"}]}`)
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{"accounts":[{"email":"batch@example.com","password":"pwd","token":"expired-token"}]}`)
 	store := config.LoadStore()
 	ds := &testingDSMock{deleteAllSessionsError: errors.New("token expired"), deleteAllSessionsErrorOnce: true}
 	h := &Handler{Store: store, DS: ds}
@@ -168,7 +168,7 @@ func (m *completionPayloadDSMock) GetSessionCountForToken(_ context.Context, _ s
 }
 
 func TestTestAccount_MessageModeUsesExpertModelTypeForExpertModel(t *testing.T) {
-	t.Setenv("DS2API_CONFIG_JSON", `{"accounts":[{"email":"batch@example.com","password":"pwd","token":"seed-token"}]}`)
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{"accounts":[{"email":"batch@example.com","password":"pwd","token":"seed-token"}]}`)
 	store := config.LoadStore()
 	ds := &completionPayloadDSMock{}
 	h := &Handler{Store: store, DS: ds}
@@ -191,7 +191,7 @@ func TestTestAccount_MessageModeUsesExpertModelTypeForExpertModel(t *testing.T) 
 }
 
 func TestTestAccount_MessageModeUsesVisionModelTypeForVisionModel(t *testing.T) {
-	t.Setenv("DS2API_CONFIG_JSON", `{"accounts":[{"email":"batch@example.com","password":"pwd","token":"seed-token"}]}`)
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{"accounts":[{"email":"batch@example.com","password":"pwd","token":"seed-token"}]}`)
 	store := config.LoadStore()
 	ds := &completionPayloadDSMock{}
 	h := &Handler{Store: store, DS: ds}

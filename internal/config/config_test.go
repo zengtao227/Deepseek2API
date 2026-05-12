@@ -17,7 +17,7 @@ func TestAccountIdentifierRequiresEmailOrMobile(t *testing.T) {
 }
 
 func TestLoadStoreClearsTokensFromConfigInput(t *testing.T) {
-	t.Setenv("DS2API_CONFIG_JSON", `{
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{
 		"keys":["k1"],
 		"accounts":[{"email":"u@example.com","password":"p","token":"token-only-account"}]
 	}`)
@@ -33,7 +33,7 @@ func TestLoadStoreClearsTokensFromConfigInput(t *testing.T) {
 }
 
 func TestLoadStorePreservesProxiesAndAccountProxyAssignment(t *testing.T) {
-	t.Setenv("DS2API_CONFIG_JSON", `{
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{
 		"proxies":[
 			{
 				"id":"proxy-sh-1",
@@ -74,7 +74,7 @@ func TestLoadStorePreservesProxiesAndAccountProxyAssignment(t *testing.T) {
 }
 
 func TestLoadStoreDropsLegacyTokenOnlyAccounts(t *testing.T) {
-	t.Setenv("DS2API_CONFIG_JSON", `{
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{
 		"accounts":[
 			{"token":"legacy-token-only"},
 			{"email":"u@example.com","password":"p","token":"runtime-token"}
@@ -106,8 +106,8 @@ func TestLoadStorePreservesFileBackedTokensForRuntime(t *testing.T) {
 		t.Fatalf("write temp config: %v", err)
 	}
 
-	t.Setenv("DS2API_CONFIG_JSON", "")
-	t.Setenv("DS2API_CONFIG_PATH", tmp.Name())
+	t.Setenv("Deepseek2API_CONFIG_JSON", "")
+	t.Setenv("Deepseek2API_CONFIG_PATH", tmp.Name())
 
 	store := LoadStore()
 	accounts := store.Accounts()
@@ -128,9 +128,9 @@ func TestLoadStoreIgnoresLegacyConfigJSONEnv(t *testing.T) {
 	_ = tmp.Close()
 	_ = os.Remove(path)
 
-	t.Setenv("DS2API_CONFIG_JSON", "")
+	t.Setenv("Deepseek2API_CONFIG_JSON", "")
 	t.Setenv("CONFIG_JSON", `{"keys":["legacy-key"],"accounts":[{"email":"legacy@example.com","password":"p"}]}`)
-	t.Setenv("DS2API_CONFIG_PATH", path)
+	t.Setenv("Deepseek2API_CONFIG_PATH", path)
 
 	store := LoadStore()
 	if store.HasEnvConfigSource() {
@@ -147,8 +147,8 @@ func TestLoadStoreIgnoresLegacyConfigJSONEnv(t *testing.T) {
 func TestExplicitMissingConfigPathBootstrapsEmptyFileBackedStore(t *testing.T) {
 	path := t.TempDir() + "/config.json"
 
-	t.Setenv("DS2API_CONFIG_JSON", "")
-	t.Setenv("DS2API_CONFIG_PATH", path)
+	t.Setenv("Deepseek2API_CONFIG_JSON", "")
+	t.Setenv("Deepseek2API_CONFIG_PATH", path)
 
 	store, err := LoadStoreWithError()
 	if err != nil {
@@ -191,9 +191,9 @@ func TestEnvBackedStoreWritebackBootstrapsMissingConfigFile(t *testing.T) {
 	_ = tmp.Close()
 	_ = os.Remove(path)
 
-	t.Setenv("DS2API_CONFIG_JSON", `{"keys":["k1"],"accounts":[{"email":"seed@example.com","password":"p"}]}`)
-	t.Setenv("DS2API_CONFIG_PATH", path)
-	t.Setenv("DS2API_ENV_WRITEBACK", "1")
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{"keys":["k1"],"accounts":[{"email":"seed@example.com","password":"p"}]}`)
+	t.Setenv("Deepseek2API_CONFIG_PATH", path)
+	t.Setenv("Deepseek2API_ENV_WRITEBACK", "1")
 
 	store := LoadStore()
 	if store.IsEnvBacked() {
@@ -235,9 +235,9 @@ func TestEnvBackedStoreWritebackDoesNotBootstrapOnInvalidEnvJSON(t *testing.T) {
 	_ = tmp.Close()
 	_ = os.Remove(path)
 
-	t.Setenv("DS2API_CONFIG_JSON", "{invalid-json")
-	t.Setenv("DS2API_CONFIG_PATH", path)
-	t.Setenv("DS2API_ENV_WRITEBACK", "1")
+	t.Setenv("Deepseek2API_CONFIG_JSON", "{invalid-json")
+	t.Setenv("Deepseek2API_CONFIG_PATH", path)
+	t.Setenv("Deepseek2API_ENV_WRITEBACK", "1")
 
 	cfg, fromEnv, loadErr := loadConfig()
 	if loadErr == nil {
@@ -263,13 +263,13 @@ func TestEnvBackedStoreWritebackDoesNotBootstrapOnInvalidSemanticConfig(t *testi
 	_ = tmp.Close()
 	_ = os.Remove(path)
 
-	t.Setenv("DS2API_CONFIG_JSON", `{
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{
 		"keys":["k1"],
 		"accounts":[{"email":"seed@example.com","password":"p"}],
 		"runtime":{"account_max_inflight":300}
 	}`)
-	t.Setenv("DS2API_CONFIG_PATH", path)
-	t.Setenv("DS2API_ENV_WRITEBACK", "1")
+	t.Setenv("Deepseek2API_CONFIG_PATH", path)
+	t.Setenv("Deepseek2API_ENV_WRITEBACK", "1")
 
 	cfg, fromEnv, loadErr := loadConfig()
 	if loadErr == nil {
@@ -290,12 +290,12 @@ func TestEnvBackedStoreWritebackDoesNotBootstrapOnInvalidSemanticConfig(t *testi
 }
 
 func TestLoadStoreWithErrorRejectsInvalidRuntimeConfig(t *testing.T) {
-	t.Setenv("DS2API_CONFIG_JSON", `{
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{
 		"keys":["k1"],
 		"accounts":[{"email":"u@example.com","password":"p"}],
 		"runtime":{"account_max_inflight":300}
 	}`)
-	t.Setenv("DS2API_ENV_WRITEBACK", "0")
+	t.Setenv("Deepseek2API_ENV_WRITEBACK", "0")
 
 	if _, err := LoadStoreWithError(); err == nil {
 		t.Fatal("expected LoadStoreWithError to reject invalid runtime config")
@@ -315,9 +315,9 @@ func TestEnvBackedStoreWritebackFallsBackToPersistedFileOnInvalidEnvJSON(t *test
 	}
 	_ = tmp.Close()
 
-	t.Setenv("DS2API_CONFIG_JSON", "{invalid-json")
-	t.Setenv("DS2API_CONFIG_PATH", path)
-	t.Setenv("DS2API_ENV_WRITEBACK", "1")
+	t.Setenv("Deepseek2API_CONFIG_JSON", "{invalid-json")
+	t.Setenv("Deepseek2API_CONFIG_PATH", path)
+	t.Setenv("Deepseek2API_ENV_WRITEBACK", "1")
 
 	cfg, fromEnv, loadErr := loadConfig()
 	if loadErr != nil {
@@ -335,7 +335,7 @@ func TestEnvBackedStoreWritebackFallsBackToPersistedFileOnInvalidEnvJSON(t *test
 }
 
 func TestRuntimeTokenRefreshIntervalHoursDefaultsToZero(t *testing.T) {
-	t.Setenv("DS2API_CONFIG_JSON", `{
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{
 		"keys":["k1"],
 		"accounts":[{"email":"u@example.com","password":"p"}]
 	}`)
@@ -347,7 +347,7 @@ func TestRuntimeTokenRefreshIntervalHoursDefaultsToZero(t *testing.T) {
 }
 
 func TestRuntimeTokenRefreshIntervalHoursUsesConfigValue(t *testing.T) {
-	t.Setenv("DS2API_CONFIG_JSON", `{
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{
 		"keys":["k1"],
 		"accounts":[{"email":"u@example.com","password":"p"}],
 		"runtime":{"token_refresh_interval_hours":9}
@@ -360,7 +360,7 @@ func TestRuntimeTokenRefreshIntervalHoursUsesConfigValue(t *testing.T) {
 }
 
 func TestStoreUpdateAccountTokenKeepsIdentifierResolvable(t *testing.T) {
-	t.Setenv("DS2API_CONFIG_JSON", `{
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{
 		"accounts":[{"email":"user@example.com","password":"p"}]
 	}`)
 
@@ -380,7 +380,7 @@ func TestStoreUpdateAccountTokenKeepsIdentifierResolvable(t *testing.T) {
 }
 
 func TestLoadStoreRejectsInvalidFieldType(t *testing.T) {
-	t.Setenv("DS2API_CONFIG_JSON", `{"keys":"not-array","accounts":[]}`)
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{"keys":"not-array","accounts":[]}`)
 	store := LoadStore()
 	if len(store.Keys()) != 0 || len(store.Accounts()) != 0 {
 		t.Fatalf("expected empty store when config type is invalid")
@@ -413,8 +413,8 @@ func TestParseConfigStringSupportsRawURLBase64(t *testing.T) {
 
 func TestLoadConfigOnVercelWithoutConfigFileFallsBackToMemory(t *testing.T) {
 	t.Setenv("VERCEL", "1")
-	t.Setenv("DS2API_CONFIG_JSON", "")
-	t.Setenv("DS2API_CONFIG_PATH", "testdata/does-not-exist.json")
+	t.Setenv("Deepseek2API_CONFIG_JSON", "")
+	t.Setenv("Deepseek2API_CONFIG_PATH", "testdata/does-not-exist.json")
 
 	cfg, fromEnv, err := loadConfig()
 	if err != nil {
@@ -440,8 +440,8 @@ func TestAccountTestStatusIsRuntimeOnlyAndNotPersisted(t *testing.T) {
 		t.Fatalf("write temp config: %v", err)
 	}
 
-	t.Setenv("DS2API_CONFIG_JSON", "")
-	t.Setenv("DS2API_CONFIG_PATH", tmp.Name())
+	t.Setenv("Deepseek2API_CONFIG_JSON", "")
+	t.Setenv("Deepseek2API_CONFIG_PATH", tmp.Name())
 
 	store := LoadStore()
 	if got, ok := store.AccountTestStatus("u@example.com"); ok || got != "" {

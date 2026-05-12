@@ -62,7 +62,7 @@ formatters:
   settings:
     goimports:
       local-prefixes:
-        - ds2api
+        - Deepseek2API
   exclusions:
     generated: lax
     paths:

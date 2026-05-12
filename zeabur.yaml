@@ -2,7 +2,7 @@
 apiVersion: zeabur.com/v1
 kind: Template
 metadata:
-  name: DS2API
+  name: Deepseek2API
 spec:
   description: DeepSeek Web 对话转 OpenAI/Claude/Gemini 兼容 API（Go 实现，含 WebUI）
   tags:
@@ -10,7 +10,7 @@ spec:
     - API
     - Go
   readme: |-
-    # DS2API (Zeabur)
+    # Deepseek2API (Zeabur)
 
     ## Runtime baseline
     - Go: 1.26
@@ -23,12 +23,12 @@ spec:
 
     ## First-time setup
     1. Open your service URL, then visit `/admin`
-    2. Login with `DS2API_ADMIN_KEY` (shown in Zeabur env/instructions)
+    2. Login with `Deepseek2API_ADMIN_KEY` (shown in Zeabur env/instructions)
     3. Import / edit config in Admin UI (saved to `/data/config.json`)
-    4. On a fresh volume, DS2API starts with an empty config and creates `/data/config.json` on the first save
+    4. On a fresh volume, Deepseek2API starts with an empty config and creates `/data/config.json` on the first save
 
   services:
-    - name: ds2api
+    - name: Deepseek2API
       template: GIT
       spec:
         source:
@@ -48,16 +48,16 @@ spec:
             default: "5001"
           LOG_LEVEL:
             default: "INFO"
-          DS2API_ADMIN_KEY:
+          Deepseek2API_ADMIN_KEY:
             default: ${PASSWORD}
             expose: true
-          DS2API_CONFIG_PATH:
+          Deepseek2API_CONFIG_PATH:
             default: /data/config.json
         instructions:
           - title: Admin panel
             content: Visit `/admin` on your service URL.
-          - title: DS2API admin key
-            content: ${DS2API_ADMIN_KEY}
+          - title: Deepseek2API admin key
+            content: ${Deepseek2API_ADMIN_KEY}
         healthCheck:
           type: HTTP
           port: web

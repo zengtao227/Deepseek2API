@@ -13,9 +13,9 @@ import (
 
 	"github.com/go-chi/chi/v5"
 
-	"ds2api/internal/auth"
-	"ds2api/internal/chathistory"
-	dsclient "ds2api/internal/deepseek/client"
+	"Deepseek2API/internal/auth"
+	"Deepseek2API/internal/chathistory"
+	dsclient "Deepseek2API/internal/deepseek/client"
 )
 
 type testGeminiConfig struct{}
@@ -166,7 +166,7 @@ func TestGeminiDirectAppliesCurrentInputFile(t *testing.T) {
 	if len(ds.uploadCalls) != 1 {
 		t.Fatalf("expected one current input upload, got %d", len(ds.uploadCalls))
 	}
-	if ds.uploadCalls[0].Filename != "DS2API_HISTORY.txt" {
+	if ds.uploadCalls[0].Filename != "Deepseek2API_HISTORY.txt" {
 		t.Fatalf("unexpected upload filename: %q", ds.uploadCalls[0].Filename)
 	}
 	if len(ds.payloads) != 1 {
@@ -177,7 +177,7 @@ func TestGeminiDirectAppliesCurrentInputFile(t *testing.T) {
 		t.Fatalf("expected uploaded history ref id, got %#v", ds.payloads[0]["ref_file_ids"])
 	}
 	prompt, _ := ds.payloads[0]["prompt"].(string)
-	if !strings.Contains(prompt, "Continue from the latest state in the attached DS2API_HISTORY.txt context.") {
+	if !strings.Contains(prompt, "Continue from the latest state in the attached Deepseek2API_HISTORY.txt context.") {
 		t.Fatalf("expected continuation prompt, got %q", prompt)
 	}
 	snapshot, err := historyStore.Snapshot()
@@ -200,7 +200,7 @@ func TestGeminiDirectAppliesCurrentInputFile(t *testing.T) {
 	if full.HistoryText != string(ds.uploadCalls[0].Data) {
 		t.Fatalf("expected uploaded current input file to be persisted in history text")
 	}
-	if len(full.Messages) != 1 || !strings.Contains(full.Messages[0].Content, "Continue from the latest state in the attached DS2API_HISTORY.txt context.") {
+	if len(full.Messages) != 1 || !strings.Contains(full.Messages[0].Content, "Continue from the latest state in the attached Deepseek2API_HISTORY.txt context.") {
 		t.Fatalf("expected persisted message to match upstream continuation prompt, got %#v", full.Messages)
 	}
 }
@@ -232,7 +232,7 @@ func TestGeminiCurrentInputFileUploadsToolsSeparately(t *testing.T) {
 	if len(ds.uploadCalls) != 2 {
 		t.Fatalf("expected history and tools uploads, got %d", len(ds.uploadCalls))
 	}
-	if ds.uploadCalls[0].Filename != "DS2API_HISTORY.txt" || ds.uploadCalls[1].Filename != "DS2API_TOOLS.txt" {
+	if ds.uploadCalls[0].Filename != "Deepseek2API_HISTORY.txt" || ds.uploadCalls[1].Filename != "Deepseek2API_TOOLS.txt" {
 		t.Fatalf("unexpected upload filenames: %#v", ds.uploadCalls)
 	}
 	historyText := string(ds.uploadCalls[0].Data)
@@ -240,7 +240,7 @@ func TestGeminiCurrentInputFileUploadsToolsSeparately(t *testing.T) {
 		t.Fatalf("history transcript should not embed tool descriptions, got %q", historyText)
 	}
 	toolsText := string(ds.uploadCalls[1].Data)
-	if !strings.Contains(toolsText, "# DS2API_TOOLS.txt") || !strings.Contains(toolsText, "Tool: eval_javascript") || !strings.Contains(toolsText, "Description: eval") {
+	if !strings.Contains(toolsText, "# Deepseek2API_TOOLS.txt") || !strings.Contains(toolsText, "Tool: eval_javascript") || !strings.Contains(toolsText, "Description: eval") {
 		t.Fatalf("expected tools transcript to include Gemini tool schema, got %q", toolsText)
 	}
 	refIDs, _ := ds.payloads[0]["ref_file_ids"].([]any)
@@ -248,7 +248,7 @@ func TestGeminiCurrentInputFileUploadsToolsSeparately(t *testing.T) {
 		t.Fatalf("expected history and tools ref ids first, got %#v", ds.payloads[0]["ref_file_ids"])
 	}
 	prompt, _ := ds.payloads[0]["prompt"].(string)
-	if !strings.Contains(prompt, "DS2API_TOOLS.txt") || !strings.Contains(prompt, "TOOL CALL FORMAT") {
+	if !strings.Contains(prompt, "Deepseek2API_TOOLS.txt") || !strings.Contains(prompt, "TOOL CALL FORMAT") {
 		t.Fatalf("expected live prompt to reference tools file and retain format instructions, got %q", prompt)
 	}
 	if strings.Contains(prompt, "Description: eval") {

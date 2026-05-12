@@ -311,7 +311,7 @@ func TestParseToolCallsSupportsDSMLShellWithCanonicalExampleInCDATA(t *testing.T
 func TestParseToolCallsKeepsHereDocCDATAWithFencedDSMLAndLiteralCDATAEnd(t *testing.T) {
 	command := strings.Join([]string{
 		"cat > docs/project-value.md << 'ENDOFFILE'",
-		"# DS2API project value",
+		"# Deepseek2API project value",
 		"",
 		"```xml",
 		`<|DSML|tool_calls>`,
@@ -439,7 +439,7 @@ func TestParseToolCallsKeepsToolSyntaxInsideCDATAAsParameterText(t *testing.T) {
 		"</tool_calls>",
 		"```",
 	}, "\n")
-	text := `<tool_calls><invoke name="Write"><parameter name="content"><![CDATA[` + payload + `]]></parameter><parameter name="file_path">DS2API-4.0-Release-Notes.md</parameter></invoke></tool_calls>`
+	text := `<tool_calls><invoke name="Write"><parameter name="content"><![CDATA[` + payload + `]]></parameter><parameter name="file_path">Deepseek2API-4.0-Release-Notes.md</parameter></invoke></tool_calls>`
 	calls := ParseToolCalls(text, []string{"Write"})
 	if len(calls) != 1 {
 		t.Fatalf("expected 1 call, got %#v", calls)
@@ -448,7 +448,7 @@ func TestParseToolCallsKeepsToolSyntaxInsideCDATAAsParameterText(t *testing.T) {
 	if content != payload {
 		t.Fatalf("expected CDATA payload with nested tool syntax to survive intact, got %q", content)
 	}
-	if calls[0].Input["file_path"] != "DS2API-4.0-Release-Notes.md" {
+	if calls[0].Input["file_path"] != "Deepseek2API-4.0-Release-Notes.md" {
 		t.Fatalf("expected file_path parameter, got %#v", calls[0].Input)
 	}
 }

@@ -1,6 +1,6 @@
 package openai
 
-import "ds2api/internal/util"
+import "Deepseek2API/internal/util"
 
 func BuildChatUsageForModel(model, finalPrompt, finalThinking, finalText string, refFileTokens int) map[string]any {
 	promptTokens := util.CountPromptTokens(finalPrompt, model) + refFileTokens

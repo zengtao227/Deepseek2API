@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"testing"
 
-	"ds2api/internal/config"
+	"Deepseek2API/internal/config"
 )
 
 func TestJWTCreateVerify(t *testing.T) {
@@ -31,7 +31,7 @@ func TestVerifyAdminRequest(t *testing.T) {
 }
 
 func TestVerifyJWTWithStoreValidAfter(t *testing.T) {
-	t.Setenv("DS2API_CONFIG_JSON", `{"admin":{"password_hash":"`+HashAdminPassword("oldpass")+`"}}`)
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{"admin":{"password_hash":"`+HashAdminPassword("oldpass")+`"}}`)
 	store := config.LoadStore()
 	token, err := CreateJWTWithStore(1, store)
 	if err != nil {
@@ -52,7 +52,7 @@ func TestVerifyJWTWithStoreValidAfter(t *testing.T) {
 }
 
 func TestVerifyJWTWithStoreSameSecondInvalidationAndRelogin(t *testing.T) {
-	t.Setenv("DS2API_CONFIG_JSON", `{"admin":{"password_hash":"`+HashAdminPassword("oldpass")+`"}}`)
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{"admin":{"password_hash":"`+HashAdminPassword("oldpass")+`"}}`)
 	store := config.LoadStore()
 
 	oldToken, err := CreateJWTWithStore(1, store)

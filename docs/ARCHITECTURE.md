@@ -1,4 +1,4 @@
-# DS2API 架构与项目结构说明
+# Deepseek2API 架构与项目结构说明
 
 语言 / Language: [中文](ARCHITECTURE.md) | [English](ARCHITECTURE.en.md)
 
@@ -9,7 +9,7 @@
 > 说明：以下为仓库内主要业务目录（排除 `.git/` 与 `webui/node_modules/` 这类依赖/元数据目录），并标注每个文件夹作用。新增目录以代码为准，不要求在本文做逐文件展开。
 
 ```text
-ds2api/
+Deepseek2API/
 ├── .github/                              # GitHub 协作与 CI 配置
 │   ├── ISSUE_TEMPLATE/                   # Issue 模板
 │   └── workflows/                        # GitHub Actions 工作流
@@ -17,8 +17,8 @@ ds2api/
 ├── app/                                  # 应用级 handler 装配层
 ├── artifacts/                            # 调试产物（raw-stream-sim, stream-debug 等）
 ├── cmd/                                  # 可执行程序入口
-│   ├── ds2api/                           # 主服务启动入口
-│   └── ds2api-tests/                     # E2E 测试集 CLI 入口
+│   ├── Deepseek2API/                           # 主服务启动入口
+│   └── Deepseek2API-tests/                     # E2E 测试集 CLI 入口
 ├── docs/                                 # 项目文档目录
 ├── internal/                             # 核心业务实现（不对外暴露）
 │   ├── account/                          # 账号池、并发槽位、等待队列

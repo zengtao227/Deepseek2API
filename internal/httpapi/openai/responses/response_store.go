@@ -4,7 +4,7 @@ import (
 	"sync"
 	"time"
 
-	"ds2api/internal/auth"
+	"Deepseek2API/internal/auth"
 )
 
 type storedResponse struct {

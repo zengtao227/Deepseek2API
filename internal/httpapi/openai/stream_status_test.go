@@ -12,8 +12,8 @@ import (
 	"github.com/go-chi/chi/v5"
 	chimw "github.com/go-chi/chi/v5/middleware"
 
-	"ds2api/internal/auth"
-	dsclient "ds2api/internal/deepseek/client"
+	"Deepseek2API/internal/auth"
+	dsclient "Deepseek2API/internal/deepseek/client"
 )
 
 type streamStatusAuthStub struct{}

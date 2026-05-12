@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * DS2API 启动脚本 - 交互式菜单
+ * Deepseek2API 启动脚本 - 交互式菜单
  *
  * 使用方法:
  *   node start.mjs          # 显示交互式菜单
@@ -26,16 +26,16 @@ const __dirname = dirname(__filename);
 const isWindows = process.platform === 'win32';
 
 // 编译产物路径
-const BINARY = join(__dirname, isWindows ? 'ds2api.exe' : 'ds2api');
+const BINARY = join(__dirname, isWindows ? 'Deepseek2API.exe' : 'Deepseek2API');
 
 // 配置（从环境变量读取，与 Go 主程序保持一致）
 const CONFIG = {
   port: process.env.PORT || '5001',
   frontendPort: 5173,
   logLevel: process.env.LOG_LEVEL || 'INFO',
-  adminKey: process.env.DS2API_ADMIN_KEY || 'admin',
+  adminKey: process.env.Deepseek2API_ADMIN_KEY || 'admin',
   webuiDir: join(__dirname, 'webui'),
-  staticAdminDir: process.env.DS2API_STATIC_ADMIN_DIR || join(__dirname, 'static', 'admin'),
+  staticAdminDir: process.env.Deepseek2API_STATIC_ADMIN_DIR || join(__dirname, 'static', 'admin'),
 };
 
 // 国内镜像配置
@@ -239,7 +239,7 @@ async function buildBackend() {
   if (!checkGo()) throw new Error('未找到 Go，请先安装 Go (https://go.dev/dl/)');
   log.info(`编译后端二进制 (GOPROXY: ${MIRRORS.goproxy})...`);
   return new Promise((resolve, reject) => {
-    const proc = spawn('go', ['build', '-o', BINARY, './cmd/ds2api'], {
+    const proc = spawn('go', ['build', '-o', BINARY, './cmd/Deepseek2API'], {
       cwd: __dirname,
       stdio: 'inherit',
       shell: isWindows,
@@ -270,14 +270,14 @@ async function buildWebui() {
 async function startBackendDev() {
   if (!checkGo()) throw new Error('未找到 Go，请先安装 Go (https://go.dev/dl/)');
   log.info(`启动后端（go run）... 本地 http://127.0.0.1:${CONFIG.port}  绑定 0.0.0.0:${CONFIG.port}`);
-  const proc = spawn('go', ['run', './cmd/ds2api'], {
+  const proc = spawn('go', ['run', './cmd/Deepseek2API'], {
     cwd: __dirname,
     stdio: 'inherit',
     shell: isWindows,
     env: { ...process.env,
       PORT: CONFIG.port,
       LOG_LEVEL: CONFIG.logLevel,
-      DS2API_ADMIN_KEY: CONFIG.adminKey,
+      Deepseek2API_ADMIN_KEY: CONFIG.adminKey,
       GOPROXY: MIRRORS.goproxy,
     },
   });
@@ -300,7 +300,7 @@ async function startBackendProd() {
       ...process.env,
       PORT: CONFIG.port,
       LOG_LEVEL: CONFIG.logLevel,
-      DS2API_ADMIN_KEY: CONFIG.adminKey,
+      Deepseek2API_ADMIN_KEY: CONFIG.adminKey,
     },
   });
   processes.push(proc);
@@ -357,7 +357,7 @@ async function showMenu() {
 
   console.clear();
   log.title('╔══════════════════════════════════════════╗');
-  log.title('║         DS2API 启动脚本  (Go)            ║');
+  log.title('║         Deepseek2API 启动脚本  (Go)            ║');
   log.title('╚══════════════════════════════════════════╝');
 
   // 环境状态
@@ -382,10 +382,10 @@ async function showMenu() {
   console.log(`\n${colors.bright}环境变量:${colors.reset}`);
   console.log(`  PORT:              ${colors.cyan}${CONFIG.port}${colors.reset}`);
   console.log(`  LOG_LEVEL:         ${colors.cyan}${CONFIG.logLevel}${colors.reset}`);
-  console.log(`  DS2API_ADMIN_KEY:  ${colors.cyan}${CONFIG.adminKey}${colors.reset}`);
+  console.log(`  Deepseek2API_ADMIN_KEY:  ${colors.cyan}${CONFIG.adminKey}${colors.reset}`);
   console.log(`  GOPROXY:           ${colors.cyan}${MIRRORS.goproxy}${colors.reset}`);
   console.log(`  NPM_REGISTRY:      ${colors.cyan}${MIRRORS.npm}${colors.reset}`);
-  console.log(`${colors.dim}  自定义: DS2API_ADMIN_KEY=密钥 PORT=5001 node start.mjs${colors.reset}`);
+  console.log(`${colors.dim}  自定义: Deepseek2API_ADMIN_KEY=密钥 PORT=5001 node start.mjs${colors.reset}`);
 
   console.log(`
 ${colors.bright}请选择操作:${colors.reset}
@@ -532,7 +532,7 @@ async function main() {
     case '-h':
     case '--help':
       console.log(`
-${colors.bright}DS2API 启动脚本 (Go)${colors.reset}
+${colors.bright}Deepseek2API 启动脚本 (Go)${colors.reset}
 
 ${colors.cyan}使用方法:${colors.reset}
   node start.mjs              显示交互式菜单
@@ -547,13 +547,13 @@ ${colors.cyan}使用方法:${colors.reset}
 ${colors.cyan}常用环境变量:${colors.reset}
   PORT               后端端口 (默认: 5001)
   LOG_LEVEL          日志级别: DEBUG|INFO|WARN|ERROR (默认: INFO)
-  DS2API_ADMIN_KEY   管理员密钥 (默认: admin)
-  DS2API_CONFIG_PATH 配置文件路径 (默认: config.json)
+  Deepseek2API_ADMIN_KEY   管理员密钥 (默认: admin)
+  Deepseek2API_CONFIG_PATH 配置文件路径 (默认: config.json)
   GOPROXY            Go 模块代理 (默认: https://goproxy.cn,direct)
   NPM_REGISTRY       npm 镜像源 (默认: https://registry.npmmirror.com)
 
 ${colors.cyan}示例:${colors.reset}
-  DS2API_ADMIN_KEY=mykey PORT=8080 node start.mjs dev
+  Deepseek2API_ADMIN_KEY=mykey PORT=8080 node start.mjs dev
   GOPROXY=off NPM_REGISTRY=https://registry.npmjs.org node start.mjs dev
 `);
       break;

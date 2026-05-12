@@ -1,4 +1,4 @@
-# DS2API 测试指南
+# Deepseek2API 测试指南
 
 语言 / Language: 中文 + English（同页）
 
@@ -6,7 +6,7 @@
 
 ## 概述 | Overview
 
-DS2API 提供两个层级的测试：
+Deepseek2API 提供两个层级的测试：
 
 | 层级 | 命令 | 说明 |
 | --- | --- | --- |
@@ -90,14 +90,14 @@ npm run build --prefix webui
 
 4. **结果收集**：继续执行所有用例（不中断），写入最终汇总
 
-如果你只想跳过这些 preflight 检查，可以直接运行 `go run ./cmd/ds2api-tests --no-preflight`。
+如果你只想跳过这些 preflight 检查，可以直接运行 `go run ./cmd/Deepseek2API-tests --no-preflight`。
 
 ---
 
 ## CLI 参数 | CLI Flags
 
 ```bash
-go run ./cmd/ds2api-tests \
+go run ./cmd/Deepseek2API-tests \
   --config config.json \
   --admin-key admin \
   --out artifacts/testsuite \
@@ -111,7 +111,7 @@ go run ./cmd/ds2api-tests \
 | 参数 | 说明 | 默认值 |
 | --- | --- | --- |
 | `--config` | 配置文件路径 | `config.json` |
-| `--admin-key` | Admin 密钥 | `DS2API_ADMIN_KEY` 环境变量，回退 `admin` |
+| `--admin-key` | Admin 密钥 | `Deepseek2API_ADMIN_KEY` 环境变量，回退 `admin` |
 | `--out` | 产物输出根目录 | `artifacts/testsuite` |
 | `--port` | 测试服务端口（`0` = 自动分配空闲端口） | `0` |
 | `--timeout` | 单个请求超时秒数 | `120` |
@@ -246,7 +246,7 @@ node --test --test-concurrency=1 tests/node/stream-tool-sieve.test.js tests/node
 ### 跑端到端测试（跳过 preflight）
 
 ```bash
-go run ./cmd/ds2api-tests --no-preflight
+go run ./cmd/Deepseek2API-tests --no-preflight
 ```
 
 ### 运行原始流仿真（独立工具）
@@ -302,8 +302,8 @@ POST /admin/dev/raw-samples/save
 ### 指定输出目录和超时
 
 ```bash
-go run ./cmd/ds2api-tests \
-  --out /tmp/ds2api-test \
+go run ./cmd/Deepseek2API-tests \
+  --out /tmp/Deepseek2API-test \
   --timeout 60
 ```
 

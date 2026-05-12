@@ -424,7 +424,7 @@ func TestParseConfigStringEmptyString(t *testing.T) {
 // ─── Store methods ───────────────────────────────────────────────────
 
 func TestStoreSnapshotReturnsClone(t *testing.T) {
-	t.Setenv("DS2API_CONFIG_JSON", `{"keys":["k1"],"accounts":[{"email":"u@test.com","token":"t1"}]}`)
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{"keys":["k1"],"accounts":[{"email":"u@test.com","token":"t1"}]}`)
 	store := LoadStore()
 	snap := store.Snapshot()
 	snap.Keys[0] = "modified"
@@ -434,7 +434,7 @@ func TestStoreSnapshotReturnsClone(t *testing.T) {
 }
 
 func TestStoreHasAPIKeyMultipleKeys(t *testing.T) {
-	t.Setenv("DS2API_CONFIG_JSON", `{"keys":["key1","key2","key3"],"accounts":[]}`)
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{"keys":["key1","key2","key3"],"accounts":[]}`)
 	store := LoadStore()
 	if !store.HasAPIKey("key1") {
 		t.Fatal("expected key1 found")
@@ -451,7 +451,7 @@ func TestStoreHasAPIKeyMultipleKeys(t *testing.T) {
 }
 
 func TestStoreFindAccountNotFound(t *testing.T) {
-	t.Setenv("DS2API_CONFIG_JSON", `{"keys":["k1"],"accounts":[{"email":"u@test.com"}]}`)
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{"keys":["k1"],"accounts":[{"email":"u@test.com"}]}`)
 	store := LoadStore()
 	_, ok := store.FindAccount("nonexistent@test.com")
 	if ok {
@@ -460,7 +460,7 @@ func TestStoreFindAccountNotFound(t *testing.T) {
 }
 
 func TestStoreIgnoresRemovedCompatConfig(t *testing.T) {
-	t.Setenv("DS2API_CONFIG_JSON", `{"keys":["k1"],"accounts":[],"compat":{"strip_reference_markers":false}}`)
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{"keys":["k1"],"accounts":[],"compat":{"strip_reference_markers":false}}`)
 	store := LoadStore()
 
 	snap := store.Snapshot()
@@ -478,7 +478,7 @@ func TestStoreIgnoresRemovedCompatConfig(t *testing.T) {
 }
 
 func TestStoreIsEnvBacked(t *testing.T) {
-	t.Setenv("DS2API_CONFIG_JSON", `{"keys":["k1"],"accounts":[]}`)
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{"keys":["k1"],"accounts":[]}`)
 	store := LoadStore()
 	if !store.IsEnvBacked() {
 		t.Fatal("expected env-backed store")
@@ -486,7 +486,7 @@ func TestStoreIsEnvBacked(t *testing.T) {
 }
 
 func TestStoreReplace(t *testing.T) {
-	t.Setenv("DS2API_CONFIG_JSON", `{"keys":["k1"],"accounts":[]}`)
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{"keys":["k1"],"accounts":[]}`)
 	store := LoadStore()
 	newCfg := Config{
 		Keys:     []string{"new-key"},
@@ -504,7 +504,7 @@ func TestStoreReplace(t *testing.T) {
 }
 
 func TestStoreUpdate(t *testing.T) {
-	t.Setenv("DS2API_CONFIG_JSON", `{"keys":["k1"],"accounts":[]}`)
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{"keys":["k1"],"accounts":[]}`)
 	store := LoadStore()
 	err := store.Update(func(cfg *Config) error {
 		cfg.Keys = append(cfg.Keys, "k2")
@@ -519,7 +519,7 @@ func TestStoreUpdate(t *testing.T) {
 }
 
 func TestStoreUpdateReconcilesAPIKeyMutations(t *testing.T) {
-	t.Setenv("DS2API_CONFIG_JSON", `{
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{
 		"keys":["k1"],
 		"api_keys":[{"key":"k1","name":"primary","remark":"prod"}],
 		"accounts":[]
@@ -564,7 +564,7 @@ func TestStoreUpdateReconcilesAPIKeyMutations(t *testing.T) {
 }
 
 func TestStoreUpdateReconcilesLegacyKeyMutations(t *testing.T) {
-	t.Setenv("DS2API_CONFIG_JSON", `{
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{
 		"keys":["k1"],
 		"api_keys":[{"key":"k1","name":"primary","remark":"prod"}],
 		"accounts":[]
@@ -614,7 +614,7 @@ func TestNormalizeCredentialsPrefersStructuredAPIKeys(t *testing.T) {
 }
 
 func TestStoreModelAliasesIncludesDefaultsAndOverrides(t *testing.T) {
-	t.Setenv("DS2API_CONFIG_JSON", `{"keys":[],"accounts":[],"model_aliases":{"claude-opus-4-6":"deepseek-v4-pro-search"}}`)
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{"keys":[],"accounts":[],"model_aliases":{"claude-opus-4-6":"deepseek-v4-pro-search"}}`)
 	store := LoadStore()
 	aliases := store.ModelAliases()
 	if aliases["claude-sonnet-4-6"] != "deepseek-v4-flash" {
@@ -626,7 +626,7 @@ func TestStoreModelAliasesIncludesDefaultsAndOverrides(t *testing.T) {
 }
 
 func TestStoreModelAliasesDefault(t *testing.T) {
-	t.Setenv("DS2API_CONFIG_JSON", `{"keys":[],"accounts":[]}`)
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{"keys":[],"accounts":[]}`)
 	store := LoadStore()
 	aliases := store.ModelAliases()
 	if aliases == nil {
@@ -638,7 +638,7 @@ func TestStoreModelAliasesDefault(t *testing.T) {
 }
 
 func TestStoreSetVercelSync(t *testing.T) {
-	t.Setenv("DS2API_CONFIG_JSON", `{"keys":[],"accounts":[]}`)
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{"keys":[],"accounts":[]}`)
 	store := LoadStore()
 	if err := store.SetVercelSync("hash123", 1234567890); err != nil {
 		t.Fatalf("setVercelSync error: %v", err)
@@ -650,7 +650,7 @@ func TestStoreSetVercelSync(t *testing.T) {
 }
 
 func TestStoreExportJSONAndBase64(t *testing.T) {
-	t.Setenv("DS2API_CONFIG_JSON", `{"keys":["export-key"],"accounts":[]}`)
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{"keys":["export-key"],"accounts":[]}`)
 	store := LoadStore()
 	jsonStr, b64Str, err := store.ExportJSONAndBase64()
 	if err != nil {

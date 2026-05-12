@@ -143,7 +143,7 @@ async function safeReadText(resp) {
 }
 
 function internalSecret() {
-  return asString(process.env.DS2API_VERCEL_INTERNAL_SECRET) || asString(process.env.DS2API_ADMIN_KEY) || 'admin';
+  return asString(process.env.Deepseek2API_VERCEL_INTERNAL_SECRET) || asString(process.env.Deepseek2API_ADMIN_KEY) || 'admin';
 }
 
 function buildInternalGoURL(req) {
@@ -213,7 +213,7 @@ function resolveProtectionBypass(req) {
   if (fromHeader) {
     return fromHeader;
   }
-  return asString(process.env.VERCEL_AUTOMATION_BYPASS_SECRET) || asString(process.env.DS2API_VERCEL_PROTECTION_BYPASS);
+  return asString(process.env.VERCEL_AUTOMATION_BYPASS_SECRET) || asString(process.env.Deepseek2API_VERCEL_PROTECTION_BYPASS);
 }
 
 function looksLikeVercelAuthPage(text) {

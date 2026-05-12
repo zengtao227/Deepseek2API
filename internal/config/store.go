@@ -51,7 +51,7 @@ func loadStore() (*Store, error) {
 }
 
 func loadConfig() (Config, bool, error) {
-	rawCfg := strings.TrimSpace(os.Getenv("DS2API_CONFIG_JSON"))
+	rawCfg := strings.TrimSpace(os.Getenv("Deepseek2API_CONFIG_JSON"))
 	path := ConfigPath()
 	if rawCfg != "" {
 		cfg, err := parseConfigString(rawCfg)
@@ -115,7 +115,7 @@ func loadConfig() (Config, bool, error) {
 }
 
 func shouldBootstrapMissingConfigFile(err error) bool {
-	return errors.Is(err, os.ErrNotExist) && strings.TrimSpace(os.Getenv("DS2API_CONFIG_PATH")) != ""
+	return errors.Is(err, os.ErrNotExist) && strings.TrimSpace(os.Getenv("Deepseek2API_CONFIG_PATH")) != ""
 }
 
 func loadConfigFromFile(path string) (Config, error) {

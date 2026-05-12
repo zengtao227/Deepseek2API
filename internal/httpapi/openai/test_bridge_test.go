@@ -9,15 +9,15 @@ import (
 
 	"github.com/go-chi/chi/v5"
 
-	"ds2api/internal/auth"
-	"ds2api/internal/chathistory"
-	"ds2api/internal/httpapi/openai/chat"
-	"ds2api/internal/httpapi/openai/embeddings"
-	"ds2api/internal/httpapi/openai/files"
-	"ds2api/internal/httpapi/openai/history"
-	"ds2api/internal/httpapi/openai/responses"
-	"ds2api/internal/httpapi/openai/shared"
-	"ds2api/internal/promptcompat"
+	"Deepseek2API/internal/auth"
+	"Deepseek2API/internal/chathistory"
+	"Deepseek2API/internal/httpapi/openai/chat"
+	"Deepseek2API/internal/httpapi/openai/embeddings"
+	"Deepseek2API/internal/httpapi/openai/files"
+	"Deepseek2API/internal/httpapi/openai/history"
+	"Deepseek2API/internal/httpapi/openai/responses"
+	"Deepseek2API/internal/httpapi/openai/shared"
+	"Deepseek2API/internal/promptcompat"
 )
 
 type openAITestSurface struct {

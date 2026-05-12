@@ -1,19 +1,19 @@
 package responses
 
 import (
-	"ds2api/internal/assistantturn"
-	"ds2api/internal/toolcall"
+	"Deepseek2API/internal/assistantturn"
+	"Deepseek2API/internal/toolcall"
 	"net/http"
 	"strings"
 
-	"ds2api/internal/config"
-	openaifmt "ds2api/internal/format/openai"
-	"ds2api/internal/httpapi/openai/shared"
-	"ds2api/internal/promptcompat"
-	"ds2api/internal/responsehistory"
-	"ds2api/internal/sse"
-	streamengine "ds2api/internal/stream"
-	"ds2api/internal/toolstream"
+	"Deepseek2API/internal/config"
+	openaifmt "Deepseek2API/internal/format/openai"
+	"Deepseek2API/internal/httpapi/openai/shared"
+	"Deepseek2API/internal/promptcompat"
+	"Deepseek2API/internal/responsehistory"
+	"Deepseek2API/internal/sse"
+	streamengine "Deepseek2API/internal/stream"
+	"Deepseek2API/internal/toolstream"
 )
 
 type responsesStreamRuntime struct {

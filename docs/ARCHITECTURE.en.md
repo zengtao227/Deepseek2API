@@ -1,4 +1,4 @@
-# DS2API Architecture & Project Layout
+# Deepseek2API Architecture & Project Layout
 
 Language: [中文](ARCHITECTURE.md) | [English](ARCHITECTURE.en.md)
 
@@ -9,7 +9,7 @@ Language: [中文](ARCHITECTURE.md) | [English](ARCHITECTURE.en.md)
 > Notes: this lists the main business directories (excluding metadata/dependency dirs such as `.git/` and `webui/node_modules/`), with each folder annotated by purpose. Newly added directories should be verified from the code tree rather than treated as a per-file inventory here.
 
 ```text
-ds2api/
+Deepseek2API/
 ├── .github/                              # GitHub collaboration and CI config
 │   ├── ISSUE_TEMPLATE/                   # Issue templates
 │   └── workflows/                        # GitHub Actions workflows
@@ -17,8 +17,8 @@ ds2api/
 ├── app/                                  # Application-level handler assembly
 ├── artifacts/                            # Debug artifacts (raw-stream-sim, stream-debug, etc.)
 ├── cmd/                                  # Executable entrypoints
-│   ├── ds2api/                           # Main service bootstrap
-│   └── ds2api-tests/                     # E2E testsuite CLI bootstrap
+│   ├── Deepseek2API/                           # Main service bootstrap
+│   └── Deepseek2API-tests/                     # E2E testsuite CLI bootstrap
 ├── docs/                                 # Project documentation
 ├── internal/                             # Core implementation (non-public packages)
 │   ├── account/                          # Account pool, inflight slots, waiting queue
@@ -217,7 +217,7 @@ flowchart LR
 
 - `webui/` stores frontend source (Vite + React).
 - Runtime serves static output from `static/admin`.
-- On first local startup, if `static/admin` is missing, DS2API may auto-build it (Node.js required).
+- On first local startup, if `static/admin` is missing, Deepseek2API may auto-build it (Node.js required).
 
 ## 5. Documentation Split Strategy
 

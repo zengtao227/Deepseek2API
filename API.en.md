@@ -1,4 +1,4 @@
-# DS2API API Reference
+# Deepseek2API API Reference
 
 Language: [中文](API.md) | [English](API.en.md)
 
@@ -40,7 +40,7 @@ Docs: [Overview](README.en.md) / [Architecture](docs/ARCHITECTURE.en.md) / [Depl
 
 - OpenAI / Claude / Gemini protocols are now mounted on one shared `chi` router tree assembled in `internal/server/router.go`.
 - Adapter responsibilities are streamlined to: **request normalization → DeepSeek invocation → protocol-shaped rendering**, reducing legacy split-logic paths.
-- Tool-calling semantics are aligned between Go and Node runtime: models should output the halfwidth-pipe DSML shell `<|DSML|tool_calls>` → `<|DSML|invoke name="...">` → `<|DSML|parameter name="...">`; DS2API also accepts DSML wrapper aliases such as `<dsml|tool_calls>` and `<|tool_calls>`, common DSML separator drift such as `<|DSML tool_calls>`, collapsed DSML local names such as `<DSMLtool_calls>`, control-separator drift such as `<DSML␂tool_calls>` / raw STX `\x02`, CJK angle bracket, fullwidth-bang / ideographic-comma separator drift, PascalCase local-name drift, and trailing attribute separator drift such as `<DSM|parameter name="command"|>...〈/DSM|parameter〉`, `<！DSML！invoke name=“Bash”>`, `<、DSML、tool_calls>`, `<DSmartToolCalls>`, or `<DSMLtool_calls※>`, arbitrary protocol prefixes such as `<proto💥tool_calls>`, and legacy canonical XML `<tool_calls>` → `<invoke name="...">` → `<parameter name="...">`. The scanner normalizes fixed local names (`tool_calls` / `invoke` / `parameter`) with non-structural separators before or after them back to XML before parsing, and also tolerates CDATA opener drift such as `<！[CDATA[` / `<、[CDATA[`; only wrapped tool blocks or the narrow missing-opening-wrapper repair path enter the tool path, while bare `<invoke>` does not count as supported syntax. JSON literal parameter bodies are preserved as structured values, explicit empty or whitespace-only parameters are preserved as empty strings, malformed complete wrappers are released as plain text, and loose CDATA is narrowly repaired at final parse/flush when it can preserve a complete outer tool call.
+- Tool-calling semantics are aligned between Go and Node runtime: models should output the halfwidth-pipe DSML shell `<|DSML|tool_calls>` → `<|DSML|invoke name="...">` → `<|DSML|parameter name="...">`; Deepseek2API also accepts DSML wrapper aliases such as `<dsml|tool_calls>` and `<|tool_calls>`, common DSML separator drift such as `<|DSML tool_calls>`, collapsed DSML local names such as `<DSMLtool_calls>`, control-separator drift such as `<DSML␂tool_calls>` / raw STX `\x02`, CJK angle bracket, fullwidth-bang / ideographic-comma separator drift, PascalCase local-name drift, and trailing attribute separator drift such as `<DSM|parameter name="command"|>...〈/DSM|parameter〉`, `<！DSML！invoke name=“Bash”>`, `<、DSML、tool_calls>`, `<DSmartToolCalls>`, or `<DSMLtool_calls※>`, arbitrary protocol prefixes such as `<proto💥tool_calls>`, and legacy canonical XML `<tool_calls>` → `<invoke name="...">` → `<parameter name="...">`. The scanner normalizes fixed local names (`tool_calls` / `invoke` / `parameter`) with non-structural separators before or after them back to XML before parsing, and also tolerates CDATA opener drift such as `<！[CDATA[` / `<、[CDATA[`; only wrapped tool blocks or the narrow missing-opening-wrapper repair path enter the tool path, while bare `<invoke>` does not count as supported syntax. JSON literal parameter bodies are preserved as structured values, explicit empty or whitespace-only parameters are preserved as empty strings, malformed complete wrappers are released as plain text, and loose CDATA is narrowly repaired at final parse/flush when it can preserve a complete outer tool call.
 - `Admin API` separates static config from runtime policy: `/admin/config*` for configuration state, `/admin/settings*` for runtime behavior.
 - When upstream returns a thinking-only response with no visible text, the Go main path and the Vercel Node streaming path retry once in the same DeepSeek session: it appends the prompt suffix `"Previous reply had no visible output. Please regenerate the visible final answer or tool call now."` and sets `parent_message_id`. If that same-account retry would still end as `429 upstream_empty_output`, managed-account mode switches to the next available account, creates a fresh session, and retries the original payload once before returning 429.
 - Citation/reference marker boundary: streaming output hides upstream `[citation:N]` / `[reference:N]` placeholders by default; non-stream output converts DeepSeek search reference markers into Markdown links.
@@ -59,13 +59,13 @@ cp config.example.json config.json
 Use it per deployment mode:
 
 - Local run: read `config.json` directly
-- Docker / Vercel: generate Base64 from `config.json`, then set `DS2API_CONFIG_JSON`, or paste raw JSON directly
+- Docker / Vercel: generate Base64 from `config.json`, then set `Deepseek2API_CONFIG_JSON`, or paste raw JSON directly
 
 ```bash
-DS2API_CONFIG_JSON="$(base64 < config.json | tr -d '\n')"
+Deepseek2API_CONFIG_JSON="$(base64 < config.json | tr -d '\n')"
 ```
 
-For Vercel one-click bootstrap, you can set only `DS2API_ADMIN_KEY` first, then import config at `/admin` and sync env vars from the "Vercel Sync" page.
+For Vercel one-click bootstrap, you can set only `Deepseek2API_ADMIN_KEY` first, then import config at `/admin` and sync env vars from the "Vercel Sync" page.
 
 ---
 
@@ -83,7 +83,7 @@ Two header formats accepted:
 
 **Auth behavior**:
 
-- Token is in `config.keys` → **Managed account mode**: DS2API auto-selects an account via rotation
+- Token is in `config.keys` → **Managed account mode**: Deepseek2API auto-selects an account via rotation
 - Token is not in `config.keys` → **Direct token mode**: treated as a DeepSeek token directly
 
 **Optional header**: `X-Ds2-Target-Account: <email_or_mobile>` — Pin a specific managed account; if the target account does not exist or the managed-account queue is exhausted, the request returns `429`, and current responses do not include `Retry-After`. If the account exists but login/refresh fails, the request returns the underlying `401` or upstream error. Without a pinned target, managed-account completion requests try one alternate-account fresh retry before returning an empty-output 429; pinned-target requests and requests with no other available account do not switch.
@@ -174,7 +174,7 @@ Gemini-compatible clients can also send `x-goog-api-key`, `?key=`, or `?api_key=
 | PUT | `/admin/chat-history/settings` | Admin | Update conversation history retention limit |
 | GET | `/admin/version` | Admin | Check current version and latest Release |
 
-OpenAI `/v1/*` paths are canonical. For clients configured with the bare DS2API service URL, the same OpenAI handlers are also exposed through root shortcuts: `/models`, `/models/{id}`, `/chat/completions`, `/responses`, `/responses/{response_id}`, `/embeddings`, `/files`, and `/files/{file_id}`.
+OpenAI `/v1/*` paths are canonical. For clients configured with the bare Deepseek2API service URL, the same OpenAI handlers are also exposed through root shortcuts: `/models`, `/models/{id}`, `/chat/completions`, `/responses`, `/responses/{response_id}`, `/embeddings`, `/files`, and `/files/{file_id}`.
 
 ---
 
@@ -224,7 +224,7 @@ No auth required. Returns the currently supported DeepSeek native model list.
 
 ### Model Alias Resolution
 
-For `chat` / `responses` / `embeddings`, DS2API follows a wide-input/strict-output policy:
+For `chat` / `responses` / `embeddings`, Deepseek2API follows a wide-input/strict-output policy:
 
 1. Match DeepSeek native model IDs first.
 2. Then match exact keys in `model_aliases`.
@@ -247,7 +247,7 @@ Retired historical families such as `claude-1.*`, `claude-2.*`, `claude-instant-
 
 ### `POST /v1/chat/completions`
 
-> Path note: besides the canonical `/v1/chat/completions`, DS2API also accepts the root shortcut `/chat/completions`. On Vercel Runtime, `vercel.json` rewrites only the canonical `/v1/chat/completions` path to the Node streaming bridge; the root shortcut stays on the Go primary path. Use `/v1/chat/completions` on Vercel when real-time streaming is required.
+> Path note: besides the canonical `/v1/chat/completions`, Deepseek2API also accepts the root shortcut `/chat/completions`. On Vercel Runtime, `vercel.json` rewrites only the canonical `/v1/chat/completions` path to the Node streaming bridge; the root shortcut stays on the Go primary path. Use `/v1/chat/completions` on Vercel when real-time streaming is required.
 
 **Headers**:
 
@@ -322,7 +322,7 @@ data: [DONE]
 
 #### Tool Calls
 
-When `tools` is present, DS2API performs anti-leak handling:
+When `tools` is present, Deepseek2API performs anti-leak handling:
 
 **Non-stream**: If detected, returns `message.tool_calls`, `finish_reason=tool_calls`, `message.content=null`.
 
@@ -351,7 +351,7 @@ When `tools` is present, DS2API performs anti-leak handling:
 }
 ```
 
-**Stream**: Once high-confidence toolcall features are matched, DS2API emits `delta.tool_calls` immediately (without waiting for full argument closure), then keeps sending argument deltas; confirmed tool-call fragments are not forwarded as `delta.content`.
+**Stream**: Once high-confidence toolcall features are matched, Deepseek2API emits `delta.tool_calls` immediately (without waiting for full argument closure), then keeps sending argument deltas; confirmed tool-call fragments are not forwarded as `delta.content`.
 
 Additional notes:
 
@@ -381,7 +381,7 @@ OpenAI Responses-style endpoint, accepting either `input` or `messages`.
 | `tool_choice` | string/object | ❌ | Supports `auto`/`none`/`required` and forced function selection (`{"type":"function","name":"..."}`) |
 
 **Non-stream**: Returns a standard `response` object with an ID like `resp_xxx`, and stores it in in-memory TTL cache.
-If `tool_choice=required` and no valid tool call is produced, DS2API returns HTTP `422` (`error.code=tool_choice_violation`).
+If `tool_choice=required` and no valid tool call is produced, Deepseek2API returns HTTP `422` (`error.code=tool_choice_violation`).
 
 **Stream (SSE)**: minimal event sequence:
 
@@ -416,7 +416,7 @@ data: {"type":"response.completed","response":{...}}
 data: [DONE]
 ```
 
-If `tool_choice=required` is violated in stream mode, DS2API emits `response.failed` then `[DONE]` (no `response.completed`).
+If `tool_choice=required` is violated in stream mode, Deepseek2API emits `response.failed` then `[DONE]` (no `response.completed`).
 
 > Current behavior: the parser tries to extract structured tool calls and does not enforce a hard allow-list reject; your tool executor should still validate against a whitelist before executing.
 
@@ -460,7 +460,7 @@ Business auth required. Retrieves the current DeepSeek upload status for a file 
 
 ## Claude-Compatible API
 
-Besides `/anthropic/v1/*`, DS2API also supports shortcut paths: `/v1/messages`, `/messages`, `/v1/messages/count_tokens`, `/messages/count_tokens`.
+Besides `/anthropic/v1/*`, Deepseek2API also supports shortcut paths: `/v1/messages`, `/messages`, `/v1/messages/count_tokens`, `/messages/count_tokens`.
 Implementation-wise this path is unified on the OpenAI Chat Completions parse-and-translate pipeline to avoid maintaining divergent parsing chains.
 
 ### `GET /anthropic/v1/models`
@@ -495,7 +495,7 @@ Content-Type: application/json
 anthropic-version: 2023-06-01
 ```
 
-> `anthropic-version` is optional; DS2API auto-fills `2023-06-01` when absent.
+> `anthropic-version` is optional; Deepseek2API auto-fills `2023-06-01` when absent.
 
 **Request body**:
 
@@ -1202,7 +1202,7 @@ Checks the current build version and the latest GitHub Release:
   "checked_at": "2026-03-29T00:00:00Z",
   "latest_tag": "v3.0.0",
   "latest_version": "3.0.0",
-  "release_url": "https://github.com/CJackHwang/ds2api/releases/tag/v3.0.0",
+  "release_url": "https://github.com/CJackHwang/Deepseek2API/releases/tag/v3.0.0",
   "published_at": "2026-03-28T12:00:00Z",
   "has_update": false
 }

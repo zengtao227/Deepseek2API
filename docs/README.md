@@ -1,4 +1,4 @@
-# DS2API 文档导航 | Documentation Index
+# Deepseek2API 文档导航 | Documentation Index
 
 语言 / Language: [中文](README.md) | [English](README.md#english)
 
@@ -16,7 +16,7 @@
 
 ### 专题文档
 
-- [DS2API 项目价值说明](./project-value.md)
+- [Deepseek2API 项目价值说明](./project-value.md)
 - [API -> 网页对话纯文本兼容主链路说明](./prompt-compatibility.md)
 - [Tool Calling 统一语义](./toolcall-semantics.md)
 - [DeepSeek SSE 行为结构说明（逆向观察）](./DeepSeekSSE行为结构说明-2026-04-05.md)
@@ -48,7 +48,7 @@ Recommended reading order:
 
 ### Topical docs
 
-- [DS2API project value note](./project-value.md)
+- [Deepseek2API project value note](./project-value.md)
 - [API -> pure-text web-chat compatibility pipeline](./prompt-compatibility.md)
 - [Tool-calling unified semantics](./toolcall-semantics.md)
 - [DeepSeek SSE behavior notes (reverse-engineered)](./DeepSeekSSE行为结构说明-2026-04-05.md)

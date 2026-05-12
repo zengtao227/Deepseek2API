@@ -3,7 +3,7 @@ package responses
 import (
 	"strings"
 
-	openaifmt "ds2api/internal/format/openai"
+	openaifmt "Deepseek2API/internal/format/openai"
 )
 
 type responsesDeltaBatch struct {

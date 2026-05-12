@@ -12,17 +12,17 @@ import (
 
 	"github.com/go-chi/chi/v5"
 
-	"ds2api/internal/assistantturn"
-	"ds2api/internal/auth"
-	"ds2api/internal/completionruntime"
-	"ds2api/internal/httpapi/openai/history"
-	"ds2api/internal/httpapi/requestbody"
-	"ds2api/internal/promptcompat"
-	"ds2api/internal/responsehistory"
-	"ds2api/internal/sse"
-	"ds2api/internal/toolcall"
-	"ds2api/internal/translatorcliproxy"
-	"ds2api/internal/util"
+	"Deepseek2API/internal/assistantturn"
+	"Deepseek2API/internal/auth"
+	"Deepseek2API/internal/completionruntime"
+	"Deepseek2API/internal/httpapi/openai/history"
+	"Deepseek2API/internal/httpapi/requestbody"
+	"Deepseek2API/internal/promptcompat"
+	"Deepseek2API/internal/responsehistory"
+	"Deepseek2API/internal/sse"
+	"Deepseek2API/internal/toolcall"
+	"Deepseek2API/internal/translatorcliproxy"
+	"Deepseek2API/internal/util"
 
 	sdktranslator "github.com/router-for-me/CLIProxyAPI/v6/sdk/translator"
 )

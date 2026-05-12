@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"testing"
 
-	"ds2api/internal/account"
-	"ds2api/internal/config"
+	"Deepseek2API/internal/account"
+	"Deepseek2API/internal/config"
 )
 
 // ─── extractCallerToken edge cases ───────────────────────────────────
@@ -170,7 +170,7 @@ func TestSwitchAccountNotConfigToken(t *testing.T) {
 }
 
 func TestSwitchAccountNilTriedAccounts(t *testing.T) {
-	t.Setenv("DS2API_CONFIG_JSON", `{
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{
 		"keys":["managed-key"],
 		"accounts":[
 			{"email":"acc1@test.com","token":"t1"},
@@ -203,7 +203,7 @@ func TestSwitchAccountNilTriedAccounts(t *testing.T) {
 }
 
 func TestSwitchAccountSkipsLoginFailureAndContinues(t *testing.T) {
-	t.Setenv("DS2API_CONFIG_JSON", `{
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{
 		"keys":["managed-key"],
 		"accounts":[
 			{"email":"acc1@test.com","password":"pwd","token":"t1"},
@@ -242,7 +242,7 @@ func TestSwitchAccountSkipsLoginFailureAndContinues(t *testing.T) {
 }
 
 func TestSwitchAccountRespectsPinnedTargetAccount(t *testing.T) {
-	t.Setenv("DS2API_CONFIG_JSON", `{
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{
 		"keys":["managed-key"],
 		"accounts":[
 			{"email":"acc1@test.com","token":"t1"},
@@ -350,7 +350,7 @@ func TestVerifyAdminRequestEmptyBearer(t *testing.T) {
 }
 
 func TestVerifyAdminRequestWithAdminKey(t *testing.T) {
-	t.Setenv("DS2API_ADMIN_KEY", "test-admin-key")
+	t.Setenv("Deepseek2API_ADMIN_KEY", "test-admin-key")
 	req, _ := http.NewRequest("GET", "/admin/config", nil)
 	req.Header.Set("Authorization", "Bearer test-admin-key")
 	if err := VerifyAdminRequest(req); err != nil {
@@ -359,7 +359,7 @@ func TestVerifyAdminRequestWithAdminKey(t *testing.T) {
 }
 
 func TestVerifyAdminRequestInvalidCredentials(t *testing.T) {
-	t.Setenv("DS2API_ADMIN_KEY", "correct-key")
+	t.Setenv("Deepseek2API_ADMIN_KEY", "correct-key")
 	req, _ := http.NewRequest("GET", "/admin/config", nil)
 	req.Header.Set("Authorization", "Bearer wrong-key")
 	if err := VerifyAdminRequest(req); err == nil {
@@ -378,7 +378,7 @@ func TestVerifyAdminRequestBasicAuth(t *testing.T) {
 // ─── Determine with login failure ────────────────────────────────────
 
 func TestDetermineWithLoginFailure(t *testing.T) {
-	t.Setenv("DS2API_CONFIG_JSON", `{
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{
 		"keys":["managed-key"],
 		"accounts":[{"email":"acc@test.com","password":"pwd"}]
 	}`)
@@ -399,7 +399,7 @@ func TestDetermineWithLoginFailure(t *testing.T) {
 // ─── Determine with target account ───────────────────────────────────
 
 func TestDetermineWithTargetAccount(t *testing.T) {
-	t.Setenv("DS2API_CONFIG_JSON", `{
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{
 		"keys":["managed-key"],
 		"accounts":[
 			{"email":"acc1@test.com","token":"t1"},

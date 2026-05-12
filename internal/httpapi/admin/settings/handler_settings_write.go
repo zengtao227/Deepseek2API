@@ -6,8 +6,8 @@ import (
 	"strings"
 	"time"
 
-	authn "ds2api/internal/auth"
-	"ds2api/internal/config"
+	authn "Deepseek2API/internal/auth"
+	"Deepseek2API/internal/config"
 )
 
 func (h *Handler) updateSettings(w http.ResponseWriter, r *http.Request) {

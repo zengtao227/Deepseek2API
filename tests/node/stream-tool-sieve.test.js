@@ -1077,11 +1077,11 @@ test('sieve emits tool_calls when fullwidth DSML prefix variant spans multiple c
       '<|DSML|tool',
       '_calls>\n',
       '<|DSML|invoke name="Bash">\n',
-      '<|DSML|parameter name="command"><![CDATA[ls -la /Users/aq/Desktop/myproject/ds2api/]]></|DSML|parameter>\n',
+      '<|DSML|parameter name="command"><![CDATA[ls -la /Users/aq/Desktop/myproject/Deepseek2API/]]></|DSML|parameter>\n',
       '<|DSML|parameter name="description"><![CDATA[List project root contents]]></|DSML|parameter>\n',
       '</|DSML|invoke>\n',
       '<|DSML|invoke name="Bash">\n',
-      '<|DSML|parameter name="command"><![CDATA[cat /Users/aq/Desktop/myproject/ds2api/package.json 2>/dev/null || echo "No package.json found"]]></|DSML|parameter>\n',
+      '<|DSML|parameter name="command"><![CDATA[cat /Users/aq/Desktop/myproject/Deepseek2API/package.json 2>/dev/null || echo "No package.json found"]]></|DSML|parameter>\n',
       '<|DSML|parameter name="description"><![CDATA[Check for existing package.json]]></|DSML|parameter>\n',
       '</|DSML|invoke>\n',
       '</|DSML|tool_calls>',
@@ -1135,7 +1135,7 @@ test('sieve recovers when CDATA never closes inside a valid wrapper', () => {
 
 test('sieve keeps CDATA tool examples buffered until the outer closing tag arrives', () => {
   const content = [
-    '# DS2API 4.0 更新内容',
+    '# Deepseek2API 4.0 更新内容',
     '',
     'x'.repeat(4096),
     '```xml',
@@ -1153,7 +1153,7 @@ test('sieve keeps CDATA tool examples buffered until the outer closing tag arriv
     '<tool_calls>\n  <invoke name="Write">\n    <parameter name="content"><![CDATA[',
     content.slice(0, innerClose),
     content.slice(innerClose),
-    ']]></parameter>\n    <parameter name="file_path">DS2API-4.0-Release-Notes.md</parameter>\n  </invoke>\n</tool_calls>',
+    ']]></parameter>\n    <parameter name="file_path">Deepseek2API-4.0-Release-Notes.md</parameter>\n  </invoke>\n</tool_calls>',
   ];
   const events = [];
   chunks.forEach((chunk, idx) => {
@@ -1180,11 +1180,11 @@ test('parseToolCalls keeps XML-looking CDATA content intact', () => {
     '<tool_calls><invoke name="demo"><parameter name="value">x</parameter></invoke></tool_calls>',
     '```',
   ].join('\n');
-  const payload = `<tool_calls><invoke name="Write"><parameter name="content"><![CDATA[${content}]]></parameter><parameter name="file_path">DS2API-4.0-Release-Notes.md</parameter></invoke></tool_calls>`;
+  const payload = `<tool_calls><invoke name="Write"><parameter name="content"><![CDATA[${content}]]></parameter><parameter name="file_path">Deepseek2API-4.0-Release-Notes.md</parameter></invoke></tool_calls>`;
   const calls = parseToolCalls(payload, ['Write']);
   assert.equal(calls.length, 1);
   assert.equal(calls[0].input.content, content);
-  assert.equal(calls[0].input.file_path, 'DS2API-4.0-Release-Notes.md');
+  assert.equal(calls[0].input.file_path, 'Deepseek2API-4.0-Release-Notes.md');
 });
 
 test('sieve passes JSON tool_calls payload through as text (XML-only)', () => {

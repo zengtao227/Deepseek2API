@@ -1,13 +1,13 @@
 package claude
 
 import (
-	"ds2api/internal/assistantturn"
-	"ds2api/internal/toolcall"
+	"Deepseek2API/internal/assistantturn"
+	"Deepseek2API/internal/toolcall"
 	"fmt"
 	"time"
 
-	"ds2api/internal/prompt"
-	"ds2api/internal/util"
+	"Deepseek2API/internal/prompt"
+	"Deepseek2API/internal/util"
 )
 
 func BuildMessageResponseFromTurn(messageID, model string, turn assistantturn.Turn, exposeThinking bool) map[string]any {

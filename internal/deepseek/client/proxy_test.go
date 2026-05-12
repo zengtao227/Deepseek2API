@@ -2,7 +2,7 @@ package client
 
 import (
 	"context"
-	dsprotocol "ds2api/internal/deepseek/protocol"
+	dsprotocol "Deepseek2API/internal/deepseek/protocol"
 	"net/http"
 	"strings"
 	"testing"

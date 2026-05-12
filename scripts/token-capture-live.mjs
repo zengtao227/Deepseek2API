@@ -16,8 +16,8 @@ import http from 'http';
 // 配置
 const CONFIG = {
   DEEPSEEK_LOGIN_URL: 'https://chat.deepseek.com/sign_in',
-  BACKEND_URL: process.env.DS2API_URL || 'http://localhost:5001',
-  ADMIN_KEY: process.env.DS2API_ADMIN_KEY || '744160e5987847bacc0031b8b862420a0a3dd6e9e14a794a8f6891c9c65a2501',
+  BACKEND_URL: process.env.Deepseek2API_URL || 'http://localhost:5001',
+  ADMIN_KEY: process.env.Deepseek2API_ADMIN_KEY || '744160e5987847bacc0031b8b862420a0a3dd6e9e14a794a8f6891c9c65a2501',
   ACCOUNTS: [
     'zengtao227@gmail.com',
     'zengtao227.de@gmail.com',

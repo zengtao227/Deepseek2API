@@ -8,7 +8,7 @@ import (
 
 	"github.com/go-chi/chi/v5"
 
-	"ds2api/internal/config"
+	"Deepseek2API/internal/config"
 )
 
 func (h *Handler) updateConfig(w http.ResponseWriter, r *http.Request) {

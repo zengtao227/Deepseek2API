@@ -1,4 +1,4 @@
-# DS2API 开发者速查
+# Deepseek2API 开发者速查
 
 语言 / Language: 中文
 
@@ -10,7 +10,7 @@
 
 ```bash
 # 后端
-go run ./cmd/ds2api
+go run ./cmd/Deepseek2API
 
 # WebUI 开发服务器
 npm run dev --prefix webui

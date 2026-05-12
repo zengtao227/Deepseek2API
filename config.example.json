@@ -1,6 +1,6 @@
 {
-  "_comment": "DS2API 配置文件示例 - 复制为 config.json 使用",
-  "_doc": "详细文档: https://github.com/CJackHwang/ds2api",
+  "_comment": "Deepseek2API 配置文件示例 - 复制为 config.json 使用",
+  "_doc": "详细文档: https://github.com/CJackHwang/Deepseek2API",
   "keys": [
     "your-api-key-1",
     "your-api-key-2"

@@ -4,7 +4,7 @@ import (
 	"bufio"
 	"bytes"
 	"context"
-	dsprotocol "ds2api/internal/deepseek/protocol"
+	dsprotocol "Deepseek2API/internal/deepseek/protocol"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -12,8 +12,8 @@ import (
 	"net/http"
 	"strings"
 
-	"ds2api/internal/auth"
-	"ds2api/internal/config"
+	"Deepseek2API/internal/auth"
+	"Deepseek2API/internal/config"
 )
 
 const defaultAutoContinueLimit = 8
@@ -29,7 +29,7 @@ type continueState struct {
 
 // wrapCompletionWithAutoContinue wraps the completion response body so that
 // if the upstream indicates the response is incomplete (INCOMPLETE /
-// AUTO_CONTINUE), ds2api will automatically call the DeepSeek continue
+// AUTO_CONTINUE), Deepseek2API will automatically call the DeepSeek continue
 // endpoint and splice the continuation SSE stream onto the original.
 // The caller sees a single, seamless SSE stream.
 func (c *Client) wrapCompletionWithAutoContinue(ctx context.Context, a *auth.RequestAuth, payload map[string]any, powResp string, resp *http.Response) *http.Response {

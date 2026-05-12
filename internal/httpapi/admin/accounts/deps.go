@@ -3,9 +3,9 @@ package accounts
 import (
 	"net/http"
 
-	"ds2api/internal/chathistory"
-	"ds2api/internal/config"
-	adminshared "ds2api/internal/httpapi/admin/shared"
+	"Deepseek2API/internal/chathistory"
+	"Deepseek2API/internal/config"
+	adminshared "Deepseek2API/internal/httpapi/admin/shared"
 )
 
 type Handler struct {

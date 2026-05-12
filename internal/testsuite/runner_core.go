@@ -223,7 +223,7 @@ func newRunner(opts Options) (*Runner, error) {
 	}
 	adminKey := strings.TrimSpace(opts.AdminKey)
 	if adminKey == "" {
-		adminKey = strings.TrimSpace(os.Getenv("DS2API_ADMIN_KEY"))
+		adminKey = strings.TrimSpace(os.Getenv("Deepseek2API_ADMIN_KEY"))
 	}
 	if adminKey == "" {
 		adminKey = "admin"

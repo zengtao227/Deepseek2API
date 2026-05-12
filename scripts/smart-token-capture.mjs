@@ -19,7 +19,7 @@ const CONFIG = {
   DEEPSEEK_LOGIN_URL: 'https://chat.deepseek.com/sign_in',
   VPS_HOSTS: ['frank', 'tokyo', 'zurich'],
   VPS_PORT: 5001,
-  VPS_ADMIN_KEY: process.env.DS2API_ADMIN_KEY || '744160e5987847bacc0031b8b862420a0a3dd6e9e14a794a8f6891c9c65a2501',
+  VPS_ADMIN_KEY: process.env.Deepseek2API_ADMIN_KEY || '744160e5987847bacc0031b8b862420a0a3dd6e9e14a794a8f6891c9c65a2501',
   ACCOUNTS: [
     'zengtao227@gmail.com',
     'zengtao227.de@gmail.com',
@@ -193,7 +193,7 @@ async function main() {
 
     log.header('✅ 完成！');
     log.success('所有 token 已成功保存到 VPS');
-    log.info('ds2api 服务已重启，Continue IDE 现在可以使用新的独立 token 了');
+    log.info('Deepseek2API 服务已重启，Continue IDE 现在可以使用新的独立 token 了');
 
   } catch (err) {
     log.error(`${err.message}`);

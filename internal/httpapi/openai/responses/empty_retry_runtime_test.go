@@ -8,8 +8,8 @@ import (
 	"strings"
 	"testing"
 
-	"ds2api/internal/promptcompat"
-	"ds2api/internal/stream"
+	"Deepseek2API/internal/promptcompat"
+	"Deepseek2API/internal/stream"
 )
 
 func makeResponsesOpenAISSEHTTPResponse(lines ...string) *http.Response {

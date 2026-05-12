@@ -6,11 +6,11 @@ import (
 	"strings"
 	"time"
 
-	"ds2api/internal/responsehistory"
-	"ds2api/internal/sse"
-	streamengine "ds2api/internal/stream"
-	"ds2api/internal/toolcall"
-	"ds2api/internal/toolstream"
+	"Deepseek2API/internal/responsehistory"
+	"Deepseek2API/internal/sse"
+	streamengine "Deepseek2API/internal/stream"
+	"Deepseek2API/internal/toolcall"
+	"Deepseek2API/internal/toolstream"
 )
 
 type claudeStreamRuntime struct {

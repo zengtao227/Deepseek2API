@@ -3,7 +3,7 @@ package claudeconv
 import (
 	"strings"
 
-	"ds2api/internal/config"
+	"Deepseek2API/internal/config"
 )
 
 func ConvertClaudeToDeepSeek(claudeReq map[string]any, aliasProvider config.ModelAliasReader, defaultClaudeModel string) map[string]any {

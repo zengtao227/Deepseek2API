@@ -15,22 +15,22 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 
-	"ds2api/internal/account"
-	"ds2api/internal/auth"
-	"ds2api/internal/chathistory"
-	"ds2api/internal/config"
-	dsclient "ds2api/internal/deepseek/client"
-	"ds2api/internal/httpapi/admin"
-	"ds2api/internal/httpapi/claude"
-	"ds2api/internal/httpapi/gemini"
-	"ds2api/internal/httpapi/ollama"
-	"ds2api/internal/httpapi/openai/chat"
-	"ds2api/internal/httpapi/openai/embeddings"
-	"ds2api/internal/httpapi/openai/files"
-	"ds2api/internal/httpapi/openai/responses"
-	"ds2api/internal/httpapi/openai/shared"
-	"ds2api/internal/httpapi/requestbody"
-	"ds2api/internal/webui"
+	"Deepseek2API/internal/account"
+	"Deepseek2API/internal/auth"
+	"Deepseek2API/internal/chathistory"
+	"Deepseek2API/internal/config"
+	dsclient "Deepseek2API/internal/deepseek/client"
+	"Deepseek2API/internal/httpapi/admin"
+	"Deepseek2API/internal/httpapi/claude"
+	"Deepseek2API/internal/httpapi/gemini"
+	"Deepseek2API/internal/httpapi/ollama"
+	"Deepseek2API/internal/httpapi/openai/chat"
+	"Deepseek2API/internal/httpapi/openai/embeddings"
+	"Deepseek2API/internal/httpapi/openai/files"
+	"Deepseek2API/internal/httpapi/openai/responses"
+	"Deepseek2API/internal/httpapi/openai/shared"
+	"Deepseek2API/internal/httpapi/requestbody"
+	"Deepseek2API/internal/webui"
 )
 
 type App struct {
@@ -104,7 +104,7 @@ func NewApp() (*App, error) {
 	r.Post("/v1/files", filesHandler.UploadFile)
 	r.Get("/v1/files/{file_id}", filesHandler.RetrieveFile)
 	r.Post("/v1/embeddings", embeddingsHandler.Embeddings)
-	// Root OpenAI aliases support clients configured with the bare DS2API service URL.
+	// Root OpenAI aliases support clients configured with the bare Deepseek2API service URL.
 	r.Get("/models", modelsHandler.ListModels)
 	r.Get("/models/{model_id}", modelsHandler.GetModel)
 	r.Post("/chat/completions", chatHandler.ChatCompletions)

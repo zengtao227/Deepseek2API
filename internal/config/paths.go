@@ -30,10 +30,10 @@ func ResolvePath(envKey, defaultRel string) string {
 }
 
 func ConfigPath() string {
-	if strings.TrimSpace(os.Getenv("DS2API_CONFIG_PATH")) == "" && BaseDir() == "/app" {
+	if strings.TrimSpace(os.Getenv("Deepseek2API_CONFIG_PATH")) == "" && BaseDir() == "/app" {
 		return containerDefaultConfigPath()
 	}
-	return ResolvePath("DS2API_CONFIG_PATH", "config.json")
+	return ResolvePath("Deepseek2API_CONFIG_PATH", "config.json")
 }
 
 func containerDefaultConfigPath() string {
@@ -50,22 +50,22 @@ func legacyContainerConfigPath() string {
 }
 
 func shouldTryLegacyContainerConfigPath() bool {
-	return strings.TrimSpace(os.Getenv("DS2API_CONFIG_PATH")) == "" && BaseDir() == "/app"
+	return strings.TrimSpace(os.Getenv("Deepseek2API_CONFIG_PATH")) == "" && BaseDir() == "/app"
 }
 
 func RawStreamSampleRoot() string {
-	return ResolvePath("DS2API_RAW_STREAM_SAMPLE_ROOT", "tests/raw_stream_samples")
+	return ResolvePath("Deepseek2API_RAW_STREAM_SAMPLE_ROOT", "tests/raw_stream_samples")
 }
 
 func ChatHistoryPath() string {
 	// On Vercel, /var/task is read-only at runtime. If no explicit path is set,
 	// default to /tmp/chat_history.json (the only writable directory).
-	if IsVercel() && strings.TrimSpace(os.Getenv("DS2API_CHAT_HISTORY_PATH")) == "" {
+	if IsVercel() && strings.TrimSpace(os.Getenv("Deepseek2API_CHAT_HISTORY_PATH")) == "" {
 		return "/tmp/chat_history.json"
 	}
-	return ResolvePath("DS2API_CHAT_HISTORY_PATH", "data/chat_history.json")
+	return ResolvePath("Deepseek2API_CHAT_HISTORY_PATH", "data/chat_history.json")
 }
 
 func StaticAdminDir() string {
-	return ResolvePath("DS2API_STATIC_ADMIN_DIR", "static/admin")
+	return ResolvePath("Deepseek2API_STATIC_ADMIN_DIR", "static/admin")
 }

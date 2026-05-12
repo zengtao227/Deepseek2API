@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# DS2API 项目迁移脚本
+# Deepseek2API 项目迁移脚本
 # 
 # 用法: ./scripts/relocate-project.sh
 #
@@ -23,7 +23,7 @@ TARGET_DIR="/Users/zengtao/Doc/My code/DS2api"
 
 echo ""
 echo "╔══════════════════════════════════════════════╗"
-echo "║      📦 DS2API 项目迁移                     ║"
+echo "║      📦 Deepseek2API 项目迁移                     ║"
 echo "╚══════════════════════════════════════════════╝"
 echo ""
 
@@ -51,8 +51,8 @@ rsync -av \
   --exclude='node_modules' \
   --exclude='dist' \
   --exclude='*.log' \
-  --exclude='ds2api' \
-  --exclude='ds2api-tests' \
+  --exclude='Deepseek2API' \
+  --exclude='Deepseek2API-tests' \
   --exclude='static/admin' \
   --exclude='webui/dist' \
   --exclude='.tmp' \
@@ -84,9 +84,9 @@ fi
 # 验证构建
 echo ""
 echo "🔨 验证构建..."
-if go build ./cmd/ds2api; then
+if go build ./cmd/Deepseek2API; then
     echo -e "${GREEN}✅ 构建成功${NC}"
-    rm -f ds2api  # 清理构建产物
+    rm -f Deepseek2API  # 清理构建产物
 else
     echo -e "${RED}❌ 构建失败${NC}"
     exit 1
@@ -128,6 +128,6 @@ echo "新项目位置: $TARGET_DIR"
 echo ""
 echo "下一步:"
 echo "  1. cd \"$TARGET_DIR\""
-echo "  2. 验证功能: ./ds2api"
+echo "  2. 验证功能: ./Deepseek2API"
 echo "  3. 设置 GitHub 远程: git remote add origin https://github.com/zengtao227/DS2api.git"
 echo ""

@@ -1,7 +1,7 @@
 package responses
 
 import (
-	"ds2api/internal/toolcall"
+	"Deepseek2API/internal/toolcall"
 	"encoding/json"
 	"io"
 	"net/http"
@@ -11,16 +11,16 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/google/uuid"
 
-	"ds2api/internal/assistantturn"
-	"ds2api/internal/auth"
-	"ds2api/internal/completionruntime"
-	"ds2api/internal/config"
-	dsprotocol "ds2api/internal/deepseek/protocol"
-	openaifmt "ds2api/internal/format/openai"
-	"ds2api/internal/promptcompat"
-	"ds2api/internal/responsehistory"
-	"ds2api/internal/sse"
-	streamengine "ds2api/internal/stream"
+	"Deepseek2API/internal/assistantturn"
+	"Deepseek2API/internal/auth"
+	"Deepseek2API/internal/completionruntime"
+	"Deepseek2API/internal/config"
+	dsprotocol "Deepseek2API/internal/deepseek/protocol"
+	openaifmt "Deepseek2API/internal/format/openai"
+	"Deepseek2API/internal/promptcompat"
+	"Deepseek2API/internal/responsehistory"
+	"Deepseek2API/internal/sse"
+	streamengine "Deepseek2API/internal/stream"
 )
 
 func (h *Handler) GetResponseByID(w http.ResponseWriter, r *http.Request) {

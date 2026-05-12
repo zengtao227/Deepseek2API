@@ -8,13 +8,13 @@ import (
 	"testing"
 	"time"
 
-	"ds2api/internal/account"
-	"ds2api/internal/config"
+	"Deepseek2API/internal/account"
+	"Deepseek2API/internal/config"
 )
 
 func newTestResolver(t *testing.T) *Resolver {
 	t.Helper()
-	t.Setenv("DS2API_CONFIG_JSON", `{
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{
 		"keys":["managed-key"],
 		"accounts":[{"email":"acc@example.com","password":"pwd","token":"account-token"}]
 	}`)
@@ -198,7 +198,7 @@ func TestDetermineCallerMissingToken(t *testing.T) {
 }
 
 func TestDetermineManagedAccountForcesRefreshEverySixHours(t *testing.T) {
-	t.Setenv("DS2API_CONFIG_JSON", `{
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{
 		"keys":["managed-key"],
 		"accounts":[{"email":"acc@example.com","password":"pwd","token":"seed-token"}],
 		"runtime":{"token_refresh_interval_hours":6}
@@ -248,7 +248,7 @@ func TestDetermineManagedAccountForcesRefreshEverySixHours(t *testing.T) {
 }
 
 func TestDetermineManagedAccountUsesUpdatedRefreshInterval(t *testing.T) {
-	t.Setenv("DS2API_CONFIG_JSON", `{
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{
 		"keys":["managed-key"],
 		"accounts":[{"email":"acc@example.com","password":"pwd","token":"seed-token"}],
 		"runtime":{"token_refresh_interval_hours":6}
@@ -305,7 +305,7 @@ func TestDetermineManagedAccountUsesUpdatedRefreshInterval(t *testing.T) {
 }
 
 func TestDetermineManagedAccountRetriesOtherAccountOnLoginFailure(t *testing.T) {
-	t.Setenv("DS2API_CONFIG_JSON", `{
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{
 		"keys":["managed-key"],
 		"accounts":[
 			{"email":"bad@example.com","password":"pwd"},
@@ -341,7 +341,7 @@ func TestDetermineManagedAccountRetriesOtherAccountOnLoginFailure(t *testing.T) 
 }
 
 func TestDetermineTargetAccountDoesNotFallbackOnLoginFailure(t *testing.T) {
-	t.Setenv("DS2API_CONFIG_JSON", `{
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{
 		"keys":["managed-key"],
 		"accounts":[
 			{"email":"bad@example.com","password":"pwd"},
@@ -368,7 +368,7 @@ func TestDetermineTargetAccountDoesNotFallbackOnLoginFailure(t *testing.T) {
 }
 
 func TestDetermineManagedAccountReturnsLastEnsureErrorWhenAllFail(t *testing.T) {
-	t.Setenv("DS2API_CONFIG_JSON", `{
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{
 		"keys":["managed-key"],
 		"accounts":[
 			{"email":"bad1@example.com","password":"pwd"},

@@ -17,10 +17,10 @@ export function useAdminAuth({ isProduction, location, t }) {
 
     const handleLogout = useCallback(() => {
         setToken(null)
-        localStorage.removeItem('ds2api_token')
-        localStorage.removeItem('ds2api_token_expires')
-        sessionStorage.removeItem('ds2api_token')
-        sessionStorage.removeItem('ds2api_token_expires')
+        localStorage.removeItem('Deepseek2API_token')
+        localStorage.removeItem('Deepseek2API_token_expires')
+        sessionStorage.removeItem('Deepseek2API_token')
+        sessionStorage.removeItem('Deepseek2API_token_expires')
     }, [])
 
     const handleLogin = useCallback((newToken) => {
@@ -34,8 +34,8 @@ export function useAdminAuth({ isProduction, location, t }) {
         }
 
         const checkAuth = async () => {
-            const storedToken = localStorage.getItem('ds2api_token') || sessionStorage.getItem('ds2api_token')
-            const expiresAt = parseInt(localStorage.getItem('ds2api_token_expires') || sessionStorage.getItem('ds2api_token_expires') || '0')
+            const storedToken = localStorage.getItem('Deepseek2API_token') || sessionStorage.getItem('Deepseek2API_token')
+            const expiresAt = parseInt(localStorage.getItem('Deepseek2API_token_expires') || sessionStorage.getItem('Deepseek2API_token_expires') || '0')
 
             if (storedToken && expiresAt > Date.now()) {
                 try {

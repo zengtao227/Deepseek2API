@@ -6,12 +6,12 @@ import (
 	"strings"
 	"time"
 
-	"ds2api/internal/assistantturn"
-	"ds2api/internal/auth"
-	"ds2api/internal/chathistory"
-	"ds2api/internal/config"
-	"ds2api/internal/prompt"
-	"ds2api/internal/promptcompat"
+	"Deepseek2API/internal/assistantturn"
+	"Deepseek2API/internal/auth"
+	"Deepseek2API/internal/chathistory"
+	"Deepseek2API/internal/config"
+	"Deepseek2API/internal/prompt"
+	"Deepseek2API/internal/promptcompat"
 )
 
 type Session struct {

@@ -3,11 +3,11 @@ package claude
 import (
 	"testing"
 
-	"ds2api/internal/config"
+	"Deepseek2API/internal/config"
 )
 
 func TestNormalizeClaudeRequest(t *testing.T) {
-	t.Setenv("DS2API_CONFIG_JSON", `{}`)
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{}`)
 	store := config.LoadStore()
 	req := map[string]any{
 		"model": "claude-opus-4-6",
@@ -41,7 +41,7 @@ func TestNormalizeClaudeRequest(t *testing.T) {
 }
 
 func TestNormalizeClaudeRequestSupportsCamelCaseInputSchemaPromptInjection(t *testing.T) {
-	t.Setenv("DS2API_CONFIG_JSON", `{}`)
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{}`)
 	store := config.LoadStore()
 	req := map[string]any{
 		"model": "claude-sonnet-4-5",
@@ -66,7 +66,7 @@ func TestNormalizeClaudeRequestSupportsCamelCaseInputSchemaPromptInjection(t *te
 }
 
 func TestNormalizeClaudeRequestInjectsToolsIntoExistingSystemMessage(t *testing.T) {
-	t.Setenv("DS2API_CONFIG_JSON", `{}`)
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{}`)
 	store := config.LoadStore()
 	req := map[string]any{
 		"model": "claude-sonnet-4-5",
@@ -93,7 +93,7 @@ func TestNormalizeClaudeRequestInjectsToolsIntoExistingSystemMessage(t *testing.
 }
 
 func TestNormalizeClaudeRequestInjectsToolsIntoTopLevelSystem(t *testing.T) {
-	t.Setenv("DS2API_CONFIG_JSON", `{}`)
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{}`)
 	store := config.LoadStore()
 	req := map[string]any{
 		"model":  "claude-sonnet-4-5",

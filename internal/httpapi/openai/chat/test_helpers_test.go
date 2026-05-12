@@ -7,8 +7,8 @@ import (
 	"net/http"
 	"strings"
 
-	"ds2api/internal/auth"
-	dsclient "ds2api/internal/deepseek/client"
+	"Deepseek2API/internal/auth"
+	dsclient "Deepseek2API/internal/deepseek/client"
 )
 
 type mockOpenAIConfig struct {

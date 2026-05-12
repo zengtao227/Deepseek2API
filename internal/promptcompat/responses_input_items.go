@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strings"
 
-	"ds2api/internal/config"
-	"ds2api/internal/prompt"
+	"Deepseek2API/internal/config"
+	"Deepseek2API/internal/prompt"
 )
 
 func normalizeResponsesInputItem(m map[string]any) map[string]any {

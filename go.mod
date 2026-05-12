@@ -1,4 +1,4 @@
-module ds2api
+module Deepseek2API
 
 go 1.26.0
 

@@ -1,13 +1,13 @@
 package shared
 
 import (
-	"ds2api/internal/toolcall"
+	"Deepseek2API/internal/toolcall"
 	"encoding/json"
 	"strings"
 
 	"github.com/google/uuid"
 
-	"ds2api/internal/toolstream"
+	"Deepseek2API/internal/toolstream"
 )
 
 func FormatIncrementalStreamToolCallDeltas(deltas []toolstream.ToolCallDelta, ids map[int]string) []map[string]any {

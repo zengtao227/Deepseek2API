@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"ds2api/internal/config"
+	"Deepseek2API/internal/config"
 )
 
 func TestMessagesPrepareBasic(t *testing.T) {

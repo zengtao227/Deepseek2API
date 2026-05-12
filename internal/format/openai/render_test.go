@@ -5,8 +5,8 @@ import (
 	"strings"
 	"testing"
 
-	"ds2api/internal/toolcall"
-	"ds2api/internal/util"
+	"Deepseek2API/internal/toolcall"
+	"Deepseek2API/internal/util"
 )
 
 func TestBuildResponseObjectKeepsFencedToolPayloadAsText(t *testing.T) {

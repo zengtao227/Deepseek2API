@@ -1,7 +1,7 @@
 package toolstream
 
 import (
-	"ds2api/internal/toolcall"
+	"Deepseek2API/internal/toolcall"
 	"strings"
 	"testing"
 )
@@ -303,7 +303,7 @@ func TestProcessToolSieveHandlesLongXMLToolCall(t *testing.T) {
 func TestProcessToolSieveKeepsCDATAEmbeddedToolClosingBuffered(t *testing.T) {
 	var state State
 	payload := strings.Join([]string{
-		"# DS2API 4.0 更新内容",
+		"# Deepseek2API 4.0 更新内容",
 		"",
 		strings.Repeat("x", 4096),
 		"```xml",
@@ -320,7 +320,7 @@ func TestProcessToolSieveKeepsCDATAEmbeddedToolClosingBuffered(t *testing.T) {
 		"<tool_calls>\n  <invoke name=\"Write\">\n    <parameter name=\"content\"><![CDATA[",
 		payload[:innerClose],
 		payload[innerClose:],
-		"]]></parameter>\n    <parameter name=\"file_path\">DS2API-4.0-Release-Notes.md</parameter>\n  </invoke>\n</tool_calls>",
+		"]]></parameter>\n    <parameter name=\"file_path\">Deepseek2API-4.0-Release-Notes.md</parameter>\n  </invoke>\n</tool_calls>",
 	}
 
 	var events []Event
@@ -363,7 +363,7 @@ func TestProcessToolSieveKeepsExtremeHereDocCDATAUntilOuterClose(t *testing.T) {
 	var state State
 	command := strings.Join([]string{
 		"cat > docs/project-value.md << 'ENDOFFILE'",
-		"# DS2API project value",
+		"# Deepseek2API project value",
 		"",
 		"```xml",
 		`<|DSML|tool_calls>`,
@@ -1130,11 +1130,11 @@ func TestProcessToolSieveFullwidthDSMLPrefixVariantDoesNotLeak(t *testing.T) {
 		"<|DSML|tool",
 		"_calls>\n",
 		"<|DSML|invoke name=\"Bash\">\n",
-		"<|DSML|parameter name=\"command\"><![CDATA[ls -la /Users/aq/Desktop/myproject/ds2api/]]></|DSML|parameter>\n",
+		"<|DSML|parameter name=\"command\"><![CDATA[ls -la /Users/aq/Desktop/myproject/Deepseek2API/]]></|DSML|parameter>\n",
 		"<|DSML|parameter name=\"description\"><![CDATA[List project root contents]]></|DSML|parameter>\n",
 		"</|DSML|invoke>\n",
 		"<|DSML|invoke name=\"Bash\">\n",
-		"<|DSML|parameter name=\"command\"><![CDATA[cat /Users/aq/Desktop/myproject/ds2api/package.json 2>/dev/null || echo \"No package.json found\"]]></|DSML|parameter>\n",
+		"<|DSML|parameter name=\"command\"><![CDATA[cat /Users/aq/Desktop/myproject/Deepseek2API/package.json 2>/dev/null || echo \"No package.json found\"]]></|DSML|parameter>\n",
 		"<|DSML|parameter name=\"description\"><![CDATA[Check for existing package.json]]></|DSML|parameter>\n",
 		"</|DSML|invoke>\n",
 		"</|DSML|tool_calls>",

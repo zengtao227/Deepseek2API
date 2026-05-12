@@ -7,9 +7,9 @@ import (
 	"testing"
 	"time"
 
-	"ds2api/internal/chathistory"
-	"ds2api/internal/promptcompat"
-	"ds2api/internal/stream"
+	"Deepseek2API/internal/chathistory"
+	"Deepseek2API/internal/promptcompat"
+	"Deepseek2API/internal/stream"
 )
 
 func TestConsumeChatStreamAttemptMarksContextCancelledState(t *testing.T) {

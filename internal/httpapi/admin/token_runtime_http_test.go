@@ -10,14 +10,14 @@ import (
 
 	"github.com/go-chi/chi/v5"
 
-	"ds2api/internal/account"
-	"ds2api/internal/config"
-	adminshared "ds2api/internal/httpapi/admin/shared"
+	"Deepseek2API/internal/account"
+	"Deepseek2API/internal/config"
+	adminshared "Deepseek2API/internal/httpapi/admin/shared"
 )
 
 func newHTTPAdminHarness(t *testing.T, rawConfig string, ds adminshared.DeepSeekCaller) http.Handler {
 	t.Helper()
-	t.Setenv("DS2API_CONFIG_JSON", rawConfig)
+	t.Setenv("Deepseek2API_CONFIG_JSON", rawConfig)
 	store := config.LoadStore()
 	h := &Handler{
 		Store: store,

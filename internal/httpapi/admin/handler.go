@@ -3,18 +3,18 @@ package admin
 import (
 	"github.com/go-chi/chi/v5"
 
-	"ds2api/internal/chathistory"
-	adminaccounts "ds2api/internal/httpapi/admin/accounts"
-	adminauth "ds2api/internal/httpapi/admin/auth"
-	adminconfig "ds2api/internal/httpapi/admin/configmgmt"
-	admindevcapture "ds2api/internal/httpapi/admin/devcapture"
-	adminhistory "ds2api/internal/httpapi/admin/history"
-	adminproxies "ds2api/internal/httpapi/admin/proxies"
-	adminrawsamples "ds2api/internal/httpapi/admin/rawsamples"
-	adminsettings "ds2api/internal/httpapi/admin/settings"
-	adminshared "ds2api/internal/httpapi/admin/shared"
-	adminvercel "ds2api/internal/httpapi/admin/vercel"
-	adminversion "ds2api/internal/httpapi/admin/version"
+	"Deepseek2API/internal/chathistory"
+	adminaccounts "Deepseek2API/internal/httpapi/admin/accounts"
+	adminauth "Deepseek2API/internal/httpapi/admin/auth"
+	adminconfig "Deepseek2API/internal/httpapi/admin/configmgmt"
+	admindevcapture "Deepseek2API/internal/httpapi/admin/devcapture"
+	adminhistory "Deepseek2API/internal/httpapi/admin/history"
+	adminproxies "Deepseek2API/internal/httpapi/admin/proxies"
+	adminrawsamples "Deepseek2API/internal/httpapi/admin/rawsamples"
+	adminsettings "Deepseek2API/internal/httpapi/admin/settings"
+	adminshared "Deepseek2API/internal/httpapi/admin/shared"
+	adminvercel "Deepseek2API/internal/httpapi/admin/vercel"
+	adminversion "Deepseek2API/internal/httpapi/admin/version"
 )
 
 type Handler struct {

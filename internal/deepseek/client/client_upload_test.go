@@ -2,7 +2,7 @@ package client
 
 import (
 	"context"
-	dsprotocol "ds2api/internal/deepseek/protocol"
+	dsprotocol "Deepseek2API/internal/deepseek/protocol"
 	"encoding/base64"
 	"encoding/hex"
 	"encoding/json"
@@ -13,8 +13,8 @@ import (
 	"testing"
 	"time"
 
-	"ds2api/internal/auth"
-	powpkg "ds2api/pow"
+	"Deepseek2API/internal/auth"
+	powpkg "Deepseek2API/pow"
 )
 
 func TestBuildUploadMultipartBodyOmitsPurposeAndIncludesFilePart(t *testing.T) {

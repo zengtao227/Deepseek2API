@@ -1,7 +1,7 @@
 package toolstream
 
 import (
-	"ds2api/internal/toolcall"
+	"Deepseek2API/internal/toolcall"
 	"strings"
 )
 

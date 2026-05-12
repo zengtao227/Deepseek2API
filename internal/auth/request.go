@@ -10,8 +10,8 @@ import (
 	"sync"
 	"time"
 
-	"ds2api/internal/account"
-	"ds2api/internal/config"
+	"Deepseek2API/internal/account"
+	"Deepseek2API/internal/config"
 )
 
 type ctxKey string

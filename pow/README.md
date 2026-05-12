@@ -1,6 +1,6 @@
 # DeepSeek PoW 纯算实现
 
-当前服务端 PoW 已走纯 Go 实现：`internal/deepseek/pow.go` 负责从上游 challenge map 中取字段，调用 `ds2api/pow` 求解 nonce，并组装 `x-ds-pow-response` header。
+当前服务端 PoW 已走纯 Go 实现：`internal/deepseek/pow.go` 负责从上游 challenge map 中取字段，调用 `Deepseek2API/pow` 求解 nonce，并组装 `x-ds-pow-response` header。
 
 ## 算法
 

@@ -19,7 +19,7 @@ export default function VercelGuide({ t }) {
                 <li className="flex gap-3">
                     <span className="shrink-0 w-6 h-6 rounded-full bg-background border border-border flex items-center justify-center text-xs font-bold text-muted-foreground">3</span>
                     <p className="text-sm text-muted-foreground">
-                        {t('vercel.steps.three')} <code className="bg-background px-1 py-0.5 rounded border border-border text-xs">DS2API_CONFIG_JSON</code>
+                        {t('vercel.steps.three')} <code className="bg-background px-1 py-0.5 rounded border border-border text-xs">Deepseek2API_CONFIG_JSON</code>
                     </p>
                 </li>
                 <li className="flex gap-3">

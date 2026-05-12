@@ -6,13 +6,13 @@ import (
 	"strings"
 	"time"
 
-	"ds2api/internal/auth"
-	"ds2api/internal/completionruntime"
-	"ds2api/internal/config"
-	dsprotocol "ds2api/internal/deepseek/protocol"
-	"ds2api/internal/promptcompat"
-	"ds2api/internal/responsehistory"
-	streamengine "ds2api/internal/stream"
+	"Deepseek2API/internal/auth"
+	"Deepseek2API/internal/completionruntime"
+	"Deepseek2API/internal/config"
+	dsprotocol "Deepseek2API/internal/deepseek/protocol"
+	"Deepseek2API/internal/promptcompat"
+	"Deepseek2API/internal/responsehistory"
+	streamengine "Deepseek2API/internal/stream"
 )
 
 func (h *Handler) handleResponsesStreamWithRetry(w http.ResponseWriter, r *http.Request, a *auth.RequestAuth, resp *http.Response, payload map[string]any, pow, owner, responseID string, stdReq promptcompat.StandardRequest, model, finalPrompt string, refFileTokens int, thinkingEnabled, searchEnabled bool, toolNames []string, toolsRaw any, toolChoice promptcompat.ToolChoicePolicy, traceID string, historySession *responsehistory.Session) {

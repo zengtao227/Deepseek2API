@@ -11,11 +11,11 @@ import (
 	"sort"
 	"strings"
 
-	"ds2api/internal/config"
-	"ds2api/internal/devcapture"
-	adminshared "ds2api/internal/httpapi/admin/shared"
-	"ds2api/internal/rawsample"
-	"ds2api/internal/util"
+	"Deepseek2API/internal/config"
+	"Deepseek2API/internal/devcapture"
+	adminshared "Deepseek2API/internal/httpapi/admin/shared"
+	"Deepseek2API/internal/rawsample"
+	"Deepseek2API/internal/util"
 )
 
 type captureChain struct {

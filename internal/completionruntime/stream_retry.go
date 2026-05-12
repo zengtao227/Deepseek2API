@@ -6,12 +6,12 @@ import (
 	"net/http"
 	"strings"
 
-	"ds2api/internal/assistantturn"
-	"ds2api/internal/auth"
-	"ds2api/internal/config"
-	"ds2api/internal/httpapi/openai/history"
-	"ds2api/internal/httpapi/openai/shared"
-	"ds2api/internal/promptcompat"
+	"Deepseek2API/internal/assistantturn"
+	"Deepseek2API/internal/auth"
+	"Deepseek2API/internal/config"
+	"Deepseek2API/internal/httpapi/openai/history"
+	"Deepseek2API/internal/httpapi/openai/shared"
+	"Deepseek2API/internal/promptcompat"
 )
 
 type StreamRetryOptions struct {

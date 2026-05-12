@@ -7,11 +7,11 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	authn "ds2api/internal/auth"
+	authn "Deepseek2API/internal/auth"
 )
 
 func TestGetSettingsDefaultPasswordWarning(t *testing.T) {
-	t.Setenv("DS2API_ADMIN_KEY", "")
+	t.Setenv("Deepseek2API_ADMIN_KEY", "")
 	h := newAdminTestHandler(t, `{"keys":["k1"]}`)
 	req := httptest.NewRequest(http.MethodGet, "/admin/settings", nil)
 	rec := httptest.NewRecorder()

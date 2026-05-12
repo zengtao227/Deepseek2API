@@ -90,7 +90,7 @@
 ## 5) 落地建议
 
 1. Prompt 里只示范 DSML 外壳语法。
-2. 上游客户端应直接输出完整 DSML 外壳；DS2API 兼容旧式 canonical XML，并只对“closing tag 在、opening tag 漏掉”的常见失误做窄修复，不会泛化接受其他旧格式。
+2. 上游客户端应直接输出完整 DSML 外壳；Deepseek2API 兼容旧式 canonical XML，并只对“closing tag 在、opening tag 漏掉”的常见失误做窄修复，不会泛化接受其他旧格式。
 3. 模型只有在知道本次调用所需参数值时才应输出工具调用；不要输出 placeholder、空字符串或纯空白参数。对 `Bash` / `execute_command`，实际命令必须在 `command` 参数里。
 4. 不要依赖 parser 做安全控制；执行器侧仍应做工具名和参数校验。
 

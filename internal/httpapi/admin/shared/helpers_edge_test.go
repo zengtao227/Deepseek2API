@@ -5,7 +5,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"ds2api/internal/config"
+	"Deepseek2API/internal/config"
 )
 
 // ─── reverseAccounts ─────────────────────────────────────────────────

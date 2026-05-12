@@ -7,11 +7,11 @@ import (
 	"strings"
 	"testing"
 
-	"ds2api/internal/account"
-	"ds2api/internal/auth"
-	"ds2api/internal/config"
-	dsclient "ds2api/internal/deepseek/client"
-	"ds2api/internal/promptcompat"
+	"Deepseek2API/internal/account"
+	"Deepseek2API/internal/auth"
+	"Deepseek2API/internal/config"
+	dsclient "Deepseek2API/internal/deepseek/client"
+	"Deepseek2API/internal/promptcompat"
 )
 
 type fakeDeepSeekCaller struct {
@@ -103,7 +103,7 @@ func TestExecuteNonStreamWithRetryBuildsCanonicalTurn(t *testing.T) {
 }
 
 func TestExecuteNonStreamWithRetrySwitchesManagedAccountBeforeFinal429(t *testing.T) {
-	t.Setenv("DS2API_CONFIG_JSON", `{
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{
 		"keys":["managed-key"],
 		"accounts":[
 			{"email":"acc1@test.com","password":"pwd"},
@@ -166,7 +166,7 @@ func TestExecuteNonStreamWithRetrySwitchesManagedAccountBeforeFinal429(t *testin
 }
 
 func TestExecuteNonStreamWithRetryReuploadsCurrentInputFileAfterAccountSwitch(t *testing.T) {
-	t.Setenv("DS2API_CONFIG_JSON", `{
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{
 		"keys":["managed-key"],
 		"accounts":[
 			{"email":"acc1@test.com","password":"pwd"},
@@ -301,8 +301,8 @@ func TestStartCompletionAppliesCurrentInputFileGlobally(t *testing.T) {
 	if len(ds.uploads) != 1 {
 		t.Fatalf("expected current input upload, got %d", len(ds.uploads))
 	}
-	if got := ds.uploads[0].Filename; got != "DS2API_HISTORY.txt" {
-		t.Fatalf("upload filename=%q want DS2API_HISTORY.txt", got)
+	if got := ds.uploads[0].Filename; got != "Deepseek2API_HISTORY.txt" {
+		t.Fatalf("upload filename=%q want Deepseek2API_HISTORY.txt", got)
 	}
 	if len(ds.payloads) != 1 {
 		t.Fatalf("expected one completion payload, got %d", len(ds.payloads))
@@ -312,10 +312,10 @@ func TestStartCompletionAppliesCurrentInputFileGlobally(t *testing.T) {
 		t.Fatalf("expected uploaded file id in ref_file_ids, got %#v", ds.payloads[0]["ref_file_ids"])
 	}
 	prompt, _ := ds.payloads[0]["prompt"].(string)
-	if !strings.Contains(prompt, "Continue from the latest state in the attached DS2API_HISTORY.txt context.") {
+	if !strings.Contains(prompt, "Continue from the latest state in the attached Deepseek2API_HISTORY.txt context.") {
 		t.Fatalf("expected continuation prompt, got %q", prompt)
 	}
-	if !start.Request.CurrentInputFileApplied || !strings.Contains(start.Request.PromptTokenText, "# DS2API_HISTORY.txt") {
+	if !start.Request.CurrentInputFileApplied || !strings.Contains(start.Request.PromptTokenText, "# Deepseek2API_HISTORY.txt") {
 		t.Fatalf("expected prepared request to carry current input file state, got %#v", start.Request)
 	}
 }

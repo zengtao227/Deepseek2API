@@ -9,11 +9,11 @@ import (
 	"strings"
 	"time"
 
-	"ds2api/internal/auth"
-	"ds2api/internal/config"
-	"ds2api/internal/httpapi/openai/history"
-	"ds2api/internal/promptcompat"
-	"ds2api/internal/util"
+	"Deepseek2API/internal/auth"
+	"Deepseek2API/internal/config"
+	"Deepseek2API/internal/httpapi/openai/history"
+	"Deepseek2API/internal/promptcompat"
+	"Deepseek2API/internal/util"
 
 	"github.com/google/uuid"
 )
@@ -82,7 +82,7 @@ func (h *Handler) handleVercelStreamPrepare(w http.ResponseWriter, r *http.Reque
 		if a.UseConfigToken {
 			writeOpenAIError(w, http.StatusUnauthorized, "Account token is invalid. Please re-login the account in admin.")
 		} else {
-			writeOpenAIError(w, http.StatusUnauthorized, "Invalid token. If this should be a DS2API key, add it to config.keys first.")
+			writeOpenAIError(w, http.StatusUnauthorized, "Invalid token. If this should be a Deepseek2API key, add it to config.keys first.")
 		}
 		return
 	}
@@ -92,7 +92,7 @@ func (h *Handler) handleVercelStreamPrepare(w http.ResponseWriter, r *http.Reque
 		return
 	}
 	if strings.TrimSpace(a.DeepSeekToken) == "" {
-		writeOpenAIError(w, http.StatusUnauthorized, "Invalid token. If this should be a DS2API key, add it to config.keys first.")
+		writeOpenAIError(w, http.StatusUnauthorized, "Invalid token. If this should be a Deepseek2API key, add it to config.keys first.")
 		return
 	}
 
@@ -296,10 +296,10 @@ func isVercelStreamSwitchRequest(r *http.Request) bool {
 }
 
 func vercelInternalSecret() string {
-	if v := strings.TrimSpace(os.Getenv("DS2API_VERCEL_INTERNAL_SECRET")); v != "" {
+	if v := strings.TrimSpace(os.Getenv("Deepseek2API_VERCEL_INTERNAL_SECRET")); v != "" {
 		return v
 	}
-	if v := strings.TrimSpace(os.Getenv("DS2API_ADMIN_KEY")); v != "" {
+	if v := strings.TrimSpace(os.Getenv("Deepseek2API_ADMIN_KEY")); v != "" {
 		return v
 	}
 	return "admin"
@@ -422,7 +422,7 @@ func (h *Handler) sweepExpiredStreamLeases() {
 }
 
 func streamLeaseTTL() time.Duration {
-	raw := strings.TrimSpace(os.Getenv("DS2API_VERCEL_STREAM_LEASE_TTL_SECONDS"))
+	raw := strings.TrimSpace(os.Getenv("Deepseek2API_VERCEL_STREAM_LEASE_TTL_SECONDS"))
 	if raw == "" {
 		return 15 * time.Minute
 	}

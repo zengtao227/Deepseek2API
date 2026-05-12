@@ -4,9 +4,9 @@ import (
 	"net/http"
 	"strings"
 
-	authn "ds2api/internal/auth"
-	"ds2api/internal/config"
-	"ds2api/internal/promptcompat"
+	authn "Deepseek2API/internal/auth"
+	"Deepseek2API/internal/config"
+	"Deepseek2API/internal/promptcompat"
 )
 
 func (h *Handler) getSettings(w http.ResponseWriter, _ *http.Request) {

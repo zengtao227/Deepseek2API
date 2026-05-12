@@ -7,14 +7,14 @@ import (
 	"net/http"
 	"strings"
 
-	"ds2api/internal/assistantturn"
-	"ds2api/internal/auth"
-	"ds2api/internal/config"
-	dsclient "ds2api/internal/deepseek/client"
-	"ds2api/internal/httpapi/openai/history"
-	"ds2api/internal/httpapi/openai/shared"
-	"ds2api/internal/promptcompat"
-	"ds2api/internal/sse"
+	"Deepseek2API/internal/assistantturn"
+	"Deepseek2API/internal/auth"
+	"Deepseek2API/internal/config"
+	dsclient "Deepseek2API/internal/deepseek/client"
+	"Deepseek2API/internal/httpapi/openai/history"
+	"Deepseek2API/internal/httpapi/openai/shared"
+	"Deepseek2API/internal/promptcompat"
+	"Deepseek2API/internal/sse"
 )
 
 type DeepSeekCaller interface {
@@ -274,7 +274,7 @@ func authOutputError(a *auth.RequestAuth) *assistantturn.OutputError {
 	if a != nil && a.UseConfigToken {
 		return &assistantturn.OutputError{Status: http.StatusUnauthorized, Message: "Account token is invalid. Please re-login the account in admin.", Code: "error"}
 	}
-	return &assistantturn.OutputError{Status: http.StatusUnauthorized, Message: "Invalid token. If this should be a DS2API key, add it to config.keys first.", Code: "error"}
+	return &assistantturn.OutputError{Status: http.StatusUnauthorized, Message: "Invalid token. If this should be a Deepseek2API key, add it to config.keys first.", Code: "error"}
 }
 
 func Errorf(status int, format string, args ...any) *assistantturn.OutputError {

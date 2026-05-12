@@ -12,7 +12,7 @@ import (
 	"testing"
 	"unicode/utf8"
 
-	"ds2api/internal/devcapture"
+	"Deepseek2API/internal/devcapture"
 )
 
 type stubOpenAIChatCaller struct{}
@@ -66,7 +66,7 @@ func recordCapturedResponse(label, rawURL string, statusCode int, request any, b
 }
 
 func TestCaptureRawSampleWritesPersistentSample(t *testing.T) {
-	t.Setenv("DS2API_RAW_STREAM_SAMPLE_ROOT", t.TempDir())
+	t.Setenv("Deepseek2API_RAW_STREAM_SAMPLE_ROOT", t.TempDir())
 	devcapture.Global().Clear()
 	defer devcapture.Global().Clear()
 
@@ -88,14 +88,14 @@ func TestCaptureRawSampleWritesPersistentSample(t *testing.T) {
 	if got := rec.Header().Get("X-Ds2-Sample-Id"); got != "my-sample-01" {
 		t.Fatalf("expected sample id header my-sample-01, got %q", got)
 	}
-	if got := rec.Header().Get("X-Ds2-Sample-Upstream"); got != filepath.Join(os.Getenv("DS2API_RAW_STREAM_SAMPLE_ROOT"), "my-sample-01", "upstream.stream.sse") {
+	if got := rec.Header().Get("X-Ds2-Sample-Upstream"); got != filepath.Join(os.Getenv("Deepseek2API_RAW_STREAM_SAMPLE_ROOT"), "my-sample-01", "upstream.stream.sse") {
 		t.Fatalf("unexpected sample upstream header: %q", got)
 	}
 	if !strings.Contains(rec.Body.String(), `"content":"hello"`) {
 		t.Fatalf("expected proxied openai output, got %s", rec.Body.String())
 	}
 
-	sampleDir := filepath.Join(os.Getenv("DS2API_RAW_STREAM_SAMPLE_ROOT"), "my-sample-01")
+	sampleDir := filepath.Join(os.Getenv("Deepseek2API_RAW_STREAM_SAMPLE_ROOT"), "my-sample-01")
 	if _, err := os.Stat(sampleDir); err != nil {
 		t.Fatalf("sample dir missing: %v", err)
 	}
@@ -123,7 +123,7 @@ func TestCaptureRawSampleWritesPersistentSample(t *testing.T) {
 }
 
 func TestCaptureRawSampleCombinesContinuationCaptures(t *testing.T) {
-	t.Setenv("DS2API_RAW_STREAM_SAMPLE_ROOT", t.TempDir())
+	t.Setenv("Deepseek2API_RAW_STREAM_SAMPLE_ROOT", t.TempDir())
 	devcapture.Global().Clear()
 	defer devcapture.Global().Clear()
 
@@ -143,7 +143,7 @@ func TestCaptureRawSampleCombinesContinuationCaptures(t *testing.T) {
 		t.Fatalf("expected 200, got %d body=%s", rec.Code, rec.Body.String())
 	}
 
-	sampleDir := filepath.Join(os.Getenv("DS2API_RAW_STREAM_SAMPLE_ROOT"), "my-sample-02")
+	sampleDir := filepath.Join(os.Getenv("Deepseek2API_RAW_STREAM_SAMPLE_ROOT"), "my-sample-02")
 	upstreamBytes, err := os.ReadFile(filepath.Join(sampleDir, "upstream.stream.sse"))
 	if err != nil {
 		t.Fatalf("read upstream: %v", err)
@@ -191,7 +191,7 @@ func TestCaptureRawSampleCombinesContinuationCaptures(t *testing.T) {
 
 func TestCaptureRawSampleReturnsErrorWhenNoNewCaptureRecorded(t *testing.T) {
 	root := t.TempDir()
-	t.Setenv("DS2API_RAW_STREAM_SAMPLE_ROOT", root)
+	t.Setenv("Deepseek2API_RAW_STREAM_SAMPLE_ROOT", root)
 	devcapture.Global().Clear()
 	defer devcapture.Global().Clear()
 
@@ -331,7 +331,7 @@ func TestBuildCaptureChainsPreservesCaptureOrderWhenTimestampsCollide(t *testing
 
 func TestSaveRawSampleFromCapturesPersistsSelectedChain(t *testing.T) {
 	root := t.TempDir()
-	t.Setenv("DS2API_RAW_STREAM_SAMPLE_ROOT", root)
+	t.Setenv("Deepseek2API_RAW_STREAM_SAMPLE_ROOT", root)
 	devcapture.Global().Clear()
 	defer devcapture.Global().Clear()
 

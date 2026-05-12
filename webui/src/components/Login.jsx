@@ -27,8 +27,8 @@ export default function Login({ onLogin, onMessage }) {
 
             if (res.ok && data.success) {
                 const storage = remember ? localStorage : sessionStorage
-                storage.setItem('ds2api_token', data.token)
-                storage.setItem('ds2api_token_expires', Date.now() + data.expires_in * 1000)
+                storage.setItem('Deepseek2API_token', data.token)
+                storage.setItem('Deepseek2API_token_expires', Date.now() + data.expires_in * 1000)
 
                 onLogin(data.token)
                 if (data.message) {

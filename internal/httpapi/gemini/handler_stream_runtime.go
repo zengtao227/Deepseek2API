@@ -8,14 +8,14 @@ import (
 	"strings"
 	"time"
 
-	"ds2api/internal/assistantturn"
-	"ds2api/internal/auth"
-	"ds2api/internal/completionruntime"
-	dsprotocol "ds2api/internal/deepseek/protocol"
-	"ds2api/internal/promptcompat"
-	"ds2api/internal/responsehistory"
-	"ds2api/internal/sse"
-	streamengine "ds2api/internal/stream"
+	"Deepseek2API/internal/assistantturn"
+	"Deepseek2API/internal/auth"
+	"Deepseek2API/internal/completionruntime"
+	dsprotocol "Deepseek2API/internal/deepseek/protocol"
+	"Deepseek2API/internal/promptcompat"
+	"Deepseek2API/internal/responsehistory"
+	"Deepseek2API/internal/sse"
+	streamengine "Deepseek2API/internal/stream"
 )
 
 //nolint:unused // retained for native Gemini stream handling path.

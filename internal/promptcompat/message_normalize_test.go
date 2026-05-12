@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"ds2api/internal/util"
+	"Deepseek2API/internal/util"
 )
 
 func TestNormalizeOpenAIMessagesForPrompt_AssistantToolCallsAndToolResult(t *testing.T) {

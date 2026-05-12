@@ -7,7 +7,7 @@ import (
 
 	"github.com/go-chi/chi/v5"
 
-	"ds2api/internal/chathistory"
+	"Deepseek2API/internal/chathistory"
 )
 
 func (h *Handler) getChatHistory(w http.ResponseWriter, r *http.Request) {

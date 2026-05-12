@@ -1,4 +1,4 @@
-# DS2API Deployment Guide
+# Deepseek2API Deployment Guide
 
 Language: [中文](DEPLOY.md) | [English](DEPLOY.en.md)
 
@@ -45,7 +45,7 @@ Recommended order when choosing a deployment method:
 Config source (choose one):
 
 - **File**: `config.json` (recommended for local/Docker)
-- **Environment variable**: `DS2API_CONFIG_JSON` (recommended for Vercel; supports raw JSON or Base64)
+- **Environment variable**: `Deepseek2API_CONFIG_JSON` (recommended for Vercel; supports raw JSON or Base64)
 
 Unified recommendation (best practice):
 
@@ -56,7 +56,7 @@ cp config.example.json config.json
 
 Use `config.json` as the single source of truth:
 - Local run: read `config.json` directly
-- Docker / Vercel: generate `DS2API_CONFIG_JSON` (Base64) from `config.json` and inject it
+- Docker / Vercel: generate `Deepseek2API_CONFIG_JSON` (Base64) from `config.json` and inject it
 
 ---
 
@@ -66,7 +66,7 @@ Built-in GitHub Actions workflow: `.github/workflows/release-artifacts.yml`
 
 - **Trigger**: by default only on Release `published`; you can also run it manually via `workflow_dispatch` and pass `release_tag` to rerun / backfill
 - **Outputs**: multi-platform binary archives, Linux Docker image export tarballs, and `sha256sums.txt`
-- **Container publishing**: GHCR only (`ghcr.io/cjackhwang/ds2api`)
+- **Container publishing**: GHCR only (`ghcr.io/cjackhwang/Deepseek2API`)
 
 | Platform | Architecture | Format |
 | --- | --- | --- |
@@ -76,7 +76,7 @@ Built-in GitHub Actions workflow: `.github/workflows/release-artifacts.yml`
 
 Each archive includes:
 
-- `ds2api` executable (`ds2api.exe` on Windows)
+- `Deepseek2API` executable (`Deepseek2API.exe` on Windows)
 - `static/admin/` (built WebUI assets)
 - `config.example.json`, `.env.example`
 - `README.MD`, `README.en.md`, `LICENSE`
@@ -86,15 +86,15 @@ Each archive includes:
 ```bash
 # 1. Download the archive for your platform
 # 2. Extract
-tar -xzf ds2api_<tag>_linux_amd64.tar.gz
-cd ds2api_<tag>_linux_amd64
+tar -xzf Deepseek2API_<tag>_linux_amd64.tar.gz
+cd Deepseek2API_<tag>_linux_amd64
 
 # 3. Configure
 cp config.example.json config.json
 # Edit config.json
 
 # 4. Start
-./ds2api
+./Deepseek2API
 ```
 
 ### Maintainer Release Flow
@@ -111,16 +111,16 @@ cp config.example.json config.json
 
 ```bash
 # Pull prebuilt image
-docker pull ghcr.io/cjackhwang/ds2api:latest
+docker pull ghcr.io/cjackhwang/Deepseek2API:latest
 
 # Copy env template and config file
 cp .env.example .env
 cp config.example.json config.json
 
 # Edit .env and set at least:
-#   DS2API_ADMIN_KEY=your-admin-key
+#   Deepseek2API_ADMIN_KEY=your-admin-key
 # Optionally set the host port:
-#   DS2API_HOST_PORT=6011
+#   Deepseek2API_HOST_PORT=6011
 
 # Start
 docker-compose up -d
@@ -129,15 +129,15 @@ docker-compose up -d
 docker-compose logs -f
 ```
 
-The default `docker-compose.yml` directly uses `ghcr.io/cjackhwang/ds2api:latest` and maps host port `6011` to container port `5001`. If you want `5001` exposed directly, set `DS2API_HOST_PORT=5001` (or adjust the `ports` mapping).
-The compose template also defaults to `DS2API_CONFIG_PATH=/data/config.json` with `./config.json:/data/config.json` mounted, so deployments avoid read-only `/app` persistence issues by default.
-The image pre-creates `/data` and grants it to the non-root `ds2api` user. If you bind-mount a single host file, make sure `config.json` is readable/writable by the container user, for example with `chmod 644 config.json`; otherwise Linux UID/GID mismatches can still cause `open /data/config.json: permission denied`.
-Compatibility note: when `DS2API_CONFIG_PATH` is unset and runtime base dir is `/app`, newer versions prefer `/data/config.json`; if that file is missing but legacy `/app/config.json` exists, DS2API automatically falls back to the legacy path to avoid post-upgrade config loss.
+The default `docker-compose.yml` directly uses `ghcr.io/cjackhwang/Deepseek2API:latest` and maps host port `6011` to container port `5001`. If you want `5001` exposed directly, set `Deepseek2API_HOST_PORT=5001` (or adjust the `ports` mapping).
+The compose template also defaults to `Deepseek2API_CONFIG_PATH=/data/config.json` with `./config.json:/data/config.json` mounted, so deployments avoid read-only `/app` persistence issues by default.
+The image pre-creates `/data` and grants it to the non-root `Deepseek2API` user. If you bind-mount a single host file, make sure `config.json` is readable/writable by the container user, for example with `chmod 644 config.json`; otherwise Linux UID/GID mismatches can still cause `open /data/config.json: permission denied`.
+Compatibility note: when `Deepseek2API_CONFIG_PATH` is unset and runtime base dir is `/app`, newer versions prefer `/data/config.json`; if that file is missing but legacy `/app/config.json` exists, Deepseek2API automatically falls back to the legacy path to avoid post-upgrade config loss.
 
 If you want a pinned version instead of `latest`, you can also pull a specific tag directly:
 
 ```bash
-docker pull ghcr.io/cjackhwang/ds2api:v3.0.0
+docker pull ghcr.io/cjackhwang/Deepseek2API:v3.0.0
 ```
 
 ### 2.2 Update
@@ -155,7 +155,7 @@ The `Dockerfile` now provides two image paths:
 
 The release path keeps Docker images aligned with release archives and reduces duplicate build work.
 
-Container entry command: `/usr/local/bin/ds2api`, default exposed port: `5001`.
+Container entry command: `/usr/local/bin/Deepseek2API`, default exposed port: `5001`.
 
 ### 2.4 Development Mode
 
@@ -196,15 +196,15 @@ This repo includes a `zeabur.yaml` template for one-click deployment on Zeabur:
 
 Notes:
 
-- **Port**: DS2API listens on `5001` by default; the template sets `PORT=5001`.
-- **Persistent config**: the template mounts `/data` and sets `DS2API_CONFIG_PATH=/data/config.json`. On a fresh volume, DS2API starts with an empty file-backed config; after importing config in Admin UI, it will be written and persisted to this path.
+- **Port**: Deepseek2API listens on `5001` by default; the template sets `PORT=5001`.
+- **Persistent config**: the template mounts `/data` and sets `Deepseek2API_CONFIG_PATH=/data/config.json`. On a fresh volume, Deepseek2API starts with an empty file-backed config; after importing config in Admin UI, it will be written and persisted to this path.
 - **`open /app/config.json: permission denied`**: this means the instance is trying to persist runtime tokens to a read-only path (commonly `/app` inside the image).  
   Recommended handling:
-  1. Set a writable path explicitly: `DS2API_CONFIG_PATH=/data/config.json` (and mount a persistent volume at `/data`);
-  2. If you bootstrap with `DS2API_CONFIG_JSON` and do not need runtime writeback, keep env-backed mode (`DS2API_ENV_WRITEBACK` disabled);
+  1. Set a writable path explicitly: `Deepseek2API_CONFIG_PATH=/data/config.json` (and mount a persistent volume at `/data`);
+  2. If you bootstrap with `Deepseek2API_CONFIG_JSON` and do not need runtime writeback, keep env-backed mode (`Deepseek2API_ENV_WRITEBACK` disabled);
   3. In current versions, login/session tests continue even if persistence fails; Admin API returns a warning that token persistence failed and token is memory-only until restart.
 - **Build version**: Zeabur / regular `docker build` does not require `BUILD_VERSION` by default. The image prefers that build arg when provided, and automatically falls back to the repo-root `VERSION` file when it is absent.
-- **First login**: after deployment, open `/admin` and login with `DS2API_ADMIN_KEY` shown in Zeabur env/template instructions (recommended: rotate to a strong secret after first login).
+- **First login**: after deployment, open `/admin` and login with `Deepseek2API_ADMIN_KEY` shown in Zeabur env/template instructions (recommended: rotate to a strong secret after first login).
 
 #### Manual Deployment Without The Template
 
@@ -220,20 +220,20 @@ If you do not want to use the `zeabur.yaml` one-click template, deploy directly 
 | Variable | Recommended value | Description |
 | --- | --- | --- |
 | `PORT` | `5001` | Service listen port; keep it aligned with the exposed Zeabur HTTP port. |
-| `DS2API_ADMIN_KEY` | Strong random string | Required admin login key. |
-| `DS2API_CONFIG_PATH` | `/data/config.json` | Recommended persistent config path. |
+| `Deepseek2API_ADMIN_KEY` | Strong random string | Required admin login key. |
+| `Deepseek2API_CONFIG_PATH` | `/data/config.json` | Recommended persistent config path. |
 | `LOG_LEVEL` | `INFO` | Optional log level. |
-| `DS2API_CONFIG_JSON` | Raw JSON or Base64 JSON | Optional config bootstrap from env. |
-| `DS2API_ENV_WRITEBACK` | `1` | Optional; enable only when using `DS2API_CONFIG_JSON` and you want the initial config written to `/data/config.json`. |
+| `Deepseek2API_CONFIG_JSON` | Raw JSON or Base64 JSON | Optional config bootstrap from env. |
+| `Deepseek2API_ENV_WRITEBACK` | `1` | Optional; enable only when using `Deepseek2API_CONFIG_JSON` and you want the initial config written to `/data/config.json`. |
 
 7. Expose HTTP port `5001`. The health check path can be `/healthz`.
-8. After deployment, open `/admin`, login with `DS2API_ADMIN_KEY`, then import or edit config in Admin UI. A fresh volume does not need `/data/config.json` up front; the service boots first and creates the file on the first save.
+8. After deployment, open `/admin`, login with `Deepseek2API_ADMIN_KEY`, then import or edit config in Admin UI. A fresh volume does not need `/data/config.json` up front; the service boots first and creates the file on the first save.
 
 Troubleshooting:
 
 - **Startup log says `open /data/config.json: no such file or directory`**: make sure you deployed a version that includes the fresh-volume bootstrap fix, then redeploy the latest code.
-- **`open /app/config.json: permission denied`**: the config path still points at the read-only image directory; mount `/data` and set `DS2API_CONFIG_PATH=/data/config.json`.
-- **Config disappears after restart**: check that the `/data` persistent volume is mounted on this service. If you use `DS2API_CONFIG_JSON` but want Admin UI saves persisted, enable `DS2API_ENV_WRITEBACK=1`.
+- **`open /app/config.json: permission denied`**: the config path still points at the read-only image directory; mount `/data` and set `Deepseek2API_CONFIG_PATH=/data/config.json`.
+- **Config disappears after restart**: check that the `/data` persistent volume is mounted on this service. If you use `Deepseek2API_CONFIG_JSON` but want Admin UI saves persisted, enable `Deepseek2API_ENV_WRITEBACK=1`.
 
 References: Zeabur's official [GitHub/Git integration](https://zeabur.com/docs/en-US/deploy/github), [Dockerfile deployment](https://zeabur.com/docs/en-US/deploy/dockerfile), and [Volumes](https://zeabur.com/docs/data-management/volumes) docs.
 
@@ -249,14 +249,14 @@ References: Zeabur's official [GitHub/Git integration](https://zeabur.com/docs/e
 
 | Variable | Description |
 | --- | --- |
-| `DS2API_ADMIN_KEY` | Admin key (required) |
-| `DS2API_CONFIG_JSON` | Config content, raw JSON or Base64 (optional, recommended) |
+| `Deepseek2API_ADMIN_KEY` | Admin key (required) |
+| `Deepseek2API_CONFIG_JSON` | Config content, raw JSON or Base64 (optional, recommended) |
 
 4. **Deploy**
 
-### 3.1.1 Recommended Input (avoid `DS2API_CONFIG_JSON` mistakes)
+### 3.1.1 Recommended Input (avoid `Deepseek2API_CONFIG_JSON` mistakes)
 
-If you prefer faster one-click bootstrap, you can leave `DS2API_CONFIG_JSON` empty first, then open `/admin` after deployment, import config, and sync it back to Vercel env vars from the "Vercel Sync" page.
+If you prefer faster one-click bootstrap, you can leave `Deepseek2API_CONFIG_JSON` empty first, then open `/admin` after deployment, import config, and sync it back to Vercel env vars from the "Vercel Sync" page.
 
 Recommended: in repo root, copy the template first and fill your real accounts:
 
@@ -269,15 +269,15 @@ Do not hand-edit large JSON directly in Vercel. Generate Base64 locally and past
 
 ```bash
 # Run in repo root
-DS2API_CONFIG_JSON="$(base64 < config.json | tr -d '\n')"
-echo "$DS2API_CONFIG_JSON"
+Deepseek2API_CONFIG_JSON="$(base64 < config.json | tr -d '\n')"
+echo "$Deepseek2API_CONFIG_JSON"
 ```
 
 If you choose to preconfigure before first deploy, set these vars in Vercel Project Settings -> Environment Variables:
 
 ```text
-DS2API_ADMIN_KEY=replace-with-a-strong-secret
-DS2API_CONFIG_JSON=<the single-line Base64 output above>
+Deepseek2API_ADMIN_KEY=replace-with-a-strong-secret
+Deepseek2API_CONFIG_JSON=<the single-line Base64 output above>
 ```
 
 Optional but recommended (for WebUI one-click Vercel sync):
@@ -292,20 +292,20 @@ VERCEL_TEAM_ID=team_xxxxxxxxxxxx   # optional for personal accounts
 
 | Variable | Description | Default |
 | --- | --- | --- |
-| `DS2API_ACCOUNT_MAX_INFLIGHT` | Per-account inflight limit | `2` |
-| `DS2API_ACCOUNT_MAX_QUEUE` | Waiting queue limit | `recommended_concurrency` |
-| `DS2API_GLOBAL_MAX_INFLIGHT` | Global inflight limit | `recommended_concurrency` |
-| `DS2API_ENV_WRITEBACK` | When `DS2API_CONFIG_JSON` is present, auto-write to `DS2API_CONFIG_PATH` and switch to file-backed mode after success (`1/true/yes/on`) | Disabled |
-| `DS2API_VERCEL_INTERNAL_SECRET` | Hybrid streaming internal auth | Falls back to `DS2API_ADMIN_KEY` |
-| `DS2API_VERCEL_STREAM_LEASE_TTL_SECONDS` | Stream lease TTL | `900` |
-| `DS2API_RAW_STREAM_SAMPLE_ROOT` | Raw stream sample root for saving/reading samples | `tests/raw_stream_samples` |
-| `DS2API_STATIC_ADMIN_DIR` | WebUI static asset directory | `static/admin` |
-| `DS2API_AUTO_BUILD_WEBUI` | Whether local startup auto-builds missing WebUI assets (`1/true/yes/on` or `0/false/no/off`) | Enabled outside Vercel |
+| `Deepseek2API_ACCOUNT_MAX_INFLIGHT` | Per-account inflight limit | `2` |
+| `Deepseek2API_ACCOUNT_MAX_QUEUE` | Waiting queue limit | `recommended_concurrency` |
+| `Deepseek2API_GLOBAL_MAX_INFLIGHT` | Global inflight limit | `recommended_concurrency` |
+| `Deepseek2API_ENV_WRITEBACK` | When `Deepseek2API_CONFIG_JSON` is present, auto-write to `Deepseek2API_CONFIG_PATH` and switch to file-backed mode after success (`1/true/yes/on`) | Disabled |
+| `Deepseek2API_VERCEL_INTERNAL_SECRET` | Hybrid streaming internal auth | Falls back to `Deepseek2API_ADMIN_KEY` |
+| `Deepseek2API_VERCEL_STREAM_LEASE_TTL_SECONDS` | Stream lease TTL | `900` |
+| `Deepseek2API_RAW_STREAM_SAMPLE_ROOT` | Raw stream sample root for saving/reading samples | `tests/raw_stream_samples` |
+| `Deepseek2API_STATIC_ADMIN_DIR` | WebUI static asset directory | `static/admin` |
+| `Deepseek2API_AUTO_BUILD_WEBUI` | Whether local startup auto-builds missing WebUI assets (`1/true/yes/on` or `0/false/no/off`) | Enabled outside Vercel |
 | `VERCEL_TOKEN` | Vercel sync token | — |
 | `VERCEL_PROJECT_ID` | Vercel project ID | — |
 | `VERCEL_TEAM_ID` | Vercel team ID | — |
-| `DS2API_CHAT_HISTORY_PATH` | Chat history storage path (must be set to `/tmp/chat_history.json` on Vercel, otherwise unavailable due to read-only filesystem) | `data/chat_history.json` |
-| `DS2API_VERCEL_PROTECTION_BYPASS` | Deployment protection bypass for internal Node→Go calls | — |
+| `Deepseek2API_CHAT_HISTORY_PATH` | Chat history storage path (must be set to `/tmp/chat_history.json` on Vercel, otherwise unavailable due to read-only filesystem) | `data/chat_history.json` |
+| `Deepseek2API_VERCEL_PROTECTION_BYPASS` | Deployment protection bypass for internal Node→Go calls | — |
 
 ### 3.4 Vercel Architecture
 
@@ -371,12 +371,12 @@ Error: Command failed: go build -ldflags -s -w -o .../bootstrap ...
 #### Internal Package Import Error
 
 ```text
-use of internal package ds2api/internal/server not allowed
+use of internal package Deepseek2API/internal/server not allowed
 ```
 
 **Cause**: Vercel Go entrypoint directly imports `internal/...`.
 
-**Fix**: This repo uses a public bridge package: `api/index.go` → `ds2api/app` → `internal/server`.
+**Fix**: This repo uses a public bridge package: `api/index.go` → `Deepseek2API/app` → `internal/server`.
 
 #### Output Directory Error
 
@@ -392,7 +392,7 @@ If API responses return Vercel HTML `Authentication Required`:
 
 - **Option A**: Disable Deployment Protection for that environment (recommended for public APIs)
 - **Option B**: Add `x-vercel-protection-bypass` header to requests
-- **Option C**: Set `VERCEL_AUTOMATION_BYPASS_SECRET` (or `DS2API_VERCEL_PROTECTION_BYPASS`) for internal Node→Go calls
+- **Option C**: Set `VERCEL_AUTOMATION_BYPASS_SECRET` (or `Deepseek2API_VERCEL_PROTECTION_BYPASS`) for internal Node→Go calls
 
 #### Chat History Unavailable (read-only file system)
 
@@ -405,7 +405,7 @@ create chat history dir: mkdir /var/task/data: read-only file system
 **Fix**: Add the following in Vercel Project Settings → Environment Variables:
 
 ```text
-DS2API_CHAT_HISTORY_PATH=/tmp/chat_history.json
+Deepseek2API_CHAT_HISTORY_PATH=/tmp/chat_history.json
 ```
 
 `/tmp` is the only writable directory in Vercel Serverless. Data is ephemeral (not persisted across cold starts), but the feature works within a single instance lifetime.
@@ -423,8 +423,8 @@ DS2API_CHAT_HISTORY_PATH=/tmp/chat_history.json
 
 ```bash
 # Clone
-git clone https://github.com/CJackHwang/ds2api.git
-cd ds2api
+git clone https://github.com/CJackHwang/Deepseek2API.git
+cd Deepseek2API
 
 # Copy and edit config
 cp config.example.json config.json
@@ -433,14 +433,14 @@ cp config.example.json config.json
 #   - accounts: DeepSeek accounts (email or mobile + password)
 
 # Start
-go run ./cmd/ds2api
+go run ./cmd/Deepseek2API
 ```
 
 Default local access URL: `http://127.0.0.1:5001`; the server actually binds to `0.0.0.0:5001` (override with `PORT`).
 
 ### 4.2 WebUI Build
 
-On first local startup, if the WebUI static directory is missing, DS2API automatically attempts to build it (requires Node.js/npm; when dependencies are missing it runs `npm ci --prefix webui`, then `npm run build --prefix webui -- --outDir <static-dir> --emptyOutDir`). The default static directory is `static/admin/`, and `DS2API_STATIC_ADMIN_DIR` can override it.
+On first local startup, if the WebUI static directory is missing, Deepseek2API automatically attempts to build it (requires Node.js/npm; when dependencies are missing it runs `npm ci --prefix webui`, then `npm run build --prefix webui -- --outDir <static-dir> --emptyOutDir`). The default static directory is `static/admin/`, and `Deepseek2API_STATIC_ADMIN_DIR` can override it.
 
 Manual build:
 
@@ -461,17 +461,17 @@ Control auto-build via environment variable:
 
 ```bash
 # Disable auto-build
-DS2API_AUTO_BUILD_WEBUI=false go run ./cmd/ds2api
+Deepseek2API_AUTO_BUILD_WEBUI=false go run ./cmd/Deepseek2API
 
 # Force enable auto-build
-DS2API_AUTO_BUILD_WEBUI=true go run ./cmd/ds2api
+Deepseek2API_AUTO_BUILD_WEBUI=true go run ./cmd/Deepseek2API
 ```
 
 ### 4.3 Compile to Binary
 
 ```bash
-go build -o ds2api ./cmd/ds2api
-./ds2api
+go build -o Deepseek2API ./cmd/Deepseek2API
+./Deepseek2API
 ```
 
 ---
@@ -526,27 +526,27 @@ server {
 
 ```bash
 # Copy compiled binary and related files to target directory
-sudo mkdir -p /opt/ds2api
-sudo cp ds2api config.json /opt/ds2api/
-sudo cp -r static/admin /opt/ds2api/static/admin
+sudo mkdir -p /opt/Deepseek2API
+sudo cp Deepseek2API config.json /opt/Deepseek2API/
+sudo cp -r static/admin /opt/Deepseek2API/static/admin
 ```
 
 ### 6.2 Create systemd Service File
 
 ```ini
-# /etc/systemd/system/ds2api.service
+# /etc/systemd/system/Deepseek2API.service
 
 [Unit]
-Description=DS2API (Go)
+Description=Deepseek2API (Go)
 After=network.target
 
 [Service]
 Type=simple
-WorkingDirectory=/opt/ds2api
+WorkingDirectory=/opt/Deepseek2API
 Environment=PORT=5001
-Environment=DS2API_CONFIG_PATH=/opt/ds2api/config.json
-Environment=DS2API_ADMIN_KEY=your-admin-key-here
-ExecStart=/opt/ds2api/ds2api
+Environment=Deepseek2API_CONFIG_PATH=/opt/Deepseek2API/config.json
+Environment=Deepseek2API_ADMIN_KEY=your-admin-key-here
+ExecStart=/opt/Deepseek2API/Deepseek2API
 Restart=always
 RestartSec=5
 
@@ -561,22 +561,22 @@ WantedBy=multi-user.target
 sudo systemctl daemon-reload
 
 # Enable on boot
-sudo systemctl enable ds2api
+sudo systemctl enable Deepseek2API
 
 # Start
-sudo systemctl start ds2api
+sudo systemctl start Deepseek2API
 
 # Check status
-sudo systemctl status ds2api
+sudo systemctl status Deepseek2API
 
 # View logs
-sudo journalctl -u ds2api -f
+sudo journalctl -u Deepseek2API -f
 
 # Restart
-sudo systemctl restart ds2api
+sudo systemctl restart Deepseek2API
 
 # Stop
-sudo systemctl stop ds2api
+sudo systemctl stop Deepseek2API
 ```
 
 ---
@@ -622,7 +622,7 @@ Run the full live testsuite before release (real account tests):
 With custom flags:
 
 ```bash
-go run ./cmd/ds2api-tests \
+go run ./cmd/Deepseek2API-tests \
   --config config.json \
   --admin-key admin \
   --out artifacts/testsuite \

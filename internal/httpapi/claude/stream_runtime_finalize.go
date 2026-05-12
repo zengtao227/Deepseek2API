@@ -1,16 +1,16 @@
 package claude
 
 import (
-	"ds2api/internal/assistantturn"
-	"ds2api/internal/responsehistory"
-	"ds2api/internal/sse"
-	"ds2api/internal/toolcall"
-	"ds2api/internal/toolstream"
+	"Deepseek2API/internal/assistantturn"
+	"Deepseek2API/internal/responsehistory"
+	"Deepseek2API/internal/sse"
+	"Deepseek2API/internal/toolcall"
+	"Deepseek2API/internal/toolstream"
 	"encoding/json"
 	"fmt"
 	"time"
 
-	streamengine "ds2api/internal/stream"
+	streamengine "Deepseek2API/internal/stream"
 )
 
 func (s *claudeStreamRuntime) closeThinkingBlock() {

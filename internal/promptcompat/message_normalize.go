@@ -3,8 +3,8 @@ package promptcompat
 import (
 	"strings"
 
-	"ds2api/internal/prompt"
-	"ds2api/internal/toolcall"
+	"Deepseek2API/internal/prompt"
+	"Deepseek2API/internal/toolcall"
 )
 
 const assistantReasoningLabel = "reasoning_content"

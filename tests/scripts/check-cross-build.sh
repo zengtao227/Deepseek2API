@@ -11,7 +11,7 @@ OUT_DIR="${ROOT_DIR}/.tmp/cross-build"
 build_one() {
   local goos="$1" goarch="$2" goarm="$3" label="$4"
   local out
-  out="${OUT_DIR}/${label}/ds2api"
+  out="${OUT_DIR}/${label}/Deepseek2API"
   if [[ "$goos" == "windows" ]]; then
     out="${out}.exe"
   fi
@@ -20,10 +20,10 @@ build_one() {
   mkdir -p "$(dirname "$out")"
   if [[ "$goarm" == "-" ]]; then
     CGO_ENABLED=0 GOOS="$goos" GOARCH="$goarch" \
-      go build -buildvcs=false -trimpath -o "$out" ./cmd/ds2api
+      go build -buildvcs=false -trimpath -o "$out" ./cmd/Deepseek2API
   else
     CGO_ENABLED=0 GOOS="$goos" GOARCH="$goarch" GOARM="$goarm" \
-      go build -buildvcs=false -trimpath -o "$out" ./cmd/ds2api
+      go build -buildvcs=false -trimpath -o "$out" ./cmd/Deepseek2API
   fi
 }
 
@@ -48,11 +48,11 @@ rm -rf "$OUT_DIR"
 mkdir -p "$OUT_DIR"
 
 if [[ "$jobs" -le 1 ]]; then
-  for target in "${DS2API_RELEASE_TARGETS[@]}"; do
+  for target in "${Deepseek2API_RELEASE_TARGETS[@]}"; do
     read -r goos goarch goarm label <<< "$target"
     build_one "$goos" "$goarch" "$goarm" "$label"
   done
 else
-  printf '%s\n' "${DS2API_RELEASE_TARGETS[@]}" \
+  printf '%s\n' "${Deepseek2API_RELEASE_TARGETS[@]}" \
     | xargs -L 1 -P "$jobs" bash "${ROOT_DIR}/tests/scripts/check-cross-build.sh" --build-one
 fi

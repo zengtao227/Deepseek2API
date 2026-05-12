@@ -8,7 +8,7 @@ import (
 
 	"github.com/go-chi/chi/v5"
 
-	"ds2api/internal/config"
+	"Deepseek2API/internal/config"
 )
 
 const welcomeHTML = `<!DOCTYPE html>

@@ -52,7 +52,7 @@ func (r *Runner) writeSummary(start, end time.Time) error {
 
 func (r *Runner) summaryMarkdown(s runSummary) string {
 	var b strings.Builder
-	b.WriteString("# DS2API Live Testsuite Summary\n\n")
+	b.WriteString("# Deepseek2API Live Testsuite Summary\n\n")
 	b.WriteString("**Sensitive Notice:** this run stores full raw request/response logs. Do not share artifacts publicly.\n\n")
 	fmt.Fprintf(&b, "- Run ID: `%s`\n", s.RunID)
 	fmt.Fprintf(&b, "- Started: `%s`\n", s.StartedAt)

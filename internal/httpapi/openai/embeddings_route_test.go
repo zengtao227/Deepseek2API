@@ -10,14 +10,14 @@ import (
 
 	"github.com/go-chi/chi/v5"
 
-	"ds2api/internal/account"
-	"ds2api/internal/auth"
-	"ds2api/internal/config"
+	"Deepseek2API/internal/account"
+	"Deepseek2API/internal/auth"
+	"Deepseek2API/internal/config"
 )
 
 func newResolverWithConfigJSON(t *testing.T, cfgJSON string) (*config.Store, *auth.Resolver) {
 	t.Helper()
-	t.Setenv("DS2API_CONFIG_JSON", cfgJSON)
+	t.Setenv("Deepseek2API_CONFIG_JSON", cfgJSON)
 	store := config.LoadStore()
 	pool := account.NewPool(store)
 	resolver := auth.NewResolver(store, pool, func(_ context.Context, _ config.Account) (string, error) {

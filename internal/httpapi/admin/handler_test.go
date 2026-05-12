@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"ds2api/internal/config"
+	"Deepseek2API/internal/config"
 )
 
 func TestToAccountMissingFieldsRemainEmpty(t *testing.T) {

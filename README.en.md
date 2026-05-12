@@ -1,32 +1,32 @@
 <p align="center">
-  <img src="webui/public/ds2api-favicon.svg" width="128" height="128" alt="DS2API icon" />
+  <img src="webui/public/Deepseek2API-favicon.svg" width="128" height="128" alt="Deepseek2API icon" />
 </p>
 
-# DS2API
+# Deepseek2API
 
-<a href="https://trendshift.io/repositories/24508" target="_blank"><img src="https://trendshift.io/api/badge/repositories/24508" alt="CJackHwang%2Fds2api | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
+<a href="https://trendshift.io/repositories/24508" target="_blank"><img src="https://trendshift.io/api/badge/repositories/24508" alt="CJackHwang%2FDeepseek2API | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
 
-[![License](https://img.shields.io/github/license/CJackHwang/ds2api.svg)](LICENSE)
-![Stars](https://img.shields.io/github/stars/CJackHwang/ds2api.svg)
-![Forks](https://img.shields.io/github/forks/CJackHwang/ds2api.svg)
-[![Release](https://img.shields.io/github/v/release/CJackHwang/ds2api?display_name=tag)](https://github.com/CJackHwang/ds2api/releases)
+[![License](https://img.shields.io/github/license/CJackHwang/Deepseek2API.svg)](LICENSE)
+![Stars](https://img.shields.io/github/stars/CJackHwang/Deepseek2API.svg)
+![Forks](https://img.shields.io/github/forks/CJackHwang/Deepseek2API.svg)
+[![Release](https://img.shields.io/github/v/release/CJackHwang/Deepseek2API?display_name=tag)](https://github.com/CJackHwang/Deepseek2API/releases)
 [![Docker](https://img.shields.io/badge/docker-ready-blue.svg)](docs/DEPLOY.en.md)
 [![Deploy on Zeabur](https://zeabur.com/button.svg)](https://zeabur.com/templates/L4CFHP)
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/CJackHwang/ds2api)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/CJackHwang/Deepseek2API)
 
 Language: [中文](README.MD) | [English](README.en.md)
 
-DS2API converts DeepSeek Web chat capability into OpenAI-compatible, Claude-compatible, and Gemini-compatible APIs. The core backend is Go-based, with a small Node Runtime bridge used for Vercel streaming, and the React WebUI admin panel lives in `webui/` (build output auto-generated to `static/admin` during deployment).
+Deepseek2API converts DeepSeek Web chat capability into OpenAI-compatible, Claude-compatible, and Gemini-compatible APIs. The core backend is Go-based, with a small Node Runtime bridge used for Vercel streaming, and the React WebUI admin panel lives in `webui/` (build output auto-generated to `static/admin` during deployment).
 
 Documentation entry: [Docs Index](docs/README.md) / [Architecture](docs/ARCHITECTURE.en.md) / [API Reference](API.en.md)
 
 ## Star History
 
-<a href="https://www.star-history.com/?repos=cjackhwang%2Fds2api&type=date&legend=top-left">
+<a href="https://www.star-history.com/?repos=cjackhwang%2FDeepseek2API&type=date&legend=top-left">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=cjackhwang/ds2api&type=date&theme=dark&legend=top-left" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=cjackhwang/ds2api&type=date&legend=top-left" />
-   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=cjackhwang/ds2api&type=date&legend=top-left" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=cjackhwang/Deepseek2API&type=date&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=cjackhwang/Deepseek2API&type=date&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=cjackhwang/Deepseek2API&type=date&legend=top-left" />
  </picture>
 </a>
 
@@ -69,7 +69,7 @@ flowchart LR
     Client["🖥️ Clients / SDKs\n(OpenAI / Claude / Gemini)"]
     Upstream["☁️ DeepSeek API"]
 
-    subgraph DS2API["DS2API 4.x (Modular HTTP Surface + PromptCompat Core)"]
+    subgraph Deepseek2API["Deepseek2API 4.x (Modular HTTP Surface + PromptCompat Core)"]
         Router["chi Router + Middleware\n(RequestID / RealIP / Logger / Recoverer / CORS)"]
 
         subgraph HTTP["HTTP API Surface"]
@@ -90,7 +90,7 @@ flowchart LR
             DSClient["DeepSeek Client\n(session / auth / completion / files)"]
             Pow["PoW Solver\n(Pure Go)"]
             Tool["Tool Sieve\n(Go/Node semantic parity)"]
-            History["Current Input File\n(DS2API_HISTORY.txt)"]
+            History["Current Input File\n(Deepseek2API_HISTORY.txt)"]
         end
     end
 
@@ -120,7 +120,7 @@ flowchart LR
 
 For the full module-by-module architecture and directory responsibilities, see [docs/ARCHITECTURE.en.md](docs/ARCHITECTURE.en.md).
 
-- **Backend**: Go (`cmd/ds2api/`, `api/`, `internal/`), no Python runtime
+- **Backend**: Go (`cmd/Deepseek2API/`, `api/`, `internal/`), no Python runtime
 - **Frontend**: React admin panel (`webui/`), served as static build at runtime
 - **Deployment**: local run, Docker, Vercel serverless, Linux systemd
 
@@ -141,7 +141,7 @@ For the full module-by-module architecture and directory responsibilities, see [
 | WebUI Admin Panel | SPA at `/admin` (bilingual Chinese/English, dark mode, with server-side conversation history) |
 | Health Probes | `GET /healthz` (liveness), `GET /readyz` (readiness) |
 
-OpenAI `/v1/*` routes remain canonical, and DS2API also accepts root shortcuts such as `/models`, `/chat/completions`, `/responses`, `/embeddings`, `/files`, and `/files/{file_id}` for clients configured with the bare service URL.
+OpenAI `/v1/*` routes remain canonical, and Deepseek2API also accepts root shortcuts such as `/models`, `/chat/completions`, `/responses`, `/embeddings`, `/files`, and `/files/{file_id}` for clients configured with the bare service URL.
 
 ## Platform Compatibility Matrix
 
@@ -166,7 +166,7 @@ OpenAI `/v1/*` routes remain canonical, and DS2API also accepts root shortcuts s
 | expert | `deepseek-v4-pro-search` | enabled by default, request-controlled | ✅ |
 | vision | `deepseek-v4-vision` | enabled by default, request-controlled | ❌ |
 
-Besides native IDs, DS2API also accepts common aliases as input (for example `gpt-4.1`, `gpt-5`, `gpt-5-codex`, `o3`, `claude-*`, `gemini-*`), but `/v1/models` returns normalized DeepSeek native model IDs. The complete alias behavior is documented in [API.en.md](API.en.md#model-alias-resolution) and `config.example.json`.
+Besides native IDs, Deepseek2API also accepts common aliases as input (for example `gpt-4.1`, `gpt-5`, `gpt-5-codex`, `o3`, `claude-*`, `gemini-*`), but `/v1/models` returns normalized DeepSeek native model IDs. The complete alias behavior is documented in [API.en.md](API.en.md#model-alias-resolution) and `config.example.json`.
 Current upstream vision support exposes only the `vision` lane and does not provide a separate search-enabled vision variant.
 
 ### Claude Endpoint (`GET /anthropic/v1/models`)
@@ -182,10 +182,10 @@ Besides the primary aliases above, `/anthropic/v1/models` also returns Claude 4.
 
 #### Claude Code integration pitfalls (validated)
 
-- Set `ANTHROPIC_BASE_URL` to the DS2API root URL (for example `http://127.0.0.1:5001`). Claude Code sends requests to `/v1/messages?beta=true`.
+- Set `ANTHROPIC_BASE_URL` to the Deepseek2API root URL (for example `http://127.0.0.1:5001`). Claude Code sends requests to `/v1/messages?beta=true`.
 - `ANTHROPIC_API_KEY` must match an entry in `keys` from `config.json`. Keeping both a regular key and an `sk-ant-*` style key improves client compatibility.
-- If your environment has proxy variables, set `NO_PROXY=127.0.0.1,localhost,<your_host_ip>` for DS2API to avoid proxy interception of local traffic.
-- If tool calls are rendered as plain text and not executed, first verify the model output uses the recommended halfwidth-pipe DSML block: `<|DSML|tool_calls><|DSML|invoke name="..."><|DSML|parameter name="...">...`. DS2API also accepts legacy canonical XML: `<tool_calls><invoke name="..."><parameter name="...">...`; legacy `<tools>` / `<tool_call>` / `<tool_name>` / `<param>`, `<function_call>`, `tool_use`, or standalone JSON `tool_calls` are not executed and stay plain text.
+- If your environment has proxy variables, set `NO_PROXY=127.0.0.1,localhost,<your_host_ip>` for Deepseek2API to avoid proxy interception of local traffic.
+- If tool calls are rendered as plain text and not executed, first verify the model output uses the recommended halfwidth-pipe DSML block: `<|DSML|tool_calls><|DSML|invoke name="..."><|DSML|parameter name="...">...`. Deepseek2API also accepts legacy canonical XML: `<tool_calls><invoke name="..."><parameter name="...">...`; legacy `<tools>` / `<tool_call>` / `<tool_name>` / `<param>`, `<function_call>`, `tool_use`, or standalone JSON `tool_calls` are not executed and stay plain text.
 
 ### Gemini Endpoint
 
@@ -213,7 +213,7 @@ cp config.example.json config.json
 
 Recommended per deployment mode:
 - Local run: read `config.json` directly
-- Docker / Vercel: generate Base64 from `config.json` and inject as `DS2API_CONFIG_JSON`, or paste raw JSON directly
+- Docker / Vercel: generate Base64 from `config.json` and inject as `Deepseek2API_CONFIG_JSON`, or paste raw JSON directly
 
 The WebUI admin panel’s “Full configuration template” is loaded from the same `config.example.json`, so updating that file keeps the frontend template in sync.
 
@@ -223,21 +223,21 @@ GitHub Actions automatically builds multi-platform archives on each Release:
 
 ```bash
 # After downloading the archive for your platform
-tar -xzf ds2api_<tag>_linux_amd64.tar.gz
-cd ds2api_<tag>_linux_amd64
+tar -xzf Deepseek2API_<tag>_linux_amd64.tar.gz
+cd Deepseek2API_<tag>_linux_amd64
 cp config.example.json config.json
 # Edit config.json
-./ds2api
+./Deepseek2API
 ```
 
 ### Option 2: Docker / GHCR
 
 ```bash
 # Pull prebuilt image
-docker pull ghcr.io/cjackhwang/ds2api:latest
+docker pull ghcr.io/cjackhwang/Deepseek2API:latest
 
 # Or run a pinned version
-# docker pull ghcr.io/cjackhwang/ds2api:v3.0.0
+# docker pull ghcr.io/cjackhwang/Deepseek2API:v3.0.0
 
 # Prepare env file and config file
 cp .env.example .env
@@ -247,20 +247,20 @@ cp config.example.json config.json
 docker-compose up -d
 ```
 
-The default `docker-compose.yml` uses `ghcr.io/cjackhwang/ds2api:latest` and maps host port `6011` to container port `5001`. If you want `5001` exposed directly, set `DS2API_HOST_PORT=5001` (or adjust the `ports` mapping).
-It also mounts `./config.json` to `/data/config.json` and sets `DS2API_CONFIG_PATH=/data/config.json` by default, which avoids runtime token persistence failures caused by read-only `/app`.
+The default `docker-compose.yml` uses `ghcr.io/cjackhwang/Deepseek2API:latest` and maps host port `6011` to container port `5001`. If you want `5001` exposed directly, set `Deepseek2API_HOST_PORT=5001` (or adjust the `ports` mapping).
+It also mounts `./config.json` to `/data/config.json` and sets `Deepseek2API_CONFIG_PATH=/data/config.json` by default, which avoids runtime token persistence failures caused by read-only `/app`.
 
 Rebuild after updates: `docker-compose up -d --build`
 
 #### Zeabur One-Click (Dockerfile)
 
 1. Click the “Deploy on Zeabur” button above to deploy.
-2. After deployment, open `/admin` and login with `DS2API_ADMIN_KEY` shown in Zeabur env/template instructions.
+2. After deployment, open `/admin` and login with `Deepseek2API_ADMIN_KEY` shown in Zeabur env/template instructions.
 3. Import / edit config in Admin UI (it will be written and persisted to `/data/config.json`).
 
-Fresh Zeabur volumes can start without `/data/config.json`; DS2API will boot with an empty file-backed config and create the file on the first Admin UI save.
+Fresh Zeabur volumes can start without `/data/config.json`; Deepseek2API will boot with an empty file-backed config and create the file on the first Admin UI save.
 
-For manual deployment without the template, create a Zeabur GitHub service, keep Root Directory as `/`, build with the repo-root `Dockerfile`, mount a persistent volume at `/data`, set `PORT=5001`, `DS2API_ADMIN_KEY=your-strong-secret`, and `DS2API_CONFIG_PATH=/data/config.json`, then expose HTTP port `5001`. See [docs/DEPLOY.en.md](docs/DEPLOY.en.md#manual-deployment-without-the-template) for the full guide.
+For manual deployment without the template, create a Zeabur GitHub service, keep Root Directory as `/`, build with the repo-root `Dockerfile`, mount a persistent volume at `/data`, set `PORT=5001`, `Deepseek2API_ADMIN_KEY=your-strong-secret`, and `Deepseek2API_CONFIG_PATH=/data/config.json`, then expose HTTP port `5001`. See [docs/DEPLOY.en.md](docs/DEPLOY.en.md#manual-deployment-without-the-template) for the full guide.
 
 Note: when Zeabur builds directly from the repo `Dockerfile`, you do not need to pass `BUILD_VERSION`. The image prefers that build arg when provided, and automatically falls back to the repo-root `VERSION` file when it is absent.
 
@@ -268,7 +268,7 @@ Note: when Zeabur builds directly from the repo `Dockerfile`, you do not need to
 
 1. Fork this repo to your GitHub account
 2. Import the project on Vercel
-3. Set environment variables (minimum: `DS2API_ADMIN_KEY`; recommended to also set `DS2API_CONFIG_JSON`)
+3. Set environment variables (minimum: `Deepseek2API_ADMIN_KEY`; recommended to also set `Deepseek2API_CONFIG_JSON`)
 4. Deploy
 
 Recommended first step in repo root:
@@ -278,7 +278,7 @@ cp config.example.json config.json
 # Edit config.json
 ```
 
-Recommended: convert `config.json` to Base64 locally, then paste into `DS2API_CONFIG_JSON` to avoid JSON formatting mistakes:
+Recommended: convert `config.json` to Base64 locally, then paste into `Deepseek2API_CONFIG_JSON` to avoid JSON formatting mistakes:
 
 ```bash
 base64 < config.json | tr -d '\n'
@@ -294,22 +294,22 @@ For detailed deployment instructions, see the [Deployment Guide](docs/DEPLOY.en.
 
 ```bash
 # 1. Clone
-git clone https://github.com/CJackHwang/ds2api.git
-cd ds2api
+git clone https://github.com/CJackHwang/Deepseek2API.git
+cd Deepseek2API
 
 # 2. Configure
 cp config.example.json config.json
 # Edit config.json with your DeepSeek account info and API keys
 
 # 3. Start
-go run ./cmd/ds2api
+go run ./cmd/Deepseek2API
 ```
 
 Default local URL: `http://127.0.0.1:5001`
 
 The server actually binds to `0.0.0.0:5001`, so devices on the same LAN can usually reach it through your private IP as well.
 
-> **WebUI auto-build**: On first local startup, if the WebUI static directory is missing, DS2API auto-runs `npm ci --prefix webui` (only when dependencies are missing) and `npm run build --prefix webui -- --outDir static/admin --emptyOutDir` (requires Node.js; `DS2API_STATIC_ADMIN_DIR` can override the static directory). You can also build manually: `./scripts/build-webui.sh`
+> **WebUI auto-build**: On first local startup, if the WebUI static directory is missing, Deepseek2API auto-runs `npm ci --prefix webui` (only when dependencies are missing) and `npm run build --prefix webui -- --outDir static/admin --emptyOutDir` (requires Node.js; `Deepseek2API_STATIC_ADMIN_DIR` can override the static directory). You can also build manually: `./scripts/build-webui.sh`
 
 ## Configuration
 
@@ -322,19 +322,19 @@ Common fields:
 - `model_aliases`: one shared alias map for OpenAI / Claude / Gemini model names.
 - `runtime`: account concurrency, queueing, and token refresh behavior, hot-reloadable via Admin Settings.
 - `auto_delete.mode`: remote session cleanup after each request, supporting `none` / `single` / `all`.
-- `current_input_file`: the global context split/upload mode; it is enabled by default and uploads the full context as a `DS2API_HISTORY.txt` context file once the character threshold is reached.
+- `current_input_file`: the global context split/upload mode; it is enabled by default and uploads the full context as a `Deepseek2API_HISTORY.txt` context file once the character threshold is reached.
 - If you turn off `current_input_file`, requests pass through directly without uploading any split context file.
 
 For the full environment variable list, see [docs/DEPLOY.en.md](docs/DEPLOY.en.md). For auth behavior, see [API.en.md](API.en.md#authentication).
 
 ## Authentication Modes
 
-For business endpoints (`/v1/*`, `/anthropic/*`, Gemini routes), DS2API supports two modes:
+For business endpoints (`/v1/*`, `/anthropic/*`, Gemini routes), Deepseek2API supports two modes:
 
 | Mode | Description |
 | --- | --- |
-| **Managed account** | Use a key from `config.keys` via `Authorization: Bearer ...` or `x-api-key`; DS2API auto-selects an account |
-| **Direct token** | If the token is not in `config.keys`, DS2API treats it as a DeepSeek token directly |
+| **Managed account** | Use a key from `config.keys` via `Authorization: Bearer ...` or `x-api-key`; Deepseek2API auto-selects an account |
+| **Direct token** | If the token is not in `config.keys`, Deepseek2API treats it as a DeepSeek token directly |
 
 Optional header `X-Ds2-Target-Account`: Pin a specific managed account (value is email or mobile).
 When no target account is pinned, if a completion would end as `429 upstream_empty_output` after the same-account empty-output retry, managed-account mode switches to the next available account, creates a fresh session, and retries the original payload once.
@@ -343,9 +343,9 @@ Gemini routes also accept `x-goog-api-key`, or `?key=` / `?api_key=` when no aut
 ## Concurrency Model
 
 ```
-Per-account inflight = DS2API_ACCOUNT_MAX_INFLIGHT (default 2)
+Per-account inflight = Deepseek2API_ACCOUNT_MAX_INFLIGHT (default 2)
 Recommended concurrency = account_count × per_account_inflight
-Queue limit = DS2API_ACCOUNT_MAX_QUEUE (default = recommended concurrency)
+Queue limit = Deepseek2API_ACCOUNT_MAX_QUEUE (default = recommended concurrency)
 429 threshold = inflight + queue ≈ account_count × 4
 ```
 
@@ -356,7 +356,7 @@ Queue limit = DS2API_ACCOUNT_MAX_QUEUE (default = recommended concurrency)
 
 ## Tool Call Adaptation
 
-When `tools` is present in the request, DS2API performs anti-leak handling:
+When `tools` is present in the request, Deepseek2API performs anti-leak handling:
 
 1. Toolcall feature matching is enabled only in **non-code-block context** (fenced examples are ignored)
 2. The parser treats the halfwidth-pipe DSML shell as the recommended executable tool-calling syntax: `<|DSML|tool_calls>` → `<|DSML|invoke name="...">` → `<|DSML|parameter name="...">`; it also accepts legacy canonical XML `<tool_calls>` → `<invoke name="...">` → `<parameter name="...">`, plus common DSML prefix/separator drift. DSML is a shell alias and internal parsing remains XML-based; legacy `<tools>` / `<tool_call>` / `<tool_name>` / `<param>`, `<function_call>`, `tool_use`, antml variants, and standalone JSON `tool_calls` payloads are treated as plain text, and complete but malformed wrappers are released as plain text too
@@ -369,14 +369,14 @@ When `tools` is present in the request, DS2API performs anti-leak handling:
 
 ## Local Dev Packet Capture
 
-This is for debugging issues such as Responses reasoning streaming and tool-call handoff. When enabled, DS2API stores the latest N DeepSeek conversation payload pairs (request body + upstream response body), defaulting to 20 entries with auto-eviction; each response body is capped at 5 MB by default.
+This is for debugging issues such as Responses reasoning streaming and tool-call handoff. When enabled, Deepseek2API stores the latest N DeepSeek conversation payload pairs (request body + upstream response body), defaulting to 20 entries with auto-eviction; each response body is capped at 5 MB by default.
 
 Enable example:
 
 ```bash
-DS2API_DEV_PACKET_CAPTURE=true \
-DS2API_DEV_PACKET_CAPTURE_LIMIT=20 \
-go run ./cmd/ds2api
+Deepseek2API_DEV_PACKET_CAPTURE=true \
+Deepseek2API_DEV_PACKET_CAPTURE_LIMIT=20 \
+go run ./cmd/Deepseek2API
 ```
 
 Inspect/clear (Admin JWT required):
@@ -430,8 +430,8 @@ Workflow: `.github/workflows/release-artifacts.yml`
 
 - **Trigger**: by default only on GitHub Release `published`; you can also run it manually via `workflow_dispatch` and pass `release_tag` to rerun / backfill
 - **Outputs**: multi-platform binary archives (`linux/amd64`, `linux/arm64`, `linux/armv7`, `darwin/amd64`, `darwin/arm64`, `windows/amd64`, `windows/arm64`), Linux Docker image export tarballs, and `sha256sums.txt`
-- **Container publishing**: GHCR only (`ghcr.io/cjackhwang/ds2api`)
-- **Each binary archive includes**: the `ds2api` executable, `static/admin`, `config.example.json`, `.env.example`, `README.MD`, `README.en.md`, and `LICENSE`
+- **Container publishing**: GHCR only (`ghcr.io/cjackhwang/Deepseek2API`)
+- **Each binary archive includes**: the `Deepseek2API` executable, `static/admin`, `config.example.json`, `.env.example`, `README.MD`, `README.en.md`, and `LICENSE`
 
 ## Disclaimer
 

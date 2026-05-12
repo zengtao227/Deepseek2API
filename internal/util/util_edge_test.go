@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	"ds2api/internal/config"
+	"Deepseek2API/internal/config"
 )
 
 // ─── EstimateTokens edge cases ───────────────────────────────────────
@@ -361,7 +361,7 @@ func TestConvertClaudeToDeepSeekOpusUsesGlobalAlias(t *testing.T) {
 }
 
 func TestConvertClaudeToDeepSeekUsesExplicitModelAlias(t *testing.T) {
-	t.Setenv("DS2API_CONFIG_JSON", `{"keys":[],"accounts":[],"model_aliases":{"claude-sonnet-4-6":"deepseek-v4-pro-search"}}`)
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{"keys":[],"accounts":[],"model_aliases":{"claude-sonnet-4-6":"deepseek-v4-pro-search"}}`)
 	store := config.LoadStore()
 	req := map[string]any{
 		"model":    "claude-sonnet-4-6",
@@ -374,7 +374,7 @@ func TestConvertClaudeToDeepSeekUsesExplicitModelAlias(t *testing.T) {
 }
 
 func TestConvertClaudeToDeepSeekUsesExplicitNoThinkingModelAlias(t *testing.T) {
-	t.Setenv("DS2API_CONFIG_JSON", `{"keys":[],"accounts":[],"model_aliases":{"claude-sonnet-4-6":"deepseek-v4-pro-search"}}`)
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{"keys":[],"accounts":[],"model_aliases":{"claude-sonnet-4-6":"deepseek-v4-pro-search"}}`)
 	store := config.LoadStore()
 	req := map[string]any{
 		"model":    "claude-sonnet-4-6-nothinking",

@@ -8,11 +8,11 @@ import (
 	"net/http"
 	"strings"
 
-	"ds2api/internal/auth"
-	"ds2api/internal/chathistory"
-	"ds2api/internal/config"
-	"ds2api/internal/httpapi/openai/shared"
-	"ds2api/internal/util"
+	"Deepseek2API/internal/auth"
+	"Deepseek2API/internal/chathistory"
+	"Deepseek2API/internal/config"
+	"Deepseek2API/internal/httpapi/openai/shared"
+	"Deepseek2API/internal/util"
 )
 
 type Handler struct {

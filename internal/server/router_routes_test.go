@@ -9,8 +9,8 @@ import (
 )
 
 func TestAPIRoutesRemainRegistered(t *testing.T) {
-	t.Setenv("DS2API_CONFIG_JSON", `{"keys":["k1"],"accounts":[{"email":"u@example.com","password":"p"}]}`)
-	t.Setenv("DS2API_ENV_WRITEBACK", "0")
+	t.Setenv("Deepseek2API_CONFIG_JSON", `{"keys":["k1"],"accounts":[{"email":"u@example.com","password":"p"}]}`)
+	t.Setenv("Deepseek2API_ENV_WRITEBACK", "0")
 
 	app, err := NewApp()
 	if err != nil {

@@ -2,7 +2,7 @@
 
 Language: [中文](CONTRIBUTING.md) | [English](CONTRIBUTING.en.md)
 
-Thanks for your interest in contributing to DS2API!
+Thanks for your interest in contributing to Deepseek2API!
 
 ## Development Setup
 
@@ -16,15 +16,15 @@ Thanks for your interest in contributing to DS2API!
 
 ```bash
 # 1. Clone
-git clone https://github.com/CJackHwang/ds2api.git
-cd ds2api
+git clone https://github.com/CJackHwang/Deepseek2API.git
+cd Deepseek2API
 
 # 2. Configure
 cp config.example.json config.json
 # Edit config.json with test accounts
 
 # 3. Run backend
-go run ./cmd/ds2api
+go run ./cmd/Deepseek2API
 # Local access: http://127.0.0.1:5001
 # Actual bind: 0.0.0.0:5001, so LAN access is available via your private IP
 ```
@@ -108,7 +108,7 @@ Before contributing, review the architecture doc sections for request flow and `
 
 ## Reporting Issues
 
-Please use [GitHub Issues](https://github.com/CJackHwang/ds2api/issues) and include:
+Please use [GitHub Issues](https://github.com/CJackHwang/Deepseek2API/issues) and include:
 
 - Steps to reproduce
 - Relevant log output

@@ -14,7 +14,7 @@ import (
 	"strings"
 	"time"
 
-	"ds2api/internal/config"
+	"Deepseek2API/internal/config"
 )
 
 func (h *Handler) syncVercel(w http.ResponseWriter, r *http.Request) {
@@ -44,7 +44,7 @@ func (h *Handler) syncVercel(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	envs, _ := envResp["envs"].([]any)
-	status, err = upsertVercelEnv(r.Context(), client, opts.ProjectID, params, headers, envs, "DS2API_CONFIG_JSON", cfgB64)
+	status, err = upsertVercelEnv(r.Context(), client, opts.ProjectID, params, headers, envs, "Deepseek2API_CONFIG_JSON", cfgB64)
 	if err != nil || (status != http.StatusOK && status != http.StatusCreated) {
 		writeJSON(w, statusOr(status, http.StatusInternalServerError), map[string]any{"detail": "更新环境变量失败"})
 		return

@@ -3,13 +3,13 @@ package client
 import (
 	"bytes"
 	"context"
-	dsprotocol "ds2api/internal/deepseek/protocol"
+	dsprotocol "Deepseek2API/internal/deepseek/protocol"
 	"encoding/json"
 	"net/http"
 
-	"ds2api/internal/auth"
-	"ds2api/internal/config"
-	trans "ds2api/internal/deepseek/transport"
+	"Deepseek2API/internal/auth"
+	"Deepseek2API/internal/config"
+	trans "Deepseek2API/internal/deepseek/transport"
 )
 
 func (c *Client) CallCompletion(ctx context.Context, a *auth.RequestAuth, payload map[string]any, powResp string, maxAttempts int) (*http.Response, error) {

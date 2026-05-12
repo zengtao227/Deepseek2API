@@ -10,7 +10,7 @@ import (
 	"sync"
 	"time"
 
-	"ds2api/internal/util"
+	"Deepseek2API/internal/util"
 
 	"github.com/google/uuid"
 )
@@ -74,17 +74,17 @@ func Global() *Store {
 
 func NewFromEnv() *Store {
 	enabled := !isVercelRuntime()
-	if raw, ok := os.LookupEnv("DS2API_DEV_PACKET_CAPTURE"); ok {
+	if raw, ok := os.LookupEnv("Deepseek2API_DEV_PACKET_CAPTURE"); ok {
 		enabled = parseBool(raw)
 	}
-	limit := parseIntWithDefault(os.Getenv("DS2API_DEV_PACKET_CAPTURE_LIMIT"), defaultLimit)
+	limit := parseIntWithDefault(os.Getenv("Deepseek2API_DEV_PACKET_CAPTURE_LIMIT"), defaultLimit)
 	if limit < 1 {
 		limit = defaultLimit
 	}
 	if limit > maxLimit {
 		limit = maxLimit
 	}
-	maxBodyBytes := parseIntWithDefault(os.Getenv("DS2API_DEV_PACKET_CAPTURE_MAX_BODY_BYTES"), defaultMaxBodyBytes)
+	maxBodyBytes := parseIntWithDefault(os.Getenv("Deepseek2API_DEV_PACKET_CAPTURE_MAX_BODY_BYTES"), defaultMaxBodyBytes)
 	if maxBodyBytes < 1024 {
 		maxBodyBytes = defaultMaxBodyBytes
 	}

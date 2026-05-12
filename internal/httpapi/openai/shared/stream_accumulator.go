@@ -3,7 +3,7 @@ package shared
 import (
 	"strings"
 
-	"ds2api/internal/sse"
+	"Deepseek2API/internal/sse"
 )
 
 type StreamAccumulator struct {

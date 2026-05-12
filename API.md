@@ -1,4 +1,4 @@
-# DS2API 接口文档
+# Deepseek2API 接口文档
 
 语言 / Language: [中文](API.md) | [English](API.en.md)
 
@@ -59,13 +59,13 @@ cp config.example.json config.json
 按部署方式使用：
 
 - 本地运行：直接读取 `config.json`
-- Docker / Vercel：从 `config.json` 生成 Base64，填入 `DS2API_CONFIG_JSON`，也可以直接填原始 JSON
+- Docker / Vercel：从 `config.json` 生成 Base64，填入 `Deepseek2API_CONFIG_JSON`，也可以直接填原始 JSON
 
 ```bash
-DS2API_CONFIG_JSON="$(base64 < config.json | tr -d '\n')"
+Deepseek2API_CONFIG_JSON="$(base64 < config.json | tr -d '\n')"
 ```
 
-Vercel 一键部署可先只填 `DS2API_ADMIN_KEY`，部署后在 `/admin` 导入配置，再通过 “Vercel 同步” 写回环境变量。
+Vercel 一键部署可先只填 `Deepseek2API_ADMIN_KEY`，部署后在 `/admin` 导入配置，再通过 “Vercel 同步” 写回环境变量。
 
 ---
 
@@ -174,7 +174,7 @@ Gemini 兼容客户端还可以使用 `x-goog-api-key`、`?key=` 或 `?api_key=`
 | PUT | `/admin/chat-history/settings` | Admin | 更新对话记录保留条数 |
 | GET | `/admin/version` | Admin | 查询当前版本与最新 Release |
 
-OpenAI `/v1/*` 仍是规范路径。对于只配置 DS2API 根地址的客户端，同一套 OpenAI handler 也通过根路径快捷路由暴露：`/models`、`/models/{id}`、`/chat/completions`、`/responses`、`/responses/{response_id}`、`/embeddings`、`/files`、`/files/{file_id}`。
+OpenAI `/v1/*` 仍是规范路径。对于只配置 Deepseek2API 根地址的客户端，同一套 OpenAI handler 也通过根路径快捷路由暴露：`/models`、`/models/{id}`、`/chat/completions`、`/responses`、`/responses/{response_id}`、`/embeddings`、`/files`、`/files/{file_id}`。
 
 服务器端记录本质上是 DeepSeek 上游响应归档：OpenAI Chat、OpenAI Responses、Claude Messages、Gemini GenerateContent 等直连 DeepSeek 的生成接口，在收到上游响应后会于各协议回译/裁剪前写入记录；列表按请求创建时间倒序展示，流式请求会在生成过程中持续刷新状态与详情。WebUI「API 测试」发出的请求也会进入该记录。
 
@@ -323,7 +323,7 @@ data: [DONE]
 
 #### Tool Calls
 
-当请求中含 `tools` 时，DS2API 做防泄漏处理：
+当请求中含 `tools` 时，Deepseek2API 做防泄漏处理：
 
 **非流式**：识别到工具调用时，返回 `message.tool_calls`，设置 `finish_reason=tool_calls`，`message.content=null`。
 
@@ -1210,7 +1210,7 @@ data: {"type":"message_stop"}
   "checked_at": "2026-03-29T00:00:00Z",
   "latest_tag": "v3.0.0",
   "latest_version": "3.0.0",
-  "release_url": "https://github.com/CJackHwang/ds2api/releases/tag/v3.0.0",
+  "release_url": "https://github.com/CJackHwang/Deepseek2API/releases/tag/v3.0.0",
   "published_at": "2026-03-28T12:00:00Z",
   "has_update": false
 }

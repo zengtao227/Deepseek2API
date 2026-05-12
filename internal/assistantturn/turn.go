@@ -4,11 +4,11 @@ import (
 	"net/http"
 	"strings"
 
-	"ds2api/internal/httpapi/openai/shared"
-	"ds2api/internal/promptcompat"
-	"ds2api/internal/sse"
-	"ds2api/internal/toolcall"
-	"ds2api/internal/util"
+	"Deepseek2API/internal/httpapi/openai/shared"
+	"Deepseek2API/internal/promptcompat"
+	"Deepseek2API/internal/sse"
+	"Deepseek2API/internal/toolcall"
+	"Deepseek2API/internal/util"
 )
 
 type StopReason string

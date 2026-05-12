@@ -9,12 +9,12 @@ import (
 
 	"github.com/go-chi/chi/v5"
 
-	"ds2api/internal/account"
-	"ds2api/internal/auth"
-	"ds2api/internal/config"
-	dsclient "ds2api/internal/deepseek/client"
-	adminconfig "ds2api/internal/httpapi/admin/configmgmt"
-	adminshared "ds2api/internal/httpapi/admin/shared"
+	"Deepseek2API/internal/account"
+	"Deepseek2API/internal/auth"
+	"Deepseek2API/internal/config"
+	dsclient "Deepseek2API/internal/deepseek/client"
+	adminconfig "Deepseek2API/internal/httpapi/admin/configmgmt"
+	adminshared "Deepseek2API/internal/httpapi/admin/shared"
 )
 
 type testingDSMock struct{}
@@ -38,7 +38,7 @@ func (m *testingDSMock) GetSessionCountForToken(_ context.Context, _ string) (*d
 
 func newHTTPAdminHarness(t *testing.T, rawConfig string, ds adminshared.DeepSeekCaller) http.Handler {
 	t.Helper()
-	t.Setenv("DS2API_CONFIG_JSON", rawConfig)
+	t.Setenv("Deepseek2API_CONFIG_JSON", rawConfig)
 	store := config.LoadStore()
 	pool := account.NewPool(store)
 	h := &Handler{Store: store, Pool: pool, DS: ds}

@@ -11,11 +11,11 @@ import (
 	"sync"
 	"time"
 
-	authn "ds2api/internal/auth"
-	"ds2api/internal/config"
-	"ds2api/internal/prompt"
-	"ds2api/internal/promptcompat"
-	"ds2api/internal/sse"
+	authn "Deepseek2API/internal/auth"
+	"Deepseek2API/internal/config"
+	"Deepseek2API/internal/prompt"
+	"Deepseek2API/internal/promptcompat"
+	"Deepseek2API/internal/sse"
 )
 
 type modelAliasSnapshotReader struct {

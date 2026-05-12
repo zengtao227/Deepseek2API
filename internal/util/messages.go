@@ -1,9 +1,9 @@
 package util
 
 import (
-	"ds2api/internal/claudeconv"
-	"ds2api/internal/config"
-	"ds2api/internal/prompt"
+	"Deepseek2API/internal/claudeconv"
+	"Deepseek2API/internal/config"
+	"Deepseek2API/internal/prompt"
 )
 
 const ClaudeDefaultModel = "claude-sonnet-4-6"

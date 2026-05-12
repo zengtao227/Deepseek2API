@@ -13,8 +13,8 @@ import (
 
 	"github.com/google/uuid"
 
-	"ds2api/internal/config"
-	"ds2api/internal/util"
+	"Deepseek2API/internal/config"
+	"Deepseek2API/internal/util"
 )
 
 const (

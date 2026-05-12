@@ -271,7 +271,7 @@ export function useSettingsForm({ apiFetch, t, onMessage, onRefresh, onForceLogo
         const url = URL.createObjectURL(blob)
         const now = new Date()
         const pad = (n) => String(n).padStart(2, '0')
-        const filename = `ds2api-config-backup-${now.getFullYear()}${pad(now.getMonth() + 1)}${pad(now.getDate())}-${pad(now.getHours())}${pad(now.getMinutes())}${pad(now.getSeconds())}.json`
+        const filename = `Deepseek2API-config-backup-${now.getFullYear()}${pad(now.getMonth() + 1)}${pad(now.getDate())}-${pad(now.getHours())}${pad(now.getMinutes())}${pad(now.getSeconds())}.json`
         const link = document.createElement('a')
         link.href = url
         link.download = filename

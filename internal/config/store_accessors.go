@@ -70,7 +70,7 @@ func (s *Store) AdminJWTExpireHours() int {
 	if s.cfg.Admin.JWTExpireHours > 0 {
 		return s.cfg.Admin.JWTExpireHours
 	}
-	if raw := strings.TrimSpace(os.Getenv("DS2API_JWT_EXPIRE_HOURS")); raw != "" {
+	if raw := strings.TrimSpace(os.Getenv("Deepseek2API_JWT_EXPIRE_HOURS")); raw != "" {
 		if n, err := strconv.Atoi(raw); err == nil && n > 0 {
 			return n
 		}
@@ -90,7 +90,7 @@ func (s *Store) RuntimeAccountMaxInflight() int {
 	if s.cfg.Runtime.AccountMaxInflight > 0 {
 		return s.cfg.Runtime.AccountMaxInflight
 	}
-	if raw := strings.TrimSpace(os.Getenv("DS2API_ACCOUNT_MAX_INFLIGHT")); raw != "" {
+	if raw := strings.TrimSpace(os.Getenv("Deepseek2API_ACCOUNT_MAX_INFLIGHT")); raw != "" {
 		if n, err := strconv.Atoi(raw); err == nil && n > 0 {
 			return n
 		}
@@ -104,7 +104,7 @@ func (s *Store) RuntimeAccountMaxQueue(defaultSize int) int {
 	if s.cfg.Runtime.AccountMaxQueue > 0 {
 		return s.cfg.Runtime.AccountMaxQueue
 	}
-	if raw := strings.TrimSpace(os.Getenv("DS2API_ACCOUNT_MAX_QUEUE")); raw != "" {
+	if raw := strings.TrimSpace(os.Getenv("Deepseek2API_ACCOUNT_MAX_QUEUE")); raw != "" {
 		if n, err := strconv.Atoi(raw); err == nil && n >= 0 {
 			return n
 		}
@@ -121,7 +121,7 @@ func (s *Store) RuntimeGlobalMaxInflight(defaultSize int) int {
 	if s.cfg.Runtime.GlobalMaxInflight > 0 {
 		return s.cfg.Runtime.GlobalMaxInflight
 	}
-	if raw := strings.TrimSpace(os.Getenv("DS2API_GLOBAL_MAX_INFLIGHT")); raw != "" {
+	if raw := strings.TrimSpace(os.Getenv("Deepseek2API_GLOBAL_MAX_INFLIGHT")); raw != "" {
 		if n, err := strconv.Atoi(raw); err == nil && n > 0 {
 			return n
 		}

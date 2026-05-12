@@ -216,10 +216,10 @@ func parseConfigString(raw string) (Config, error) {
 	base64Input := candidates[len(candidates)-1]
 	decoded, err := decodeConfigBase64(base64Input)
 	if err != nil {
-		return Config{}, fmt.Errorf("invalid DS2API_CONFIG_JSON: %w", err)
+		return Config{}, fmt.Errorf("invalid Deepseek2API_CONFIG_JSON: %w", err)
 	}
 	if err := json.Unmarshal(decoded, &cfg); err != nil {
-		return Config{}, fmt.Errorf("invalid DS2API_CONFIG_JSON decoded JSON: %w", err)
+		return Config{}, fmt.Errorf("invalid Deepseek2API_CONFIG_JSON decoded JSON: %w", err)
 	}
 	return cfg, nil
 }

@@ -35,17 +35,17 @@ func effectiveAdminKey(store AdminConfigReader) string {
 			return ""
 		}
 	}
-	if v := strings.TrimSpace(os.Getenv("DS2API_ADMIN_KEY")); v != "" {
+	if v := strings.TrimSpace(os.Getenv("Deepseek2API_ADMIN_KEY")); v != "" {
 		return v
 	}
 	warnOnce.Do(func() {
-		slog.Warn("⚠️  DS2API_ADMIN_KEY is not set! Using insecure default \"admin\". Set a strong key in production!")
+		slog.Warn("⚠️  Deepseek2API_ADMIN_KEY is not set! Using insecure default \"admin\". Set a strong key in production!")
 	})
 	return "admin"
 }
 
 func jwtSecret(store AdminConfigReader) string {
-	if v := strings.TrimSpace(os.Getenv("DS2API_JWT_SECRET")); v != "" {
+	if v := strings.TrimSpace(os.Getenv("Deepseek2API_JWT_SECRET")); v != "" {
 		return v
 	}
 	if store != nil {
@@ -62,7 +62,7 @@ func jwtExpireHours(store AdminConfigReader) int {
 			return n
 		}
 	}
-	if v := strings.TrimSpace(os.Getenv("DS2API_JWT_EXPIRE_HOURS")); v != "" {
+	if v := strings.TrimSpace(os.Getenv("Deepseek2API_JWT_EXPIRE_HOURS")); v != "" {
 		if n, err := strconv.Atoi(v); err == nil && n > 0 {
 			return n
 		}
@@ -184,7 +184,7 @@ func UsingDefaultAdminKey(store AdminConfigReader) bool {
 	if store != nil && strings.TrimSpace(store.AdminPasswordHash()) != "" {
 		return false
 	}
-	return strings.TrimSpace(os.Getenv("DS2API_ADMIN_KEY")) == ""
+	return strings.TrimSpace(os.Getenv("Deepseek2API_ADMIN_KEY")) == ""
 }
 
 func HashAdminPassword(raw string) string {

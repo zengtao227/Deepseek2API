@@ -12,7 +12,7 @@ fi
 
 VPS_HOST="$1"
 ADMIN_KEY="$2"
-DS2API_URL="http://${VPS_HOST}:5001"
+Deepseek2API_URL="http://${VPS_HOST}:5001"
 
 # 账户列表
 ACCOUNTS=(
@@ -33,7 +33,7 @@ ACCOUNTS=(
 
 echo "📋 DeepSeek2API 批量 Token 更新工具"
 echo "=========================================="
-echo "VPS 地址: $DS2API_URL"
+echo "VPS 地址: $Deepseek2API_URL"
 echo "待更新账户数: ${#ACCOUNTS[@]}"
 echo ""
 echo "⚠️  重要提示："

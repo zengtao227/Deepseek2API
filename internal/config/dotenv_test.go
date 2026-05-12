@@ -20,17 +20,17 @@ func TestLoadDotEnvLoadsWorkingDirectoryFileWithoutOverridingExistingEnv(t *test
 		_ = os.Chdir(oldWD)
 	})
 
-	const newKey = "DS2API_TEST_DOTENV_NEW"
-	const keepKey = "DS2API_TEST_DOTENV_KEEP"
-	const quotedKey = "DS2API_TEST_DOTENV_QUOTED"
+	const newKey = "Deepseek2API_TEST_DOTENV_NEW"
+	const keepKey = "Deepseek2API_TEST_DOTENV_KEEP"
+	const quotedKey = "Deepseek2API_TEST_DOTENV_QUOTED"
 
 	unsetEnv(t, newKey)
 	unsetEnv(t, quotedKey)
 	t.Setenv(keepKey, "from-env")
 
-	content := "DS2API_TEST_DOTENV_NEW=from-file\n" +
-		"DS2API_TEST_DOTENV_KEEP=from-file\n" +
-		"DS2API_TEST_DOTENV_QUOTED=\"line1\\nline2\"\n"
+	content := "Deepseek2API_TEST_DOTENV_NEW=from-file\n" +
+		"Deepseek2API_TEST_DOTENV_KEEP=from-file\n" +
+		"Deepseek2API_TEST_DOTENV_QUOTED=\"line1\\nline2\"\n"
 	if err := os.WriteFile(filepath.Join(dir, ".env"), []byte(content), 0o644); err != nil {
 		t.Fatalf("write .env: %v", err)
 	}
@@ -81,10 +81,10 @@ func TestLoadDotEnvStripsInlineCommentsFromUnquotedValues(t *testing.T) {
 		_ = os.Chdir(oldWD)
 	})
 
-	const plainKey = "DS2API_TEST_DOTENV_PLAIN"
-	const hashKey = "DS2API_TEST_DOTENV_HASH"
-	const quotedKey = "DS2API_TEST_DOTENV_QUOTED_COMMENT"
-	const exportKey = "DS2API_TEST_DOTENV_EXPORT"
+	const plainKey = "Deepseek2API_TEST_DOTENV_PLAIN"
+	const hashKey = "Deepseek2API_TEST_DOTENV_HASH"
+	const quotedKey = "Deepseek2API_TEST_DOTENV_QUOTED_COMMENT"
+	const exportKey = "Deepseek2API_TEST_DOTENV_EXPORT"
 
 	unsetEnv(t, plainKey)
 	unsetEnv(t, hashKey)

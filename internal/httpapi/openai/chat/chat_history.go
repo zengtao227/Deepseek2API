@@ -6,12 +6,12 @@ import (
 	"strings"
 	"time"
 
-	"ds2api/internal/auth"
-	"ds2api/internal/chathistory"
-	"ds2api/internal/config"
-	openaifmt "ds2api/internal/format/openai"
-	"ds2api/internal/prompt"
-	"ds2api/internal/promptcompat"
+	"Deepseek2API/internal/auth"
+	"Deepseek2API/internal/chathistory"
+	"Deepseek2API/internal/config"
+	openaifmt "Deepseek2API/internal/format/openai"
+	"Deepseek2API/internal/prompt"
+	"Deepseek2API/internal/promptcompat"
 )
 
 type chatHistorySession struct {

@@ -172,7 +172,7 @@
         "proxyBadge": "代理: {name}",
         "proxyUpdateSuccess": "账号代理已更新",
         "envModeRiskTitle": "当前为环境变量配置模式（有持久化风险）",
-        "envModeRiskDesc": "检测到 DS2API_CONFIG_JSON。若未开启 DS2API_ENV_WRITEBACK，管理台改动仅在内存生效，重启可能丢失。",
+        "envModeRiskDesc": "检测到 Deepseek2API_CONFIG_JSON。若未开启 Deepseek2API_ENV_WRITEBACK，管理台改动仅在内存生效，重启可能丢失。",
         "envModeWritebackPendingTitle": "环境变量模式 + 自动持久化已开启（等待落盘）",
         "envModeWritebackActiveTitle": "环境变量模式 + 自动持久化已生效",
         "envModeWritebackDesc": "程序会自动创建/写入配置文件并在后续切换为文件模式。当前持久化路径：{path}"
@@ -395,7 +395,7 @@
         "thinkingInjectionPromptHelp": "留空时使用内置默认提示词；默认内容会显示在输入框占位文本中。",
         "currentInputFileTitle": "独立拆分",
         "currentInputFileEnabled": "独立拆分（按量）",
-        "currentInputFileDesc": "默认开启。达到字符阈值后，将完整上下文上传为 DS2API_HISTORY.txt 上下文文件。",
+        "currentInputFileDesc": "默认开启。达到字符阈值后，将完整上下文上传为 Deepseek2API_HISTORY.txt 上下文文件。",
         "currentInputFileMinChars": "当前输入阈值（字符数）",
         "currentInputFileHelp": "默认 0，表示只要有输入就会使用独立拆分。",
         "modelTitle": "模型映射",
@@ -443,7 +443,7 @@
         "rememberSession": "记住登录状态",
         "signIn": "登录",
         "secureConnection": "安全连接",
-        "adminPortal": "DS2API 管理员门户",
+        "adminPortal": "Deepseek2API 管理员门户",
         "signInFailed": "登录失败",
         "networkError": "网络错误: {error}"
     },

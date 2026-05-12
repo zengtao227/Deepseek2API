@@ -1,7 +1,7 @@
 package gemini
 
 import (
-	"ds2api/internal/promptcompat"
+	"Deepseek2API/internal/promptcompat"
 	"strings"
 	"testing"
 )

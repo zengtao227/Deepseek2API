@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"sync"
 
-	"ds2api/app"
+	"Deepseek2API/app"
 )
 
 var (

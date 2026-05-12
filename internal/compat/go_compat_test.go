@@ -7,8 +7,8 @@ import (
 	"reflect"
 	"testing"
 
-	"ds2api/internal/sse"
-	"ds2api/internal/util"
+	"Deepseek2API/internal/sse"
+	"Deepseek2API/internal/util"
 )
 
 func TestGoCompatSSEFixtures(t *testing.T) {

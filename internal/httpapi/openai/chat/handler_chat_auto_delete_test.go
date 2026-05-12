@@ -7,8 +7,8 @@ import (
 	"strings"
 	"testing"
 
-	"ds2api/internal/auth"
-	dsclient "ds2api/internal/deepseek/client"
+	"Deepseek2API/internal/auth"
+	dsclient "Deepseek2API/internal/deepseek/client"
 )
 
 type autoDeleteModeDSStub struct {

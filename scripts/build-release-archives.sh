@@ -10,11 +10,11 @@ build_one() {
   local tag="$1" build_version="$2" goos="$3" goarch="$4" goarm="$5" label="$6"
   local pkg stage bin
 
-  pkg="ds2api_${tag}_${label}"
+  pkg="Deepseek2API_${tag}_${label}"
   stage="dist/${pkg}"
-  bin="ds2api"
+  bin="Deepseek2API"
   if [[ "$goos" == "windows" ]]; then
-    bin="ds2api.exe"
+    bin="Deepseek2API.exe"
   fi
 
   echo "[release-archives] building ${label}"
@@ -23,10 +23,10 @@ build_one() {
 
   if [[ "$goarm" == "-" ]]; then
     CGO_ENABLED=0 GOOS="$goos" GOARCH="$goarch" \
-      go build -buildvcs=false -trimpath -ldflags="-s -w -X ds2api/internal/version.BuildVersion=${build_version}" -o "${stage}/${bin}" ./cmd/ds2api
+      go build -buildvcs=false -trimpath -ldflags="-s -w -X Deepseek2API/internal/version.BuildVersion=${build_version}" -o "${stage}/${bin}" ./cmd/Deepseek2API
   else
     CGO_ENABLED=0 GOOS="$goos" GOARCH="$goarch" GOARM="$goarm" \
-      go build -buildvcs=false -trimpath -ldflags="-s -w -X ds2api/internal/version.BuildVersion=${build_version}" -o "${stage}/${bin}" ./cmd/ds2api
+      go build -buildvcs=false -trimpath -ldflags="-s -w -X Deepseek2API/internal/version.BuildVersion=${build_version}" -o "${stage}/${bin}" ./cmd/Deepseek2API
   fi
 
   cp config.example.json .env.example LICENSE README.MD README.en.md "${stage}/"
@@ -71,11 +71,11 @@ fi
 mkdir -p dist
 
 if [[ "$jobs" -le 1 ]]; then
-  for target in "${DS2API_RELEASE_TARGETS[@]}"; do
+  for target in "${Deepseek2API_RELEASE_TARGETS[@]}"; do
     read -r goos goarch goarm label <<< "$target"
     build_one "$tag" "$build_version" "$goos" "$goarch" "$goarm" "$label"
   done
 else
-  printf '%s\n' "${DS2API_RELEASE_TARGETS[@]}" \
+  printf '%s\n' "${Deepseek2API_RELEASE_TARGETS[@]}" \
     | xargs -L 1 -P "$jobs" bash "${ROOT_DIR}/scripts/build-release-archives.sh" --build-one "$tag" "$build_version"
 fi

@@ -3,8 +3,8 @@ package app
 import (
 	"net/http"
 
-	"ds2api/internal/config"
-	"ds2api/internal/server"
+	"Deepseek2API/internal/config"
+	"Deepseek2API/internal/server"
 )
 
 func NewHandler() http.Handler {

@@ -1,4 +1,4 @@
-{"code":0,"msg":"","data":{"biz_code":0,"biz_msg":"","biz_data":{"id":"file-b10a2aca-39e9-4a38-be9d-9f22e398cb62","status":"PENDING","file_name":"DS2API_HISTORY.txt","from_share":false,"file_size":732,"model_kind":"NORMAL","token_usage":null,"error_code":null,"inserted_at":1777485015.255,"updated_at":1777485015.255,"is_image":false,"audit_result":null}}}
+{"code":0,"msg":"","data":{"biz_code":0,"biz_msg":"","biz_data":{"id":"file-b10a2aca-39e9-4a38-be9d-9f22e398cb62","status":"PENDING","file_name":"Deepseek2API_HISTORY.txt","from_share":false,"file_size":732,"model_kind":"NORMAL","token_usage":null,"error_code":null,"inserted_at":1777485015.255,"updated_at":1777485015.255,"is_image":false,"audit_result":null}}}
 event: ready
 data: {"request_message_id":1,"response_message_id":2,"model_type":"default"}
 

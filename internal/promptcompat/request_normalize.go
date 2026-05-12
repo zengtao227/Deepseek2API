@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strings"
 
-	"ds2api/internal/config"
-	"ds2api/internal/util"
+	"Deepseek2API/internal/config"
+	"Deepseek2API/internal/util"
 )
 
 type ConfigReader interface {

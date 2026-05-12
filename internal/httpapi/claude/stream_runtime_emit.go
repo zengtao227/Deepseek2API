@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	"ds2api/internal/util"
+	"Deepseek2API/internal/util"
 )
 
 func (s *claudeStreamRuntime) send(event string, v any) {

@@ -172,7 +172,7 @@
         "proxyBadge": "Proxy: {name}",
         "proxyUpdateSuccess": "Account proxy updated.",
         "envModeRiskTitle": "Environment-variable config mode detected (persistence risk)",
-        "envModeRiskDesc": "Detected DS2API_CONFIG_JSON. If DS2API_ENV_WRITEBACK is not enabled, Admin UI edits are in-memory only and may be lost after restart.",
+        "envModeRiskDesc": "Detected Deepseek2API_CONFIG_JSON. If Deepseek2API_ENV_WRITEBACK is not enabled, Admin UI edits are in-memory only and may be lost after restart.",
         "envModeWritebackPendingTitle": "Env mode + auto-persistence enabled (pending file handoff)",
         "envModeWritebackActiveTitle": "Env mode + auto-persistence active",
         "envModeWritebackDesc": "The app will auto-create/write the config file and transition to file-backed mode. Current persistence path: {path}"
@@ -395,7 +395,7 @@
         "thinkingInjectionPromptHelp": "Leave empty to use the built-in default prompt shown as the input placeholder.",
         "currentInputFileTitle": "Independent Split",
         "currentInputFileEnabled": "Independent split (by size)",
-        "currentInputFileDesc": "Enabled by default. Once the character threshold is reached, upload the full context as a DS2API_HISTORY.txt context file.",
+        "currentInputFileDesc": "Enabled by default. Once the character threshold is reached, upload the full context as a Deepseek2API_HISTORY.txt context file.",
         "currentInputFileMinChars": "Current input threshold (characters)",
         "currentInputFileHelp": "Default is 0, which uses independent split for any non-empty input.",
         "modelTitle": "Model mapping",
@@ -443,7 +443,7 @@
         "rememberSession": "Remember this session",
         "signIn": "Sign in",
         "secureConnection": "Secure connection",
-        "adminPortal": "DS2API admin portal",
+        "adminPortal": "Deepseek2API admin portal",
         "signInFailed": "Sign-in failed.",
         "networkError": "Network error: {error}"
     },

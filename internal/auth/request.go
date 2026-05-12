@@ -167,9 +167,13 @@ func (r *Resolver) RefreshToken(ctx context.Context, a *RequestAuth) bool {
 	_ = r.Store.UpdateAccountToken(a.AccountID, "")
 	a.Account.Token = ""
 	if err := r.loginAndPersist(ctx, a); err != nil {
-		config.Logger.Error("[refresh_token] failed", "account", a.AccountID, "error", err)
+		config.Logger.Error("[refresh_token] failed",
+			"account", a.AccountID,
+			"email", a.Account.Email,
+			"error", err)
 		return false
 	}
+	config.Logger.Info("[refresh_token] success", "account", a.AccountID, "email", a.Account.Email)
 	return true
 }
 
@@ -261,9 +265,11 @@ func callerTokenID(token string) string {
 
 func (r *Resolver) ensureManagedToken(ctx context.Context, a *RequestAuth) error {
 	if strings.TrimSpace(a.Account.Token) == "" {
+		config.Logger.Info("[ensure_token] token empty, attempting login", "account", a.AccountID, "email", a.Account.Email)
 		return r.loginAndPersist(ctx, a)
 	}
 	if r.shouldForceRefresh(a.AccountID) {
+		config.Logger.Info("[ensure_token] force refresh interval expired", "account", a.AccountID, "email", a.Account.Email)
 		if err := r.loginAndPersist(ctx, a); err != nil {
 			return err
 		}

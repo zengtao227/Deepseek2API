@@ -138,7 +138,7 @@ func (s *Store) RuntimeTokenRefreshIntervalHours() int {
 	if s.cfg.Runtime.TokenRefreshIntervalHours > 0 {
 		return s.cfg.Runtime.TokenRefreshIntervalHours
 	}
-	return 6
+	return 0
 }
 
 func (s *Store) AutoDeleteSessions() bool {

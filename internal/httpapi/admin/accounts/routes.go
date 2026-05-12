@@ -19,6 +19,7 @@ func RegisterRoutes(r chi.Router, h *Handler) {
 	r.Post("/accounts/test-all", h.testAllAccounts)
 	r.Post("/accounts/sessions/delete-all", h.deleteAllSessions)
 	r.Post("/accounts/capture-token", h.captureToken)
+	r.Post("/accounts/batch-update-tokens", h.batchUpdateTokens)
 	r.Post("/test", h.testAPI)
 }
 

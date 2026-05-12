@@ -209,3 +209,72 @@ func (h *Handler) captureToken(w http.ResponseWriter, r *http.Request) {
 	h.Pool.Reset()
 	writeJSON(w, http.StatusOK, map[string]any{"success": true, "email": email, "message": "Token 已保存"})
 }
+
+// batchUpdateTokens 批量更新多个账户的 token
+// POST /admin/accounts/batch-update-tokens
+// Body: [{"email": "...", "token": "..."}, ...]
+func (h *Handler) batchUpdateTokens(w http.ResponseWriter, r *http.Request) {
+	var tokens []map[string]string
+	if err := json.NewDecoder(r.Body).Decode(&tokens); err != nil {
+		writeJSON(w, http.StatusBadRequest, map[string]any{"detail": "请求格式错误: " + err.Error()})
+		return
+	}
+
+	if len(tokens) == 0 {
+		writeJSON(w, http.StatusBadRequest, map[string]any{"detail": "至少需要一个 token"})
+		return
+	}
+
+	// 验证所有 token
+	for _, item := range tokens {
+		email := strings.TrimSpace(item["email"])
+		token := strings.TrimSpace(item["token"])
+		if email == "" || token == "" {
+			writeJSON(w, http.StatusBadRequest, map[string]any{"detail": "每个项目都需要有效的 email 和 token"})
+			return
+		}
+	}
+
+	// 批量更新
+	updated := 0
+	added := 0
+	err := h.Store.Update(func(c *config.Config) error {
+		for _, item := range tokens {
+			email := strings.TrimSpace(item["email"])
+			token := strings.TrimSpace(item["token"])
+
+			found := false
+			for i, acc := range c.Accounts {
+				if acc.Email == email {
+					c.Accounts[i].Token = token
+					c.Accounts[i].Password = "" // 清除密码，使用 token 模式
+					updated++
+					found = true
+					break
+				}
+			}
+			if !found {
+				c.Accounts = append(c.Accounts, config.Account{
+					Email: email,
+					Token: token,
+				})
+				added++
+			}
+		}
+		return nil
+	})
+
+	if err != nil {
+		writeJSON(w, http.StatusBadRequest, map[string]any{"detail": "更新失败: " + err.Error()})
+		return
+	}
+
+	h.Pool.Reset()
+	writeJSON(w, http.StatusOK, map[string]any{
+		"success": true,
+		"message": fmt.Sprintf("批量更新完成: 更新了 %d 个账户，新增了 %d 个账户", updated, added),
+		"updated": updated,
+		"added":   added,
+		"total":   updated + added,
+	})
+}

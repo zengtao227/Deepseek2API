@@ -200,7 +200,8 @@ func TestDetermineCallerMissingToken(t *testing.T) {
 func TestDetermineManagedAccountForcesRefreshEverySixHours(t *testing.T) {
 	t.Setenv("DS2API_CONFIG_JSON", `{
 		"keys":["managed-key"],
-		"accounts":[{"email":"acc@example.com","password":"pwd","token":"seed-token"}]
+		"accounts":[{"email":"acc@example.com","password":"pwd","token":"seed-token"}],
+		"runtime":{"token_refresh_interval_hours":6}
 	}`)
 	store := config.LoadStore()
 	if err := store.UpdateAccountToken("acc@example.com", "seed-token"); err != nil {

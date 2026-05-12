@@ -334,15 +334,15 @@ func TestEnvBackedStoreWritebackFallsBackToPersistedFileOnInvalidEnvJSON(t *test
 	}
 }
 
-func TestRuntimeTokenRefreshIntervalHoursDefaultsToSix(t *testing.T) {
+func TestRuntimeTokenRefreshIntervalHoursDefaultsToZero(t *testing.T) {
 	t.Setenv("DS2API_CONFIG_JSON", `{
 		"keys":["k1"],
 		"accounts":[{"email":"u@example.com","password":"p"}]
 	}`)
 
 	store := LoadStore()
-	if got := store.RuntimeTokenRefreshIntervalHours(); got != 6 {
-		t.Fatalf("expected default refresh interval 6, got %d", got)
+	if got := store.RuntimeTokenRefreshIntervalHours(); got != 0 {
+		t.Fatalf("expected default refresh interval 0 (disabled), got %d", got)
 	}
 }
 

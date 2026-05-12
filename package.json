@@ -1,9 +1,9 @@
 {
   "type": "module",
   "scripts": {
-    "capture-tokens": "node scripts/token-capture-server.mjs"
+    "capture-tokens": "node scripts/cdp-token-monitor.mjs"
   },
   "dependencies": {
-    "ws": "^8.20.0"
+    "playwright": "^1.60.0"
   }
 }

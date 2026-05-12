@@ -60,19 +60,29 @@ const log = {
 // ============================================
 // 浏览器控制
 // ============================================
-async function launchBrowser() {
+async function getBrowser() {
+  const cdpUrl = process.env.BROWSER_CDP_URL;
   try {
-    log.info('启动浏览器...');
-    const browser = await chromium.launch({
-      headless: false,
-      args: [
-        '--disable-blink-features=AutomationControlled',
-      ],
-    });
-    log.success('浏览器启动成功');
-    return browser;
+    if (cdpUrl) {
+      log.info(`正在连接到现有浏览器 (CDP): ${cdpUrl}...`);
+      // 增加超时时间到 60秒，并添加重试
+      const browser = await chromium.connectOverCDP(cdpUrl, { timeout: 60000 });
+      log.success('成功连接到现有浏览器');
+      return browser;
+    } else {
+      log.info('启动新浏览器窗口...');
+      const browser = await chromium.launch({
+        headless: false,
+        args: ['--disable-blink-features=AutomationControlled'],
+      });
+      log.success('新浏览器启动成功');
+      return browser;
+    }
   } catch (err) {
-    log.error(`浏览器启动失败: ${err.message}`);
+    log.error(`浏览器连接/启动失败: ${err.message}`);
+    if (err.message.includes('Timeout')) {
+      log.warn('提示: 请尝试彻底退出 Comet (Cmd+Q) 然后重新运行脚本。');
+    }
     throw err;
   }
 }
@@ -98,6 +108,10 @@ async function setupNetworkListener(page) {
               if (token && email) {
                 capturedTokens.set(email, token);
                 log.success(`已捕获: ${email}`);
+                
+                // 实时保存到本地文件
+                await saveTokenLocally(email, token);
+                
                 log.progress(capturedTokens.size, totalAccounts);
 
                 // 检查是否完成所有账户
@@ -129,9 +143,10 @@ async function main() {
     log.info(`待捕获账户数: ${totalAccounts}`);
     log.info(`账户列表: ${CONFIG.ACCOUNTS.join(', ')}`);
 
-    // 启动浏览器
-    browser = await launchBrowser();
-    const page = await browser.newPage();
+    // 获取浏览器（优先连接已有的 Comet）
+    browser = await getBrowser();
+    const context = browser.contexts()[0] || await browser.newContext();
+    const page = context.pages()[0] || await context.newPage();
 
     // 关闭弹窗、通知等
     await page.setDefaultNavigationTimeout(30000);
@@ -158,6 +173,10 @@ async function main() {
 
     // 启动网络监听
     const captureComplete = setupNetworkListener(page);
+
+    // 【新增】立即扫描已有的 Token（无需重新登录）
+    log.info('正在扫描已打开的页面...');
+    await snatchExistingToken(browser);
 
     // 等待所有账户完成
     await captureComplete;
@@ -262,6 +281,83 @@ async function updateTokensOnVPS(vpsHost, tokens) {
     req.write(data);
     req.end();
   });
+}
+
+// ============================================
+// 扫描现有标签页中的 Token
+// ============================================
+async function snatchExistingToken(browser) {
+  for (const context of browser.contexts()) {
+    for (const p of context.pages()) {
+      try {
+        const url = p.url();
+        if (url.includes('deepseek.com')) {
+          log.info(`发现 DeepSeek 页面: ${url}，尝试提取 Token...`);
+          const result = await p.evaluate(() => {
+            const t = localStorage.getItem('token');
+            // 获取邮箱（如果能拿到）
+            let e = '';
+            try {
+              const userStr = localStorage.getItem('user');
+              if (userStr) e = JSON.parse(userStr).email;
+            } catch {}
+            return { token: t, email: e };
+          });
+
+          if (result.token && result.token.length > 20) {
+            let email = result.email;
+            if (!email) {
+              // 如果拿不到邮箱，提示用户手动指定或通过脚本逻辑匹配
+              log.warn('拿到 Token 但未识别到邮箱，请在该页面保持登录状态。');
+              continue;
+            }
+            if (!capturedTokens.has(email)) {
+              capturedTokens.set(email, result.token);
+              log.success(`成功从现有页面“偷取”到 Token: ${email}`);
+              await saveTokenLocally(email, result.token);
+            }
+          }
+        }
+      } catch (err) {
+        // 忽略单个页面的错误
+      }
+    }
+  }
+}
+
+// ============================================
+// 本地保存逻辑
+// ============================================
+async function saveTokenLocally(email, token) {
+  const fs = await import('fs/promises');
+  const path = await import('path');
+  const configPath = path.join(process.cwd(), 'config.json');
+
+  try {
+    const data = await fs.readFile(configPath, 'utf8');
+    const config = JSON.parse(data);
+    
+    let found = false;
+    if (config.accounts) {
+      for (let acc of config.accounts) {
+        if (acc.email === email) {
+          acc.token = token;
+          found = true;
+          break;
+        }
+      }
+    }
+    
+    if (!found) {
+      if (!config.accounts) config.accounts = [];
+      config.accounts.push({ email, token });
+    }
+
+    await fs.writeFile(configPath, JSON.stringify(config, null, 2));
+    log.success(`本地 config.json 已更新: ${email}`);
+  } catch (err) {
+    log.warn(`本地保存失败: ${err.message}`);
+  }
 }
 
 // 启动

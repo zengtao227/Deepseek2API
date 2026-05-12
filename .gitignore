@@ -6,6 +6,7 @@
 
 # Configuration files with credentials
 config.json
+accounts.json
 .env
 .env.local
 

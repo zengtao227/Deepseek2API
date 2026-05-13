@@ -52,11 +52,7 @@ bootstrap_golangci_lint() {
 
 run_lint() {
   local bin="$1"
-  if [[ "$bin" == *" "* ]]; then
-    eval "$bin fmt --diff -c .golangci.yml" && eval "$bin run -c .golangci.yml ./..."
-  else
-    "$bin" fmt --diff -c .golangci.yml && "$bin" run -c .golangci.yml ./...
-  fi
+  "$bin" fmt --diff -c .golangci.yml && "$bin" run -c .golangci.yml ./...
 }
 
 is_compatibility_error() {

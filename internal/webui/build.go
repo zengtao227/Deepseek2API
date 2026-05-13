@@ -37,7 +37,7 @@ func EnsureBuiltOnStartup() {
 }
 
 func shouldAutoBuild() bool {
-	raw := strings.TrimSpace(os.Getenv("DS2API_AUTO_BUILD_WEBUI"))
+	raw := strings.TrimSpace(os.Getenv("Deepseek2API_AUTO_BUILD_WEBUI"))
 	if raw == "" {
 		return !config.IsVercel()
 	}

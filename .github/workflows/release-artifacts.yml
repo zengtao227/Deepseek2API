@@ -65,8 +65,8 @@ jobs:
           set -euo pipefail
           TAG="${RELEASE_TAG}"
           mkdir -p dist/docker-input
-          cp "dist/ds2api_${TAG}_linux_amd64.tar.gz" "dist/docker-input/linux_amd64.tar.gz"
-          cp "dist/ds2api_${TAG}_linux_arm64.tar.gz" "dist/docker-input/linux_arm64.tar.gz"
+          cp "dist/Deepseek2API_${TAG}_linux_amd64.tar.gz" "dist/docker-input/linux_amd64.tar.gz"
+          cp "dist/Deepseek2API_${TAG}_linux_arm64.tar.gz" "dist/docker-input/linux_arm64.tar.gz"
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -134,18 +134,18 @@ jobs:
             --platform linux/amd64 \
             --target runtime-from-dist \
             --cache-from type=gha \
-            --output type=docker,dest="dist/ds2api_${TAG}_docker_linux_amd64.tar" \
+            --output type=docker,dest="dist/Deepseek2API_${TAG}_docker_linux_amd64.tar" \
             .
 
           docker buildx build \
             --platform linux/arm64 \
             --target runtime-from-dist \
             --cache-from type=gha \
-            --output type=docker,dest="dist/ds2api_${TAG}_docker_linux_arm64.tar" \
+            --output type=docker,dest="dist/Deepseek2API_${TAG}_docker_linux_arm64.tar" \
             .
 
-          gzip -f "dist/ds2api_${TAG}_docker_linux_amd64.tar"
-          gzip -f "dist/ds2api_${TAG}_docker_linux_arm64.tar"
+          gzip -f "dist/Deepseek2API_${TAG}_docker_linux_amd64.tar"
+          gzip -f "dist/Deepseek2API_${TAG}_docker_linux_arm64.tar"
 
       - name: Generate checksums
         run: |

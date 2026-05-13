@@ -27,13 +27,13 @@ const PROJECT_ROOT = path.resolve(__dirname, '..');
 // 配置
 // ============================================================
 const Deepseek2API_URL   = process.env.Deepseek2API_URL || 'http://localhost:5001';
-const ADMIN_KEY    = process.env.Deepseek2API_ADMIN_KEY || (() => {
+const ADMIN_KEY    = (process.env.Deepseek2API_ADMIN_KEY || process.env.DS2API_ADMIN_KEY) || (() => {
   try {
-    const envPath = path.join(os.homedir(), 'Deepseek2API', '.env');
+    const envPath = path.join(PROJECT_ROOT, '.env');
     if (fs.existsSync(envPath)) {
       const content = fs.readFileSync(envPath, 'utf-8');
-      const match = content.match(/Deepseek2API_ADMIN_KEY=(.+)/);
-      if (match) return match[1].trim();
+      const match = content.match(/(Deepseek2API_ADMIN_KEY|DS2API_ADMIN_KEY)=(.+)/);
+      if (match) return match[2].trim();
     }
   } catch {}
   return '';
@@ -85,29 +85,32 @@ function loadAccounts() {
 /** 从 localStorage 中提取 DeepSeek token */
 async function findToken(page) {
   return page.evaluate(() => {
+    function cleanToken(v) {
+      if (!v) return null;
+      // 尝试解析 JSON (DeepSeek 新格式: {"value": "at-...", "expire": ...})
+      try {
+        const parsed = JSON.parse(v);
+        if (parsed && parsed.value) v = parsed.value;
+      } catch (e) {}
+      // 必须是 at- 开头且长度足够
+      return (v && v.startsWith('at-') && v.length > 20) ? v : null;
+    }
+
     // 常见 token key
     const keys = [
       'token', 'auth_token', 'accessToken', 'access_token', 'authToken',
       'deepseek_token', 'ds_token', 'user_token',
     ];
     for (const k of keys) {
-      const v = localStorage.getItem(k);
-      if (v && v.length > 20) return v;
+      const t = cleanToken(localStorage.getItem(k));
+      if (t) return t;
     }
     // 扫描所有 key 包含 token 的项
     for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i);
       if (key && key.toLowerCase().includes('token')) {
-        const val = localStorage.getItem(key);
-        if (val && val.length > 20) return val;
-      }
-    }
-    // 也检查 sessionStorage
-    for (let i = 0; i < sessionStorage.length; i++) {
-      const key = sessionStorage.key(i);
-      if (key && key.toLowerCase().includes('token')) {
-        const val = sessionStorage.getItem(key);
-        if (val && val.length > 20) return val;
+        const t = cleanToken(localStorage.getItem(key));
+        if (t) return t;
       }
     }
     return null;

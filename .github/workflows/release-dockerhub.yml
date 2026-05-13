@@ -117,9 +117,9 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/ds2api:${{ steps.next_version.outputs.new_tag }}
-            ${{ secrets.DOCKERHUB_USERNAME }}/ds2api:${{ steps.next_version.outputs.new_version }}
-            ${{ secrets.DOCKERHUB_USERNAME }}/ds2api:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/Deepseek2API:${{ steps.next_version.outputs.new_tag }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/Deepseek2API:${{ steps.next_version.outputs.new_version }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/Deepseek2API:latest
           labels: |
             org.opencontainers.image.version=${{ steps.next_version.outputs.new_version }}
             org.opencontainers.image.revision=${{ github.sha }}

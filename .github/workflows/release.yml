@@ -118,9 +118,9 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            ${{ secrets.ALIYUN_REGISTRY }}/${{ secrets.ALIYUN_REGISTRY_NAMESPACE }}/ds2api:${{ steps.next_version.outputs.new_tag }}
-            ${{ secrets.ALIYUN_REGISTRY }}/${{ secrets.ALIYUN_REGISTRY_NAMESPACE }}/ds2api:${{ steps.next_version.outputs.new_version }}
-            ${{ secrets.ALIYUN_REGISTRY }}/${{ secrets.ALIYUN_REGISTRY_NAMESPACE }}/ds2api:latest
+            ${{ secrets.ALIYUN_REGISTRY }}/${{ secrets.ALIYUN_REGISTRY_NAMESPACE }}/Deepseek2API:${{ steps.next_version.outputs.new_tag }}
+            ${{ secrets.ALIYUN_REGISTRY }}/${{ secrets.ALIYUN_REGISTRY_NAMESPACE }}/Deepseek2API:${{ steps.next_version.outputs.new_version }}
+            ${{ secrets.ALIYUN_REGISTRY }}/${{ secrets.ALIYUN_REGISTRY_NAMESPACE }}/Deepseek2API:latest
           labels: |
             org.opencontainers.image.version=${{ steps.next_version.outputs.new_version }}
             org.opencontainers.image.revision=${{ github.sha }}

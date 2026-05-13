@@ -20,7 +20,7 @@ NC='\033[0m' # No Color
 
 # GitHub 仓库信息
 GITHUB_USER="zengtao227"
-REPO_NAME="DS2api"
+REPO_NAME="Deepseek2API"
 REPO_URL="https://github.com/$GITHUB_USER/$REPO_NAME.git"
 
 echo ""

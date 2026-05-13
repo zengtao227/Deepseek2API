@@ -1,9 +1,9 @@
 package client
 
 import (
+	dsprotocol "Deepseek2API/internal/deepseek/protocol"
 	"bytes"
 	"context"
-	dsprotocol "Deepseek2API/internal/deepseek/protocol"
 	"encoding/json"
 	"net/http"
 

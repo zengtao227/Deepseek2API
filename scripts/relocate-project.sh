@@ -19,7 +19,7 @@ YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
 # 目标目录
-TARGET_DIR="/Users/zengtao/Doc/My code/DS2api"
+TARGET_DIR="/Users/zengtao/Doc/My code/Deepseek2API"
 
 echo ""
 echo "╔══════════════════════════════════════════════╗"
@@ -129,5 +129,5 @@ echo ""
 echo "下一步:"
 echo "  1. cd \"$TARGET_DIR\""
 echo "  2. 验证功能: ./Deepseek2API"
-echo "  3. 设置 GitHub 远程: git remote add origin https://github.com/zengtao227/DS2api.git"
+echo "  3. 设置 GitHub 远程: git remote add origin https://github.com/zengtao227/Deepseek2API.git"
 echo ""

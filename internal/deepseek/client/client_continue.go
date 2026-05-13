@@ -1,10 +1,10 @@
 package client
 
 import (
+	dsprotocol "Deepseek2API/internal/deepseek/protocol"
 	"bufio"
 	"bytes"
 	"context"
-	dsprotocol "Deepseek2API/internal/deepseek/protocol"
 	"encoding/json"
 	"errors"
 	"fmt"

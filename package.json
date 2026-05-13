@@ -1,5 +1,4 @@
 {
-  "type": "module",
   "scripts": {
     "capture-tokens": "node scripts/cdp-token-monitor.mjs"
   },

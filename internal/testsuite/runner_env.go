@@ -168,7 +168,7 @@ func (r *Runner) startServer(ctx context.Context) error {
 	cmd.Stdout = logFd
 	cmd.Stderr = logFd
 	cmd.Env = prepareServerEnv(os.Environ(), map[string]string{
-		"PORT":                    strconv.Itoa(port),
+		"PORT":                          strconv.Itoa(port),
 		"Deepseek2API_CONFIG_PATH":      r.configCopyPath,
 		"Deepseek2API_AUTO_BUILD_WEBUI": "false",
 		"Deepseek2API_CONFIG_JSON":      "",

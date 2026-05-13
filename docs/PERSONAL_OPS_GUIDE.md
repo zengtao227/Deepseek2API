@@ -46,7 +46,17 @@ grep -oE '"value":"[A-Za-z0-9/+=]{50,70}"'
 
 输出格式为 `"value":"xxxxxx"`，其中 `xxxxxx` 就是你的 token。
 
-### 更新 Token
+### 一键刷新 Token（推荐）
+
+在 Comet 浏览器里登录 DeepSeek 后，运行：
+
+```bash
+./scripts/refresh-token.sh
+```
+
+脚本会自动：提取 Token → 更新 config.json → 同步 VPS → 重启服务 → 验证可用性。
+
+### 手动更新 Token
 
 1. 编辑 `config.json`，替换 `token` 字段
 2. 同步到 VPS：

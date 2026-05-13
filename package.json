@@ -1,9 +1,0 @@
-{
-  "name": "deepseek2api-root",
-  "private": true,
-  "description": "Deepseek2API Root Management",
-  "scripts": {
-    "lint": "./scripts/lint.sh",
-    "test:node": "./tests/scripts/run-unit-node.sh"
-  }
-}

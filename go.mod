@@ -11,12 +11,7 @@ require (
 	github.com/router-for-me/CLIProxyAPI/v6 v6.9.14
 )
 
-require (
-	github.com/dlclark/regexp2 v1.11.5 // indirect
-	github.com/fsnotify/fsnotify v1.10.1 // indirect
-	github.com/golang/snappy v0.0.0-20180518054509-2e65f85255db // indirect
-	github.com/syndtr/goleveldb v1.0.0 // indirect
-)
+require github.com/dlclark/regexp2 v1.11.5 // indirect
 
 require (
 	github.com/klauspost/compress v1.18.5 // indirect

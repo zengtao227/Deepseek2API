@@ -1,8 +1,9 @@
 {
+  "name": "deepseek2api-root",
+  "private": true,
+  "description": "Deepseek2API Root Management",
   "scripts": {
-    "capture-tokens": "node scripts/cdp-token-monitor.mjs"
-  },
-  "dependencies": {
-    "playwright": "^1.60.0"
+    "lint": "./scripts/lint.sh",
+    "test:node": "./tests/scripts/run-unit-node.sh"
   }
 }

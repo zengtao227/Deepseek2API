@@ -30,7 +30,7 @@ DeepSeek 官方已升级检测机制，**会在首轮对话后即封禁**通过 
 ## 架构概览
 
 ```
-Continue IDE → https://Deepseek2API.mooo.com (法兰克福 VPS)
+Continue IDE → <你的服务地址> (VPS)
                           ↓
                    config.json (token)
                           ↓
@@ -41,9 +41,9 @@ Continue IDE → https://Deepseek2API.mooo.com (法兰克福 VPS)
 
 | 项目 | 值 |
 |------|-----|
-| VPS 地址 | `https://Deepseek2API.mooo.com` |
+| VPS 地址 | `<你的服务地址>` |
 | 可用模型 | `deepseek-v4-flash` |
-| API Key | `sk-continue-local-api-key-deepseek-free` |
+| API Key | `<你的 API Key>` |
 | 认证方式 | 网页版 Token（无密码） |
 
 > [!WARNING]
@@ -132,24 +132,24 @@ ssh frank "sudo systemctl restart deepseek2api"
     {
       "title": "DeepSeek-V4-Flash (VPS)",
       "model": "deepseek-v4-flash",
-      "apiBase": "https://Deepseek2API.mooo.com/v1",
+      "apiBase": "<你的服务地址>/v1",
       "provider": "openai",
-      "apiKey": "sk-continue-local-api-key-deepseek-free"
+      "apiKey": "<你的 API Key>"
     }
   ],
   "tabAutocompleteModel": {
     "title": "DeepSeek-V4-Flash (VPS)",
     "model": "deepseek-v4-flash",
-    "apiBase": "https://Deepseek2API.mooo.com/v1",
+    "apiBase": "<你的服务地址>/v1",
     "provider": "openai",
-    "apiKey": "sk-continue-local-api-key-deepseek-free"
+    "apiKey": "<你的 API Key>"
   },
   "editModel": {
     "title": "DeepSeek-V4-Flash (VPS)",
     "model": "deepseek-v4-flash",
-    "apiBase": "https://Deepseek2API.mooo.com/v1",
+    "apiBase": "<你的服务地址>/v1",
     "provider": "openai",
-    "apiKey": "sk-continue-local-api-key-deepseek-free"
+    "apiKey": "<你的 API Key>"
   }
 }
 ```
@@ -158,11 +158,11 @@ ssh frank "sudo systemctl restart deepseek2api"
 
 ```bash
 # 测试 VPS 是否在线
-curl -s https://Deepseek2API.mooo.com/
+curl -s <你的服务地址>/
 
 # 测试 Token 是否有效
-curl -s https://Deepseek2API.mooo.com/v1/chat/completions \
-  -H "Authorization: Bearer sk-continue-local-api-key-deepseek-free" \
+curl -s <你的服务地址>/v1/chat/completions \
+  -H "Authorization: Bearer <你的 API Key>" \
   -H "Content-Type: application/json" \
   -d '{"model":"deepseek-v4-flash","messages":[{"role":"user","content":"say OK"}],"max_tokens":5}' \
   | python3 -m json.tool

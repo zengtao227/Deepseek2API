@@ -1,10 +1,12 @@
 #!/bin/bash
 # 一键提取 Comet 浏览器中的 DeepSeek Token 并同步到 VPS
-# 用法: ./scripts/refresh-token.sh
+# 用法: DEEPSEEK2API_URL=https://你的服务地址 DEEPSEEK2API_KEY=你的密钥 ./scripts/refresh-token.sh
 
 set -euo pipefail
 
-CONFIG="/Users/zengtao/Doc/My code/Deepseek2API/config.json"
+CONFIG="$(cd "$(dirname "$0")/.." && pwd)/config.json"
+BASE_URL="${DEEPSEEK2API_URL:?set DEEPSEEK2API_URL to your service address}"
+API_KEY="${DEEPSEEK2API_KEY:?set DEEPSEEK2API_KEY to your API key}"
 COMET_DB="$HOME/Library/Application Support/Comet/Default/Local Storage/leveldb"
 TMP_COPY="/tmp/ds_ls_copy"
 
@@ -55,8 +57,8 @@ echo "⏳ 等待服务启动..."
 sleep 3
 
 echo "🧪 测试中..."
-RESULT=$(curl -s https://Deepseek2API.mooo.com/v1/chat/completions \
-  -H "Authorization: Bearer sk-continue-local-api-key-deepseek-free" \
+RESULT=$(curl -s "$BASE_URL/v1/chat/completions" \
+  -H "Authorization: Bearer $API_KEY" \
   -H "Content-Type: application/json" \
   -d '{"model":"deepseek-v4-flash","messages":[{"role":"user","content":"say OK"}],"max_tokens":5}' \
   --max-time 30)
